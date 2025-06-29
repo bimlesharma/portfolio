@@ -27,18 +27,18 @@ export default function FloatingDockContainer() {
         //     }
         // };
         const handleScroll = () => {
-  const currentY = window.scrollY;
-  const delta = currentY - lastY;
+            const currentY = window.scrollY;
+            const delta = currentY - lastY;
 
-  if (Math.abs(delta) > 10) {
-    if (currentY > 100) {  // only hide/show dock if scrolled down enough
-      setScrollingDown(delta > 0);
-    } else {
-      setScrollingDown(false); // always show dock near top
-    }
-    lastY = currentY;
-  }
-};
+            if (Math.abs(delta) > 10) {
+                if (currentY > 100) {  // only hide/show dock if scrolled down enough
+                    setScrollingDown(delta > 0);
+                } else {
+                    setScrollingDown(false); // always show dock near top
+                }
+                lastY = currentY;
+            }
+        };
 
 
         window.addEventListener("scroll", handleScroll, { passive: true });
@@ -69,23 +69,23 @@ export default function FloatingDockContainer() {
         {
             title: "Twitter",
             icon: <IconBrandX className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
-            href: "#",
+            href: "https://twitter.com/bimlesharma",
         },
         {
             title: "GitHub",
             icon: <IconBrandGithub className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
-            href: "#",
+            href: "https://github.com/bimlesharma",
         },
         {
             title: "LinkedIn",
             icon: <IconBrandLinkedin className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
-            href: "#",
+            href: "https://www.linkedin.com/in/bimlesharma/",
         },
     ];
 
     return (
         <motion.div
-            className="fixed bottom-4 z-50 -translate-x-1/2 md:left-1/2 md:bottom-8"
+            className="fixed bottom-4 z-50 -translate-x-1/2 left-1/2 md:left-1/2 md:bottom-8"
             initial={{ y: 100, opacity: 0 }}
             animate={{
                 y: scrollingDown ? 100 : 0,
