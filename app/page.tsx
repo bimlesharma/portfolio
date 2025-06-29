@@ -8,13 +8,14 @@ import ExperienceSection from '@/components/ExperienceSection';
 import EducationSection from '@/components/EducationSection';
 import Footer from '@/components/Footer';
 import BackToTopButton from '@/components/BackToTopButton';
-// import FloatingDock from '@/components/ui/floating-dock'
+import {ModeToggle} from '@/components/ModeToggle';
 
 export default function Home() {
   return (
     <main>
+      <ModeToggle />
       <HeroSection />
-      <AboutSection />
+      {/* <AboutSection /> */}
       <SkillsSection />
       <ProjectsSection />
       <ExperienceSection />

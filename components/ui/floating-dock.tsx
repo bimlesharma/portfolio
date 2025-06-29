@@ -1,9 +1,3 @@
-/**
- * Note: Use position fixed according to your needs
- * Desktop navbar is better positioned at the bottom
- * Mobile navbar is better positioned at bottom right.
- **/
-
 import { cn } from "@/lib/utils";
 import { IconLayoutNavbarCollapse } from "@tabler/icons-react";
 import {
@@ -41,53 +35,90 @@ const FloatingDockMobile = ({
   items: { title: string; icon: React.ReactNode; href: string }[];
   className?: string;
 }) => {
-  const [open, setOpen] = useState(false);
+  const touchX = useMotionValue(Infinity);
+
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    const touch = e.touches[0];
+    if (!containerRef.current) return;
+    const bounds = containerRef.current.getBoundingClientRect();
+    const x = touch.clientX - bounds.left;
+    touchX.set(x);
+  };
+
+  const handleTouchEnd = () => {
+    touchX.set(Infinity); // Reset
+  };
+
   return (
-    <div className={cn("relative block md:hidden", className)}>
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            layoutId="nav"
-            className="absolute inset-x-0 bottom-full mb-2 flex flex-col gap-2"
-          >
-            {items.map((item, idx) => (
-              <motion.div
-                key={item.title}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{
-                  opacity: 1,
-                  y: 0,
-                }}
-                exit={{
-                  opacity: 0,
-                  y: 10,
-                  transition: {
-                    delay: idx * 0.05,
-                  },
-                }}
-                transition={{ delay: (items.length - 1 - idx) * 0.05 }}
-              >
-                <a
-                  href={item.href}
-                  key={item.title}
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-50 dark:bg-neutral-900"
-                >
-                  <div className="h-4 w-4">{item.icon}</div>
-                </a>
-              </motion.div>
-            ))}
-          </motion.div>
-        )}
-      </AnimatePresence>
-      <button
-        onClick={() => setOpen(!open)}
-        className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-50 dark:bg-neutral-800"
-      >
-        <IconLayoutNavbarCollapse className="h-5 w-5 text-neutral-500 dark:text-neutral-400" />
-      </button>
-    </div>
+    <motion.div
+      ref={containerRef}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+      className={cn(
+        "fixed bottom-4 left-1/2 z-50 flex -translate-x-1/2 items-end gap-3 rounded-2xl bg-gray-50 px-4 py-3 dark:bg-neutral-900 md:hidden",
+        className,
+      )}
+    >
+      {items.map((item) => (
+        <MobileIconContainer key={item.title} mouseX={touchX} {...item} />
+      ))}
+    </motion.div>
   );
 };
+
+function MobileIconContainer({
+  mouseX,
+  title,
+  icon,
+  href,
+}: {
+  mouseX: MotionValue;
+  title: string;
+  icon: React.ReactNode;
+  href: string;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  const distance = useTransform(mouseX, (val) => {
+    const bounds = ref.current?.getBoundingClientRect();
+    if (!bounds) return Infinity;
+    return val - (bounds.left + bounds.width / 2);
+  });
+
+  const width = useSpring(useTransform(distance, [-100, 0, 100], [40, 80, 40]), {
+    mass: 0.1,
+    stiffness: 150,
+    damping: 12,
+  });
+  const height = useSpring(useTransform(distance, [-100, 0, 100], [40, 80, 40]), {
+    mass: 0.1,
+    stiffness: 150,
+    damping: 12,
+  });
+
+  const iconSize = useSpring(useTransform(distance, [-100, 0, 100], [20, 40, 20]), {
+    mass: 0.1,
+    stiffness: 150,
+    damping: 12,
+  });
+
+  return (
+    <a href={href}>
+      <motion.div
+        ref={ref}
+        style={{ width, height }}
+        className="relative flex items-center justify-center rounded-full bg-gray-200 dark:bg-neutral-800"
+      >
+        <motion.div style={{ width: iconSize, height: iconSize }} className="flex items-center justify-center">
+          {icon}
+        </motion.div>
+      </motion.div>
+    </a>
+  );
+}
+
 
 const FloatingDockDesktop = ({
   items,
