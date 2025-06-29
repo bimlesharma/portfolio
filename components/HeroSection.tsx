@@ -251,10 +251,10 @@ const HeroSection = () => {
               <h2 className='text-2xl sm:text-2xl md:text-3xl font-bold text-gray-800 dark:text-gray-100 mt-2'>
                 Full Stack Developer • Programmer • AI Explorer
               </h2>
-              <p className="text-lg text-gray-700 dark:text-gray-300 max-w-xl mx-auto md:mx-0 mt-4">
+              <p className="hidden md:block text-lg text-gray-700 dark:text-gray-300 max-w-xl mx-auto md:mx-0 mt-4">
                 Building Applications with Modern Technologies and cutting-edge AI integrations.
               </p>
-              <p className="text-lg text-gray-700 dark:text-gray-300 max-w-xl mx-auto md:mx-0 mt-4">
+              <p className="hidden md:block text-lg text-gray-700 dark:text-gray-300 max-w-xl mx-auto md:mx-0 mt-4">
                 Let’s connect and create something impactful together.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start mt-6">
@@ -262,7 +262,7 @@ const HeroSection = () => {
                   href="#projects"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="relative px-6 py-3 rounded-lg bg-gray-900 text-white dark:text font-semibold shadow-md transition duration-300 ease-in-out hover:shadow-[0_0_20px_4px_rgba(255,0,255,0.6)] hover:ring-2 hover:ring-pink-500 hover:ring-offset-2 hover:ring-offset-black"
+                  className="relative px-4 py-2 md:py-4 md:px-6 rounded-lg bg-gray-900 text-white dark:text font-semibold shadow-md transition duration-300 ease-in-out md:hover:ring-2 md:hover:ring-pink-500 md:hover:ring-offset-2 md:hover:ring-offset-black hover:ring-offset-black"
                 >
                   View My Work
                 </motion.a>
@@ -271,10 +271,12 @@ const HeroSection = () => {
                   href="#contact"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="relative px-6 py-3 rounded-lg bg-gray-900 text-white dark:text font-semibold shadow-md transition duration-300 ease-in-out hover:shadow-[0_0_20px_4px_rgba(0,255,255,0.5)] hover:ring-2 hover:ring-cyan-400 hover:ring-offset-2 hover:ring-offset-black"
+                  className="relative px-4 py-2 md:py-4 md:px-6 rounded-lg bg-gray-900 text-white dark:text font-semibold shadow-md transition duration-300 ease-in-out md:hover:ring-2 md:hover:ring-cyan-400 md:hover:ring-offset-2 md:hover:ring-offset-black hover:ring-offset-black"
                 >
                   Contact With Me
                 </motion.a>
+
+
               </div>
             </motion.div>
 

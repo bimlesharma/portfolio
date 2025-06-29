@@ -16,16 +16,6 @@ export default function FloatingDockContainer() {
 
     useEffect(() => {
         let lastY = window.scrollY;
-
-        // const handleScroll = () => {
-        //     const currentY = window.scrollY;
-        //     const delta = currentY - lastY;
-
-        //     if (Math.abs(delta) > 10) {
-        //         setScrollingDown(delta > 0);
-        //         lastY = currentY;
-        //     }
-        // };
         const handleScroll = () => {
             const currentY = window.scrollY;
             const delta = currentY - lastY;
@@ -48,37 +38,37 @@ export default function FloatingDockContainer() {
     const links = [
         {
             title: "Home",
-            icon: <IconHome className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
+            icon: <IconHome className="h-full w-full text-neutral-900 dark:text-neutral-50" />,
             href: "#",
         },
         {
             title: "Projects",
-            icon: <IconTerminal2 className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
+            icon: <IconTerminal2 className="h-full w-full text-neutral-900 dark:text-neutral-50" />,
             href: "#projects",
         },
         {
             title: "Blog",
-            icon: <IconFileText className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
+            icon: <IconFileText className="h-full w-full text-neutral-900 dark:text-neutral-50" />,
             href: "/blog",
         },
         {
             title: "Contact",
-            icon: <IconMail className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
+            icon: <IconMail className="h-full w-full text-neutral-900 dark:text-neutral-50" />,
             href: "#contact",
         },
         {
             title: "Twitter",
-            icon: <IconBrandX className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
+            icon: <IconBrandX className="h-full w-full text-neutral-900 dark:text-neutral-50" />,
             href: "https://twitter.com/bimlesharma",
         },
         {
             title: "GitHub",
-            icon: <IconBrandGithub className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
+            icon: <IconBrandGithub className="h-full w-full text-neutral-900 dark:text-neutral-50" />,
             href: "https://github.com/bimlesharma",
         },
         {
             title: "LinkedIn",
-            icon: <IconBrandLinkedin className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
+            icon: <IconBrandLinkedin className="h-full w-full text-neutral-900 dark:text-neutral-50" />,
             href: "https://www.linkedin.com/in/bimlesharma/",
         },
     ];
@@ -93,7 +83,11 @@ export default function FloatingDockContainer() {
             }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
         >
-            <FloatingDock items={links} />
+            <FloatingDock 
+            items={links} 
+            mobileClassName="bg-white/20 dark:bg-neutral-800/20 backdrop-blur-md border border-neutral-200 dark:border-neutral-700 rounded-full shadow-lg"
+            desktopClassName="bg-white/20 dark:bg-neutral-800/20 backdrop-blur-md border border-neutral-200 dark:border-neutral-700 rounded-full shadow-lg"
+            />
         </motion.div>
     );
 }
