@@ -1,14 +1,16 @@
 'use client';
 
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
 import Image from 'next/image';
+import FloatingDockContainer from '@/components/FloatingDockContainer';
 
 export default function HeroSection() {
+
   return (
     <section className="min-h-screen flex items-center justify-center px-6 bg-gradient-to-b from-gray-50 via-white to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       <div className="max-w-6xl w-full flex flex-col md:flex-row items-center justify-between gap-10">
-        
         {/* Left - Textual Content */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -73,6 +75,9 @@ export default function HeroSection() {
           </div>
         </motion.div>
       </div>
+
+      {/* Floating Dock */}
+      <FloatingDockContainer />
     </section>
   );
 }

@@ -1,10 +1,18 @@
 'use client';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import FuzzyText from '@/blocks/TextAnimations/FuzzyText';
 import Link from 'next/link';
 import { IoMdHome } from "react-icons/io";
 
 const BlogPage: React.FC = () => {
+
+    const [isDark, setIsDark] = useState(false);
+    useEffect(() => {
+    // Check if `dark` class is present on <html> or <body>
+    setIsDark(document.documentElement.classList.contains('dark'));
+  }, []);
+
+  const color = isDark ? '#ffffff' : '#000000';
     return (
         <main className='flex flex-col gap-6 justify-center items-center h-screen'>
             <div>
@@ -12,6 +20,7 @@ const BlogPage: React.FC = () => {
                     baseIntensity={0.2}
                     hoverIntensity={0.5}
                     enableHover={true}
+                    color={color}
                 >
                     404
                 </FuzzyText>
@@ -22,6 +31,7 @@ const BlogPage: React.FC = () => {
                     hoverIntensity={0.5}
                     enableHover={true}
                     fontSize="clamp(2rem, 4vw, 4rem)"
+                    color={color}
                 >
                     not found
                 </FuzzyText>

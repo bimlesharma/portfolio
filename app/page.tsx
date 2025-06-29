@@ -1,3 +1,4 @@
+'use client';
 import HeroSection from '@/components/HeroSection';
 import AboutSection from '@/components/AboutSection';
 import SkillsSection from '@/components/SkillsSection';
@@ -7,6 +8,7 @@ import ExperienceSection from '@/components/ExperienceSection';
 import EducationSection from '@/components/EducationSection';
 import Footer from '@/components/Footer';
 import BackToTopButton from '@/components/BackToTopButton';
+// import FloatingDock from '@/components/ui/floating-dock'
 
 export default function Home() {
   return (
@@ -20,6 +22,7 @@ export default function Home() {
       <ContactSection />
       <Footer />
       <BackToTopButton />
+      {/* <FloatingDock /> */}
     </main>
   );
 }
