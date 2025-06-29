@@ -188,10 +188,8 @@
 
 
 'use client';
-
-import React, { useState } from 'react';
 import Image from 'next/image';
-import { Menu, X, BrainCircuit, LayoutTemplate, Code } from 'lucide-react';
+import { BrainCircuit, LayoutTemplate, Code } from 'lucide-react';
 import { motion } from 'framer-motion';
 import clsx from 'clsx';
 import FloatingDockContainer from '@/components/FloatingDockContainer';
@@ -226,11 +224,11 @@ const SkillTag = ({ icon, text, position, color }: SkillTagProps) => (
   </motion.div>
 );
 
-const NavLink = ({ href, children }: { href: string; children: React.ReactNode }) => (
-  <a href={href} className="text-gray-700 dark:text-gray-200 hover:text-indigo-600 transition-colors">
-    {children}
-  </a>
-);
+// const NavLink = ({ href, children }: { href: string; children: React.ReactNode }) => (
+//   <a href={href} className="text-gray-700 dark:text-gray-200 hover:text-indigo-600 transition-colors">
+//     {children}
+//   </a>
+// );
 
 const HeroSection = () => {
   return (
