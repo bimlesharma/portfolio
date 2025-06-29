@@ -38,9 +38,9 @@ export default function AboutSection() {
             About Me
           </h2>
           <p className="text-gray-600 dark:text-gray-300 text-md leading-relaxed">
-            Hey there! I'm <strong>Bimlesh</strong>, a passionate full stack developer with a love for clean code, thoughtful UX, and building things that matter.
+            Hey there! I&apos;m <strong>Bimlesh</strong>, a passionate full stack developer with a love for clean code, thoughtful UX, and building things that matter.
             <br /><br />
-            I specialize in creating fast, responsive, and accessible web apps using modern technologies like <strong>React</strong>, <strong>Next.js</strong>, <strong>Node.js</strong>, and <strong>Tailwind CSS</strong>. I'm also deeply interested in <strong>AI/ML</strong> and how it intersects with web applications.
+            I specialize in creating fast, responsive, and accessible web apps using modern technologies like <strong>React</strong>, <strong>Next.js</strong>, <strong>Node.js</strong>, and <strong>Tailwind CSS</strong>. I&apos;m also deeply interested in <strong>AI/ML</strong> and how it intersects with web applications.
           </p>
           <ul className="list-disc pl-5 text-gray-500 dark:text-gray-400">
             <li>💻 1+ years of full-stack experience</li>

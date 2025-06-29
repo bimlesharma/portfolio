@@ -17,7 +17,7 @@ export default function HeroSection() {
           className="flex-1 space-y-5 text-center md:text-left"
         >
           <h1 className="text-4xl md:text-6xl font-extrabold text-gray-900 dark:text-white">
-            Hi, I'm <span className="text-blue-600 dark:text-blue-400">Bimlesh</span>
+            Hi, I&apos;m <span className="text-blue-600 dark:text-blue-400">Bimlesh</span>
           </h1>
           <h2 className="text-xl md:text-2xl font-medium text-gray-700 dark:text-gray-300">
             Full Stack Developer & AI Explorer 🚀
