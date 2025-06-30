@@ -9,7 +9,7 @@ export default function Footer() {
         
         {/* Left: Name and Year */}
         <p className="text-sm text-gray-600 dark:text-gray-400">
-          © {new Date().getFullYear()} Alex Carter. All rights reserved.
+          © {new Date().getFullYear()} Bimlesh. All rights reserved.
         </p>
 
         {/* Center: Navigation (Optional) */}
@@ -23,13 +23,13 @@ export default function Footer() {
 
         {/* Right: Social Icons */}
         <div className="flex gap-4 text-xl">
-          <a href="https://github.com/username" target="_blank" rel="noopener noreferrer">
+          <a href="https://github.com/bimlesharma" target="_blank" rel="noopener noreferrer">
             <FaGithub className="hover:text-blue-600 transition" />
           </a>
-          <a href="https://linkedin.com/in/username" target="_blank" rel="noopener noreferrer">
+          <a href="https://linkedin.com/in/bimlesharma" target="_blank" rel="noopener noreferrer">
             <FaLinkedin className="hover:text-blue-600 transition" />
           </a>
-          <a href="https://twitter.com/username" target="_blank" rel="noopener noreferrer">
+          <a href="https://twitter.com/bimlesharma" target="_blank" rel="noopener noreferrer">
             <FaTwitter className="hover:text-blue-600 transition" />
           </a>
         </div>
