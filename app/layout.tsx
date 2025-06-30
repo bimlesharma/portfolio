@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider"
+import Ribbons from "@/blocks/Animations/Ribbons/Ribbons";
+import BlobCursor from "@/blocks/Animations/BlobCursor/BlobCursor";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -40,3 +42,4 @@ export default function RootLayout({
     </html>
   );
 }
+

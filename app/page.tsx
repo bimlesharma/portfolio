@@ -8,13 +8,13 @@ import ExperienceSection from '@/components/ExperienceSection';
 import EducationSection from '@/components/EducationSection';
 import Footer from '@/components/Footer';
 import BackToTopButton from '@/components/BackToTopButton';
-import {ModeToggle} from '@/components/ModeToggle';
+// import {ModeToggle} from '@/components/ModeToggle';
 import AnimatedBackground from '@/components/AnimatedBackground';
 
 export default function Home() {
   return (
     <main>
-      <ModeToggle />
+      {/* <ModeToggle /> */}
       <HeroSection />
       {/* <AboutSection /> */}
       <SkillsSection />

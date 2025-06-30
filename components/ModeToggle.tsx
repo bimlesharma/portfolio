@@ -7,7 +7,9 @@ import { Button } from "@/components/ui/button"
 
 export function ModeToggle() {
   const { setTheme, resolvedTheme } = useTheme() // theme is removed as not used here
+  setTheme("dark") // Set default theme to dark
 
+  
   const toggleTheme = () => {
     const nextTheme = resolvedTheme === "dark" ? "light" : "dark"
     setTheme(nextTheme)
