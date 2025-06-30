@@ -1,12 +1,12 @@
 "use client";
 import React, { useRef, useState } from "react";
-import { motion, useInView, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, useInView, useMotionValue, useTransform } from "framer-motion";
 import {
   SiReact, SiNextdotjs, SiTypescript, SiNodedotjs, SiPython,
-  SiMongodb, SiPostgresql, SiDocker, SiGraphql,
-  SiTailwindcss, SiJavascript, SiGit, SiRedis
+  SiMongodb, SiPostgresql, SiDocker,
+  SiTailwindcss, SiJavascript, SiGit,
 } from "react-icons/si";
-import { FaAws } from "react-icons/fa";
+// import { FaAws } from "react-icons/fa";
 import { FaGolang } from "react-icons/fa6";
 
 
@@ -135,11 +135,6 @@ const ModernSkills = () => {
     }
   ], []);
 
-  const categories = React.useMemo(() =>
-    Array.from(new Set(skills.map(skill => skill.category))),
-    [skills]
-  );
-
   const containerVariants = React.useMemo(() => ({
     hidden: { opacity: 0 },
     visible: {
@@ -162,9 +157,9 @@ const ModernSkills = () => {
       opacity: 1,
       scale: 1,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         stiffness: 100,
-        damping: 12
+        damping: 20
       }
     }
   }), []);
@@ -196,7 +191,7 @@ const ModernSkills = () => {
     return (
       <motion.div
         ref={cardRef}
-        // variants={cardVariants}
+        variants={cardVariants}
         className="group relative"
         style={{
           perspective: 1000,
@@ -300,32 +295,6 @@ const ModernSkills = () => {
             </div>
           </div>
 
-          {/* Floating particles */}
-          {/* <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-            {[...Array(5)].map((_, i) => (
-              <motion.div
-                key={i}
-                className="absolute w-1 h-1 rounded-full"
-                style={{ 
-                  backgroundColor: skill.color,
-                  left: `${20 + i * 15}%`,
-                  top: `${30 + i * 10}%`
-                }}
-                animate={{
-                  x: [0, 10, -10, 0],
-                  y: [0, -10, 10, 0],
-                  opacity: [0.3, 1, 0.3],
-                  scale: [0.8, 1.2, 0.8]
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  delay: i * 0.2,
-                  ease: "easeInOut"
-                }}
-              />
-            ))}
-          </div> */}
           {/* Floating sparkles */}
           <div className="absolute inset-0 pointer-events-none z-10">
             {[...Array(6)].map((_, i) => (
@@ -421,40 +390,6 @@ const ModernSkills = () => {
             <SkillCard key={skill.name} skill={skill} index={index} />
           ))}
         </motion.div>
-
-        {/* Categories Summary */}
-        {/* <motion.div
-          className="mt-16 text-center"
-          initial={{ opacity: 0, y: 50 }}
-          animate={hasAnimated ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 1 }}
-        >
-          <h3 className="text-2xl font-semibold text-slate-900 dark:text-white mb-6">
-            Technology Categories
-          </h3>
-          <div className="flex flex-wrap justify-center gap-4">
-            {categories.map((category, index) => (
-              <motion.span
-                key={category}
-                className="px-6 py-3 bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-400/30 rounded-full text-blue-300 font-medium backdrop-blur-sm"
-                initial={{ opacity: 0, scale: 0 }}
-                animate={hasAnimated ? { opacity: 1, scale: 1 } : {}}
-                transition={{ 
-                  delay: 1.2 + index * 0.1,
-                  type: "spring",
-                  stiffness: 300 
-                }}
-                whileHover={{ 
-                  scale: 1.1,
-                  backgroundColor: "rgba(59, 130, 246, 0.3)",
-                  transition: { duration: 0.2 }
-                }}
-              >
-                {category}
-              </motion.span>
-            ))}
-          </div>
-        </motion.div> */}
       </div>
     </section>
   );
