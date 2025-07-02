@@ -207,3 +207,14 @@ html {
     50% { background-position: 400% 0; }
     100% { background-position: 0 0; }
 }
+
+
+/* styles/globals.css */
+.input-field {
+  @apply w-full px-4 py-3 rounded-md bg-white dark:bg-neutral-700 text-neutral-900 dark:text-white border border-neutral-300 dark:border-neutral-600 focus:outline-none focus:ring-2 focus:ring-blue-600 placeholder:text-neutral-500 dark:placeholder:text-neutral-400;
+}
+
+
+.input-dark {
+  @apply w-full px-4 py-3 rounded-md bg-neutral-900 text-white border border-neutral-700 placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-orange-600 focus:border-orange-600 transition;
+}

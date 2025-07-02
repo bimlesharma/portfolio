@@ -2,83 +2,164 @@
 
 // import { useState } from 'react';
 // import { motion } from 'framer-motion';
+// import { FaSpinner } from 'react-icons/fa';
+// import Toast from './Toast';
 
 // export default function ContactSection() {
-//   const [form, setForm] = useState({ name: '', email: '', message: '' });
+//   const [form, setForm] = useState({
+//     name: '',
+//     email: '',
+//     subject: '',
+//     message: '',
+//   });
+
 //   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
 
-//   async function handleSubmit(e: React.FormEvent) {
+//   const [toast, setToast] = useState<{ show: boolean; type: 'success' | 'error'; message: string }>({
+//   show: false,
+//   type: 'success',
+//   message: '',
+// });
+
+// function showToast(type: 'success' | 'error', message: string) {
+//   setToast({ show: true, type, message });
+//   setTimeout(() => {
+//     setToast({ show: false, type, message: '' });
+//   }, 4000);
+// }
+
+//   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+//     const { name, value } = e.target;
+//     setForm((prev) => ({ ...prev, [name]: value }));
+//   };
+
+//   const handleSubmit = async (e: React.FormEvent) => {
 //     e.preventDefault();
 //     setStatus('sending');
 
-//     const res = await fetch('/api/contact', {
-//       method: 'POST',
-//       body: JSON.stringify(form),
-//       headers: { 'Content-Type': 'application/json' },
-//     });
+//     const payload = {
+//       ...form,
+//       subject: form.subject.trim() || `Message from ${form.name}`,
+//     };
 
-//     if (res.ok) {
-//       setStatus('success');
-//       setForm({ name: '', email: '', message: '' });
-//     } else {
+//     try {
+//       const res = await fetch('/api/contact', {
+//         method: 'POST',
+//         headers: { 'Content-Type': 'application/json' },
+//         body: JSON.stringify(payload),
+//       });
+
+//       if (res.ok) {
+//         setForm({ name: '', email: '', subject: '', message: '' });
+//         setStatus('success');
+//         showToast('success', 'Message sent successfully!');
+//       } else {
+//         setStatus('error');
+//         showToast('error', 'Failed to send message.');
+//       }
+//     } catch (err) {
 //       setStatus('error');
 //     }
-//   }
+
+//     setTimeout(() => setStatus('idle'), 5000);
+//   };
 
 //   return (
-//     <section id="contact" className="py-20 px-6 bg-neutral-100 dark:bg-neutral-900 text-neutral-800 dark:text-white">
-//       <div className="max-w-3xl mx-auto text-center space-y-8">
-//         <motion.h2
-//           initial={{ opacity: 0, y: 20 }}
-//           whileInView={{ opacity: 1, y: 0 }}
-//           viewport={{ once: true }}
-//           transition={{ duration: 0.6 }}
-//           className="text-3xl md:text-4xl font-bold"
-//         >
+//     <section
+//       id="contact"
+//       className="min-h-screen bg-neutral-100 dark:bg-neutral-900 flex items-center justify-center py-20 px-4"
+//     >
+//       <motion.div
+//         initial={{ opacity: 0, y: 30 }}
+//         whileInView={{ opacity: 1, y: 0 }}
+//         transition={{ duration: 0.6 }}
+//         viewport={{ once: true }}
+//         className="w-full max-w-3xl rounded-2xl bg-white dark:bg-neutral-800 shadow-xl p-8 sm:p-12 space-y-6"
+//       >
+//         <h2 className="text-3xl sm:text-4xl font-bold text-neutral-900 dark:text-white text-center">
 //           Contact Me
-//         </motion.h2>
+//         </h2>
 
 //         <form onSubmit={handleSubmit} className="space-y-6">
+//           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+//             <input
+//               name="name"
+//               type="text"
+//               required
+//               placeholder="Your Name"
+//               value={form.name}
+//               onChange={handleChange}
+//               className="input-field"
+//             />
+//             <input
+//               name="email"
+//               type="email"
+//               required
+//               placeholder="Your Email"
+//               value={form.email}
+//               onChange={handleChange}
+//               className="input-field"
+//             />
+//           </div>
+
 //           <input
+//             name="subject"
 //             type="text"
-//             placeholder="Your Name"
-//             className="w-full px-4 py-3 rounded-md bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700"
-//             value={form.name}
-//             onChange={(e) => setForm({ ...form, name: e.target.value })}
-//             required
+//             placeholder="Subject (optional)"
+//             value={form.subject}
+//             onChange={handleChange}
+//             className="input-field"
 //           />
-//           <input
-//             type="email"
-//             placeholder="Your Email"
-//             className="w-full px-4 py-3 rounded-md bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700"
-//             value={form.email}
-//             onChange={(e) => setForm({ ...form, email: e.target.value })}
-//             required
-//           />
+
 //           <textarea
-//             placeholder="Your Message"
-//             className="w-full px-4 py-3 h-32 rounded-md bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700"
-//             value={form.message}
-//             onChange={(e) => setForm({ ...form, message: e.target.value })}
+//             name="message"
 //             required
+//             placeholder="Your Message"
+//             value={form.message}
+//             onChange={handleChange}
+//             rows={6}
+//             className="input-field resize-none"
 //           ></textarea>
 
 //           <button
 //             type="submit"
 //             disabled={status === 'sending'}
-//             className="px-6 py-3 bg-blue-600 text-white rounded-md font-semibold hover:bg-blue-700 transition"
+//             className={`w-full flex items-center justify-center gap-2 px-6 py-3 text-white bg-blue-600 hover:bg-blue-700 font-semibold rounded-md transition duration-200 ${
+//               status === 'sending' ? 'opacity-70 cursor-not-allowed' : ''
+//             }`}
 //           >
-//             {status === 'sending' ? 'Sending...' : 'Send Message'}
+//             {status === 'sending' ? (
+//               <>
+//                 <FaSpinner className="animate-spin" />
+//                 Sending...
+//               </>
+//             ) : (
+//               'Send Message'
+//             )}
 //           </button>
 
 //           {status === 'success' && (
-//             <p className="text-green-600">Message sent successfully!</p>
+//             <motion.p
+//               initial={{ opacity: 0 }}
+//               animate={{ opacity: 1 }}
+//               className="text-green-600 font-medium text-center"
+//             >
+//               ✅ Your message has been sent!
+//             </motion.p>
 //           )}
 //           {status === 'error' && (
-//             <p className="text-red-600">Oops! Something went wrong.</p>
+//             <motion.p
+//               initial={{ opacity: 0 }}
+//               animate={{ opacity: 1 }}
+//               className="text-red-600 font-medium text-center"
+//             >
+//               ❌ Something went wrong. Please try again.
+//             </motion.p>
 //           )}
 //         </form>
-//       </div>
+//       </motion.div>
+
+//       <Toast show={toast.show} type={toast.type} message={toast.message} />
 //     </section>
 //   );
 // }
@@ -88,98 +169,162 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { FaSpinner } from 'react-icons/fa';
+import Toast from './Toast';
 
 export default function ContactSection() {
-  const [form, setForm] = useState({ name: '', email: '', message: '' });
-  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: '',
+  });
 
-  async function handleSubmit(e: React.FormEvent) {
+  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+  const [toast, setToast] = useState<{ show: boolean; type: 'success' | 'error'; message: string }>({
+    show: false,
+    type: 'success',
+    message: '',
+  });
+
+  function showToast(type: 'success' | 'error', message: string) {
+    setToast({ show: true, type, message });
+    setTimeout(() => setToast({ show: false, type, message: '' }), 4000);
+  }
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('sending');
 
-    const res = await fetch('/api/contact', {
-      method: 'POST',
-      body: JSON.stringify(form),
-      headers: { 'Content-Type': 'application/json' },
-    });
+    const payload = {
+      ...form,
+      subject: form.subject.trim() || `Message from ${form.name}`,
+    };
 
-    if (res.ok) {
-      setStatus('success');
-      setForm({ name: '', email: '', message: '' });
-    } else {
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      if (res.ok) {
+        setForm({ name: '', email: '', subject: '', message: '' });
+        setStatus('success');
+        showToast('success', 'Message sent successfully!');
+      } else {
+        setStatus('error');
+        showToast('error', 'Failed to send message.');
+      }
+    } catch (err) {
       setStatus('error');
+      showToast('error', 'Unexpected error occurred.');
     }
-  }
+
+    setTimeout(() => setStatus('idle'), 5000);
+  };
 
   return (
-    <section id="contact" className="relative py-20 pb-32 bg-neutral-50 dark:bg-neutral-950">
-      {/* Grid Background */}
-      <div className="absolute inset-0 opacity-10">
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `
-              linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px)
-            `,
-            backgroundSize: '50px 50px',
-          }}
-        />
-      </div>
-
-      <div className="relative z-10 max-w-3xl mx-auto text-center space-y-8 px-6 sm:px-8 lg:px-12">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white"
-        >
-          Contact Me
-        </motion.h2>
+    <section
+      id="contact"
+      className="min-h-screen bg-dark flex items-center justify-center py-20 px-4"
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true }}
+        className="w-full max-w-3xl rounded-xl bg-charcoal shadow-xl p-8 sm:p-12 space-y-8"
+      >
+        <h2 className="text-4xl font-extrabold text-white text-center tracking-wide">
+          📬 Get In Touch
+        </h2>
 
         <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <input
+              name="name"
+              type="text"
+              required
+              placeholder="Name"
+              value={form.name}
+              onChange={handleChange}
+              className="input-dark"
+            />
+            <input
+              name="email"
+              type="email"
+              required
+              placeholder="Email"
+              value={form.email}
+              onChange={handleChange}
+              className="input-dark"
+            />
+          </div>
+
           <input
+            name="subject"
             type="text"
-            placeholder="Your Name"
-            className="w-full px-4 py-3 rounded-md bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 focus:outline-none focus:ring-2 focus:ring-blue-600"
-            value={form.name}
-            onChange={(e) => setForm({ ...form, name: e.target.value })}
-            required
+            placeholder="Subject (optional)"
+            value={form.subject}
+            onChange={handleChange}
+            className="input-dark"
           />
-          <input
-            type="email"
-            placeholder="Your Email"
-            className="w-full px-4 py-3 rounded-md bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 focus:outline-none focus:ring-2 focus:ring-blue-600"
-            value={form.email}
-            onChange={(e) => setForm({ ...form, email: e.target.value })}
-            required
-          />
+
           <textarea
-            placeholder="Your Message"
-            className="w-full px-4 py-3 h-32 rounded-md bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 focus:outline-none focus:ring-2 focus:ring-blue-600"
-            value={form.message}
-            onChange={(e) => setForm({ ...form, message: e.target.value })}
+            name="message"
             required
-          ></textarea>
+            placeholder="Your Message"
+            value={form.message}
+            onChange={handleChange}
+            rows={6}
+            className="input-dark resize-none"
+          />
 
           <button
             type="submit"
             disabled={status === 'sending'}
-            className="w-full px-6 py-3 bg-blue-600 text-white rounded-md font-semibold hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600 transition duration-200"
+            className={`w-full flex items-center justify-center gap-2 px-6 py-3 text-white font-semibold rounded-md transition duration-200 bg-orange-600 hover:bg-orange-700 ${
+              status === 'sending' ? 'opacity-70 cursor-not-allowed' : ''
+            }`}
           >
-            {status === 'sending' ? 'Sending...' : 'Send Message'}
+            {status === 'sending' ? (
+              <>
+                <FaSpinner className="animate-spin" />
+                Sending...
+              </>
+            ) : (
+              'Send Message'
+            )}
           </button>
 
-          {/* Feedback Messages */}
           {status === 'success' && (
-            <p className="text-green-600">Message sent successfully!</p>
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="text-green-400 font-medium text-center"
+            >
+              ✅ Message sent successfully!
+            </motion.p>
           )}
           {status === 'error' && (
-            <p className="text-red-600">Oops! Something went wrong.</p>
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="text-red-400 font-medium text-center"
+            >
+              ❌ Something went wrong. Please try again.
+            </motion.p>
           )}
         </form>
-      </div>
+      </motion.div>
+
+      <Toast show={toast.show} type={toast.type} message={toast.message} />
     </section>
   );
 }
