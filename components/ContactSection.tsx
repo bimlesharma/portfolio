@@ -224,6 +224,7 @@ export default function ContactSection() {
     } catch (err) {
       setStatus('error');
       showToast('error', 'Unexpected error occurred.');
+      console.error('Error sending message:', err);
     }
 
     setTimeout(() => setStatus('idle'), 5000);
