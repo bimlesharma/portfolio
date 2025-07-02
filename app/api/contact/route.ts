@@ -8,6 +8,10 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Missing fields' }, { status: 400 });
   }
 
+  if (!process.env.RESEND_API_KEY) {
+    throw new Error("RESEND_API_KEY is not defined");
+  }
+
   const resend = new Resend(process.env.RESEND_API_KEY);
 
   try {
