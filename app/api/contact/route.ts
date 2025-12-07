@@ -29,60 +29,68 @@ export async function POST(req: Request) {
       subject: emailSubject,
       replyTo: email,
       html: `
-        <div style="font-family: 'Segoe UI', sans-serif; background-color: #0a0a0a; padding: 0px; color: #f9f9f9;">
-  <table width="100%" style="max-width: 600px; margin: 0 auto; background: #111111; border-radius: 12px; box-shadow: 0 0 24px rgba(255, 69, 0, 0.25); overflow: hidden;">
+        <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color: #0f172a; padding: 40px 20px; color: #f1f5f9;">
+  <table width="100%" style="max-width: 600px; margin: 0 auto; background: linear-gradient(to bottom, #1e293b, #0f172a); border-radius: 16px; box-shadow: 0 20px 60px rgba(6, 182, 212, 0.15); overflow: hidden; border: 1px solid #334155;">
 
-    <!-- Header -->
+    <!-- Header with Gradient -->
     <tr>
-      <td style="padding: 32px; background-color: #000000;">
-        <table width="100%">
-          <tr>
-            <td align="center" style="text-align: center;">
-              <img src="https://bimlesh.xyz/_next/image?url=%2Fimages%2Fme2.png&w=640&q=75" width="60" style="border-radius: 30%; display: block; margin: 0 auto 16px;" alt="Profile">
-              <h2 style="margin: 0; font-size: 24px; font-weight: 700; color: #ffffff;">New Contact Form Submission</h2>
-              <p style="margin: 8px 0 0; font-size: 14px; color: #9ca3af;">${new Date().toDateString()}</p>
-            </td>
-          </tr>
-        </table>
+      <td style="padding: 40px 32px; background: linear-gradient(135deg, #06b6d4 0%, #a78bfa 50%, #10b981 100%); text-align: center;">
+        <h2 style="margin: 0; font-size: 28px; font-weight: 700; color: #ffffff; text-shadow: 0 2px 10px rgba(0,0,0,0.3);">New Contact Message</h2>
+        <p style="margin: 12px 0 0; font-size: 14px; color: #e0f2fe; opacity: 0.9;">${new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
       </td>
     </tr>
 
-    <!-- Details -->
+    <!-- Details Section -->
     <tr>
-      <td style="padding: 28px 32px;">
-        <!--<p style="margin: 0 0 20px; font-size: 15px; color: #e5e5e5;">📨 You’ve received a message via your website:</p>-->
-        <table width="100%" style="font-size: 15px;">
-          <tr><td style="padding: 6px 0;"><strong style="color: #FF4500;">Name:</strong> ${name}</td></tr>
-          <tr><td style="padding: 6px 0;"><strong style="color: #FF4500;">Email:</strong> <a href="mailto:${email}" style="color: #38bdf8; text-decoration: none;">${email}</a></td></tr>
-          <tr><td style="padding: 6px 0;"><strong style="color: #FF4500;">Purpose:</strong> ${emailSubject}</td></tr>
-        </table>
+      <td style="padding: 32px;">
+        <div style="background: #1e293b; border-radius: 12px; padding: 24px; border: 1px solid #334155;">
+          <table width="100%" style="font-size: 15px; color: #cbd5e1;">
+            <tr>
+              <td style="padding: 10px 0;">
+                <span style="color: #06b6d4; font-weight: 600;">Name:</span>
+                <span style="color: #f1f5f9; margin-left: 8px;">${name}</span>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 10px 0;">
+                <span style="color: #06b6d4; font-weight: 600;">Email:</span>
+                <a href="mailto:${email}" style="color: #38bdf8; text-decoration: none; margin-left: 8px;">${email}</a>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 10px 0;">
+                <span style="color: #06b6d4; font-weight: 600;">Subject:</span>
+                <span style="color: #f1f5f9; margin-left: 8px;">${emailSubject}</span>
+              </td>
+            </tr>
+          </table>
+        </div>
 
-        <!-- Message -->
-        <div style="margin-top: 24px; background-color: #1a1a1a; padding: 20px; border-left: 4px solid #FF4500; border-radius: 8px; line-height: 1.6; color: #d1d5db;">
-          ${message.replace(/\n/g, '<br/>')}
+        <!-- Message Box -->
+        <div style="margin-top: 24px; background: #1e293b; padding: 24px; border-left: 4px solid #06b6d4; border-radius: 12px; line-height: 1.7; color: #cbd5e1;">
+          <div style="color: #06b6d4; font-weight: 600; margin-bottom: 12px; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Message:</div>
+          <div style="color: #e2e8f0;">${message.replace(/\n/g, '<br/>')}</div>
         </div>
       </td>
     </tr>
 
-    <!-- CTA Buttons -->
+    <!-- CTA Button -->
     <tr>
-      <td style="padding: 0 32px 32px; text-align: center;">
-        <a href="mailto:${email}" style="background-color: #FF4500; color: #fff; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 600; margin-right: 10px;">Reply Now</a>
-        <!--<a href="https://yourdashboard.com/messages" style="border: 1px solid #FF4500; color: #FF4500; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 600;">🔍 View in Dashboard</a>-->
+      <td style="padding: 0 32px 40px; text-align: center;">
+        <a href="mailto:${email}" style="display: inline-block; background: linear-gradient(135deg, #06b6d4, #a78bfa); color: #fff; padding: 14px 32px; border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 15px; box-shadow: 0 4px 14px rgba(6, 182, 212, 0.4);">Reply Now</a>
       </td>
     </tr>
 
     <!-- Footer -->
     <tr>
-      <td style="background-color: #0d0d0d; color: #6b7280; font-size: 12px; text-align: center; padding: 20px;">
-        This is an automated message sent from your portfolio site.<br>
-        &copy; ${new Date().getFullYear()} <strong style="color: #FF4500;">bimlesh.xyz</strong>
+      <td style="background: #0f172a; color: #64748b; font-size: 13px; text-align: center; padding: 24px; border-top: 1px solid #334155;">
+        <div style="margin-bottom: 8px;">This is an automated message from your portfolio contact form</div>
+        <div style="color: #06b6d4; font-weight: 600;">&copy; ${new Date().getFullYear()} bimlesh.xyz</div>
       </td>
     </tr>
 
   </table>
 </div>
-
       `,
     });
 
@@ -92,67 +100,64 @@ export async function POST(req: Request) {
       to: email,
       subject: `Thanks for contacting me, ${name}!`,
       html: `
-        <!-- =========================
-     “Thank You” Response Email – No Reply Version
-     Theme: Dark + Orange Accent
-========================= -->
-<div style="font-family: 'Segoe UI', sans-serif; background:#0a0a0a; padding:0px; color:#f9f9f9;">
-  <table width="100%" style="max-width:600px; margin:0 auto; background:#111; border-radius:12px; box-shadow:0 0 24px rgba(255,69,0,.25); overflow:hidden;">
+        <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color: #0f172a; padding: 40px 20px; color: #f1f5f9;">
+  <table width="100%" style="max-width: 600px; margin: 0 auto; background: linear-gradient(to bottom, #1e293b, #0f172a); border-radius: 16px; box-shadow: 0 20px 60px rgba(6, 182, 212, 0.15); overflow: hidden; border: 1px solid #334155;">
 
-    <!-- Header -->
+    <!-- Header with Gradient -->
     <tr>
-      <td style="padding:32px; background:#000; text-align:center;">
-        <img src="https://bimlesh.xyz/_next/image?url=%2Fimages%2Fme2.png&w=640&q=75"
-             width="60"
-             alt="Profile"
-             style="border-radius:30%; display:block; margin:0 auto 16px;">
-        <h1 style="margin:0; font-size:24px; font-weight:700; color:#fff;">Thanks for Your Message!</h1>
-        <p style="margin:8px 0 0; font-size:14px; color:#9ca3af;">Received on ${new Date().toDateString()}</p>
+      <td style="padding: 40px 32px; background: linear-gradient(135deg, #06b6d4 0%, #a78bfa 50%, #10b981 100%); text-align: center;">
+        <div style="font-size: 48px; margin-bottom: 16px;">✨</div>
+        <h1 style="margin: 0; font-size: 28px; font-weight: 700; color: #ffffff; text-shadow: 0 2px 10px rgba(0,0,0,0.3);">Message Received!</h1>
+        <p style="margin: 12px 0 0; font-size: 14px; color: #e0f2fe; opacity: 0.9;">${new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
       </td>
     </tr>
 
     <!-- Greeting -->
     <tr>
-      <td style="padding:28px 32px; font-size:15px; color:#e5e5e5;">
-        Hi <strong style="color:#FF4500;">${name}</strong>,
-        <br><br>
-        I truly appreciate your interest. Your message has been received and is being reviewed.
-      </td>
-    </tr>
-
-    <!-- Message Echo (optional) -->
-    <tr>
-      <td style="padding:0 32px 24px;">
-        <div style="background:#1a1a1a; padding:20px; border-left:4px solid #FF4500; border-radius:8px; line-height:1.6; color:#d1d5db;">
-          <em>Your message:</em><br>
-          ${message.replace(/\n/g, '<br/>')}
+      <td style="padding: 32px; font-size: 16px; color: #cbd5e1; line-height: 1.6;">
+        <div style="margin-bottom: 20px;">
+          Hi <strong style="color: #06b6d4;">${name}</strong>,
+        </div>
+        <div>
+          Thank you for reaching out! I've received your message and truly appreciate your interest. I'll review it carefully and get back to you soon.
         </div>
       </td>
     </tr>
 
-    <!-- Info -->
+    <!-- Message Echo -->
     <tr>
-      <td style="padding:0 32px 32px; font-size:15px; color:#e5e5e5; line-height:1.6;">
-        I usually respond within <strong>24–48 hours</strong>. In the meantime, feel free to check out my portfolio or reach out directly by phone for urgent inquiries.
+      <td style="padding: 0 32px 24px;">
+        <div style="background: #1e293b; padding: 24px; border-left: 4px solid #a78bfa; border-radius: 12px; line-height: 1.7;">
+          <div style="color: #a78bfa; font-weight: 600; margin-bottom: 12px; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Your Message:</div>
+          <div style="color: #cbd5e1; font-style: italic;">${message.replace(/\n/g, '<br/>')}</div>
+        </div>
+      </td>
+    </tr>
+
+    <!-- Response Time Info -->
+    <tr>
+      <td style="padding: 0 32px 32px;">
+        <div style="background: linear-gradient(135deg, #06b6d420, #a78bfa20); border: 1px solid #334155; border-radius: 12px; padding: 20px; text-align: center;">
+          <div style="font-size: 32px; margin-bottom: 12px;">⚡</div>
+          <div style="color: #f1f5f9; font-weight: 600; margin-bottom: 8px;">Quick Response Guaranteed</div>
+          <div style="color: #94a3b8; font-size: 14px;">I typically respond within <strong style="color: #06b6d4;">24-48 hours</strong></div>
+        </div>
       </td>
     </tr>
 
     <!-- CTA Button -->
     <tr>
-      <td style="padding:0 32px 40px; text-align:center;">
-        <a href="https://bimlesh.xyz/"
-           style="background:#FF4500; color:#fff; padding:12px 28px; border-radius:6px; text-decoration:none; font-weight:600;">
-          🔗 Visit My Portfolio
-        </a>
+      <td style="padding: 0 32px 40px; text-align: center;">
+        <a href="https://bimlesh.xyz/" style="display: inline-block; background: linear-gradient(135deg, #06b6d4, #a78bfa); color: #fff; padding: 14px 32px; border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 15px; box-shadow: 0 4px 14px rgba(6, 182, 212, 0.4);">Visit My Portfolio</a>
       </td>
     </tr>
 
     <!-- Footer -->
     <tr>
-      <td style="background:#0d0d0d; color:#6b7280; font-size:12px; text-align:center; padding:20px;">
-        This is an automated message — replies to this email will not be monitored.<br>
-        📞 Contact: <strong style="color:#FF4500;">+91-7070519696</strong><br>
-        &copy; ${new Date().getFullYear()} <strong style="color:#FF4500;">bimlesh.xyz</strong>
+      <td style="background: #0f172a; color: #64748b; font-size: 13px; text-align: center; padding: 24px; border-top: 1px solid #334155;">
+        <div style="margin-bottom: 8px;">This is an automated confirmation — please do not reply to this email</div>
+        <div style="margin-bottom: 8px;">For urgent matters: <strong style="color: #06b6d4;">+91-7070519696</strong></div>
+        <div style="color: #06b6d4; font-weight: 600;">&copy; ${new Date().getFullYear()} bimlesh.xyz</div>
       </td>
     </tr>
 

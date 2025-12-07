@@ -314,7 +314,7 @@ const ModernSkills = () => {
             </div>
 
             {/* Skill name */}
-            <h3 className="text-base font-semibold text-gray-100 text-center">
+            <h3 className="text-base hidden md:block font-semibold text-gray-100 text-center">
               {skill.name}
             </h3>
 
@@ -389,7 +389,7 @@ const ModernSkills = () => {
           variants={containerVariants}
           initial="hidden"
           animate={hasAnimated ? "visible" : "hidden"}
-          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 xl:grid-cols-7 gap-4"
+          className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 xl:grid-cols-7 gap-4"
         >
           {skills.map((skill, index) => (
             <SkillCard key={skill.name} skill={skill} index={index} />

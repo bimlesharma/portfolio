@@ -18,8 +18,8 @@ export default function Home() {
       <CursorEffect />
       <HeroSection />
       {/* <AboutSection /> */}
-      <SkillsSection />
       <ProjectsSection />
+      <SkillsSection />
       <ExperienceSection />
       {/* <EducationSection /> */}
       <AchievementsSection />

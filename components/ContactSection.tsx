@@ -97,18 +97,16 @@ export default function ContactSection() {
   return (
     <section
       id="contact"
-      className="relative min-h-screen bg-white dark:bg-slate-900 py-20 px-4 overflow-x-hidden"
+      className="relative min-h-screen bg-slate-950 py-20 px-4 overflow-hidden"
     >
-      {/* Grid Background */}
-      <div className="absolute inset-0 opacity-5">
+      {/* Animated Background */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 via-purple-500/5 to-emerald-500/5" />
         <div
-          className="absolute inset-0"
+          className="absolute inset-0 opacity-10"
           style={{
-            backgroundImage: `
-              linear-gradient(rgba(59, 130, 246, 0.08) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(59, 130, 246, 0.08) 1px, transparent 1px)
-            `,
-            backgroundSize: '50px 50px',
+            backgroundImage: `radial-gradient(circle at 2px 2px, rgba(6, 182, 212, 0.15) 1px, transparent 0)`,
+            backgroundSize: '40px 40px',
           }}
         />
       </div>
@@ -122,15 +120,29 @@ export default function ContactSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-5xl lg:text-6xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 dark:from-blue-400 dark:via-purple-400 dark:to-emerald-400 bg-clip-text text-transparent mb-4">
-            Get In Touch
-          </h2>
-          <p className="text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
+          <motion.h2
+            className="text-5xl lg:text-6xl font-bold mb-6"
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <span className="bg-gradient-to-r from-cyan-400 via-purple-400 to-emerald-400 bg-clip-text text-transparent">
+              Get In Touch
+            </span>
+          </motion.h2>
+          <motion.p
+            className="text-xl text-slate-300 max-w-2xl mx-auto"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
             Have a question or want to work together? Feel free to reach out!
-          </p>
+          </motion.p>
         </motion.div>
 
-        {/* Content Grid */}
+        {/* 2-Column Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Left Side - Contact Info */}
           <motion.div
@@ -140,6 +152,7 @@ export default function ContactSection() {
             transition={{ duration: 0.6 }}
             className="space-y-6"
           >
+            {/* Contact Cards */}
             <div className="space-y-4">
               {contactInfo.map((info, index) => (
                 <motion.div
@@ -155,46 +168,72 @@ export default function ContactSection() {
                       href={info.link}
                       target={info.link.startsWith('http') ? '_blank' : undefined}
                       rel={info.link.startsWith('http') ? 'noopener noreferrer' : undefined}
-                      className="flex items-center gap-4 p-4 bg-white/90 dark:bg-slate-800/90 backdrop-blur-md border border-slate-200 dark:border-slate-700 rounded-xl hover:shadow-lg transition-all duration-300 hover:scale-105"
+                      className="block"
                     >
-                      <div
-                        className="flex-shrink-0 w-12 h-12 rounded-lg flex items-center justify-center"
-                        style={{ backgroundColor: `${info.color}20` }}
-                      >
-                        <info.icon size={24} style={{ color: info.color }} />
+                      <div className="relative bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-2xl p-5 hover:border-slate-700 transition-all duration-300 group-hover:scale-105">
+                        {/* Glow effect */}
+                        <div
+                          className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500"
+                          style={{
+                            background: `radial-gradient(circle at 50% 50%, ${info.color}, transparent 70%)`,
+                          }}
+                        />
+
+                        <div className="relative flex items-center gap-4">
+                          {/* Icon */}
+                          <div
+                            className="flex-shrink-0 w-14 h-14 rounded-xl flex items-center justify-center"
+                            style={{
+                              background: `linear-gradient(135deg, ${info.color}20, ${info.color}10)`,
+                            }}
+                          >
+                            <info.icon size={24} style={{ color: info.color }} />
+                          </div>
+
+                          {/* Content */}
+                          <div className="flex-1 min-w-0">
+                            <p className="text-sm font-medium text-slate-400 mb-0.5">
+                              {info.label}
+                            </p>
+                            <p className="text-base font-semibold text-slate-100 truncate">
+                              {info.value}
+                            </p>
+                          </div>
+
+                          {/* Arrow */}
+                          <svg
+                            className="w-5 h-5 text-slate-600 group-hover:text-cyan-400 group-hover:translate-x-1 transition-all"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                          </svg>
+                        </div>
                       </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">
-                          {info.label}
-                        </p>
-                        <p className="text-base font-medium text-slate-900 dark:text-slate-100 truncate">
-                          {info.value}
-                        </p>
-                      </div>
-                      <svg
-                        className="w-5 h-5 text-slate-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
                     </a>
                   ) : (
-                    <div className="flex items-center gap-4 p-4 bg-white/90 dark:bg-slate-800/90 backdrop-blur-md border border-slate-200 dark:border-slate-700 rounded-xl">
-                      <div
-                        className="flex-shrink-0 w-12 h-12 rounded-lg flex items-center justify-center"
-                        style={{ backgroundColor: `${info.color}20` }}
-                      >
-                        <info.icon size={24} style={{ color: info.color }} />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">
-                          {info.label}
-                        </p>
-                        <p className="text-base font-medium text-slate-900 dark:text-slate-100">
-                          {info.value}
-                        </p>
+                    <div className="relative bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-2xl p-5">
+                      <div className="flex items-center gap-4">
+                        {/* Icon */}
+                        <div
+                          className="flex-shrink-0 w-14 h-14 rounded-xl flex items-center justify-center"
+                          style={{
+                            background: `linear-gradient(135deg, ${info.color}20, ${info.color}10)`,
+                          }}
+                        >
+                          <info.icon size={24} style={{ color: info.color }} />
+                        </div>
+
+                        {/* Content */}
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-medium text-slate-400 mb-0.5">
+                            {info.label}
+                          </p>
+                          <p className="text-base font-semibold text-slate-100">
+                            {info.value}
+                          </p>
+                        </div>
                       </div>
                     </div>
                   )}
@@ -202,20 +241,25 @@ export default function ContactSection() {
               ))}
             </div>
 
-            {/* Additional Info */}
+            {/* Quick Response Card */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="p-6 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 border border-blue-200 dark:border-blue-800 rounded-xl"
+              className="relative bg-gradient-to-br from-cyan-500/10 via-purple-500/10 to-emerald-500/10 border border-cyan-500/20 rounded-2xl p-5"
             >
-              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">
-                💡 Quick Response
-              </h3>
-              <p className="text-sm text-slate-600 dark:text-slate-300">
-                I typically respond within 24 hours. For urgent matters, feel free to reach out via LinkedIn or email directly.
-              </p>
+              <div className="flex items-start gap-3">
+                <div className="text-3xl">⚡</div>
+                <div>
+                  <h3 className="text-base font-bold text-slate-100 mb-1">
+                    Quick Response
+                  </h3>
+                  <p className="text-sm text-slate-300">
+                    I typically respond within 24 hours. For urgent matters, reach out via LinkedIn or email.
+                  </p>
+                </div>
+              </div>
             </motion.div>
           </motion.div>
 
@@ -225,42 +269,42 @@ export default function ContactSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="bg-white/90 dark:bg-slate-800/90 backdrop-blur-md border border-slate-200 dark:border-slate-700 rounded-2xl p-6 md:p-8 shadow-xl"
+            className="bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-2xl p-6 md:p-8"
           >
             <form onSubmit={handleSubmit} className="space-y-5">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                  <label className="block text-sm font-semibold text-slate-300 mb-2">
                     Name *
                   </label>
                   <input
                     name="name"
                     type="text"
                     required
-                    placeholder="John Doe"
+                    placeholder="Enter your name"
                     value={form.name}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-lg bg-slate-50 dark:bg-slate-700 text-slate-900 dark:text-slate-100 border border-slate-300 dark:border-slate-600 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600 dark:focus:ring-blue-400 transition"
+                    className="w-full px-4 py-3 rounded-xl bg-slate-800/50 text-slate-100 border border-slate-700 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                  <label className="block text-sm font-semibold text-slate-300 mb-2">
                     Email *
                   </label>
                   <input
                     name="email"
                     type="email"
                     required
-                    placeholder="john@example.com"
+                    placeholder="your.email@gmail.com"
                     value={form.email}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-lg bg-slate-50 dark:bg-slate-700 text-slate-900 dark:text-slate-100 border border-slate-300 dark:border-slate-600 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600 dark:focus:ring-blue-400 transition"
+                    className="w-full px-4 py-3 rounded-xl bg-slate-800/50 text-slate-100 border border-slate-700 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                <label className="block text-sm font-semibold text-slate-300 mb-2">
                   Subject
                 </label>
                 <input
@@ -269,12 +313,12 @@ export default function ContactSection() {
                   placeholder="Project Inquiry"
                   value={form.subject}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-lg bg-slate-50 dark:bg-slate-700 text-slate-900 dark:text-slate-100 border border-slate-300 dark:border-slate-600 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600 dark:focus:ring-blue-400 transition"
+                  className="w-full px-4 py-3 rounded-xl bg-slate-800/50 text-slate-100 border border-slate-700 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                <label className="block text-sm font-semibold text-slate-300 mb-2">
                   Message *
                 </label>
                 <textarea
@@ -284,14 +328,14 @@ export default function ContactSection() {
                   value={form.message}
                   onChange={handleChange}
                   rows={6}
-                  className="w-full px-4 py-3 rounded-lg bg-slate-50 dark:bg-slate-700 text-slate-900 dark:text-slate-100 border border-slate-300 dark:border-slate-600 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600 dark:focus:ring-blue-400 transition resize-none"
+                  className="w-full px-4 py-3 rounded-xl bg-slate-800/50 text-slate-100 border border-slate-700 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition resize-none"
                 ></textarea>
               </div>
 
               <button
                 type="submit"
                 disabled={status === 'sending'}
-                className={`w-full flex items-center justify-center gap-2 px-6 py-4 text-white font-semibold rounded-lg transition duration-200 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl ${status === 'sending' ? 'opacity-70 cursor-not-allowed' : ''
+                className={`w-full flex items-center justify-center gap-2 px-6 py-4 text-white font-bold rounded-xl transition-all duration-200 bg-gradient-to-r from-cyan-600 to-purple-600 hover:from-cyan-500 hover:to-purple-500 shadow-lg hover:shadow-xl hover:scale-105 ${status === 'sending' ? 'opacity-70 cursor-not-allowed' : ''
                   }`}
               >
                 {status === 'sending' ? (

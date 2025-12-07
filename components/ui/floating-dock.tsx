@@ -1,5 +1,4 @@
 import { cn } from "@/lib/utils";
-// import { IconLayoutNavbarCollapse } from "@tabler/icons-react";
 import {
   AnimatePresence,
   MotionValue,
@@ -15,15 +14,17 @@ export const FloatingDock = ({
   items,
   desktopClassName,
   mobileClassName,
+  activeSection,
 }: {
-  items: { title: string; icon: React.ReactNode; href: string }[];
+  items: { title: string; icon: React.ReactNode; href: string; id?: string }[];
   desktopClassName?: string;
   mobileClassName?: string;
+  activeSection?: string;
 }) => {
   return (
     <>
-      <FloatingDockDesktop items={items} className={desktopClassName} />
-      <FloatingDockMobile items={items} className={mobileClassName} />
+      <FloatingDockDesktop items={items} className={desktopClassName} activeSection={activeSection} />
+      <FloatingDockMobile items={items} className={mobileClassName} activeSection={activeSection} />
     </>
   );
 };
@@ -31,9 +32,11 @@ export const FloatingDock = ({
 const FloatingDockMobile = ({
   items,
   className,
+  activeSection,
 }: {
-  items: { title: string; icon: React.ReactNode; href: string }[];
+  items: { title: string; icon: React.ReactNode; href: string; id?: string }[];
   className?: string;
+  activeSection?: string;
 }) => {
   const touchX = useMotionValue(Infinity);
 
@@ -48,7 +51,7 @@ const FloatingDockMobile = ({
   };
 
   const handleTouchEnd = () => {
-    touchX.set(Infinity); // Reset
+    touchX.set(Infinity);
   };
 
   return (
@@ -57,12 +60,12 @@ const FloatingDockMobile = ({
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
       className={cn(
-        "fixed bottom-4 left-1/2 z-50 flex -translate-x-1/2 items-end gap-3 rounded-2xl bg-gray-50 px-4 py-3 dark:bg-neutral-900 md:hidden",
+        "fixed bottom-4 left-1/2 z-50 flex -translate-x-1/2 items-end gap-3 rounded-2xl px-4 py-3 md:hidden",
         className,
       )}
     >
       {items.map((item) => (
-        <MobileIconContainer key={item.title} mouseX={touchX} {...item} />
+        <MobileIconContainer key={item.title} mouseX={touchX} activeSection={activeSection} {...item} />
       ))}
     </motion.div>
   );
@@ -70,16 +73,20 @@ const FloatingDockMobile = ({
 
 function MobileIconContainer({
   mouseX,
-  // title,
   icon,
   href,
+  id,
+  activeSection,
 }: {
   mouseX: MotionValue;
   title: string;
   icon: React.ReactNode;
   href: string;
+  id?: string;
+  activeSection?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
+  const isActive = id === activeSection;
 
   const distance = useTransform(mouseX, (val) => {
     const bounds = ref.current?.getBoundingClientRect();
@@ -109,9 +116,20 @@ function MobileIconContainer({
       <motion.div
         ref={ref}
         style={{ width, height }}
-        className="relative flex items-center justify-center rounded-full bg-gray-200 dark:bg-neutral-800"
+        className={cn(
+          "relative flex items-center justify-center rounded-full transition-colors duration-300",
+          isActive
+            ? "bg-gradient-to-br from-cyan-500/20 to-purple-500/20"
+            : "bg-slate-800/50"
+        )}
       >
-        <motion.div style={{ width: iconSize, height: iconSize }} className="flex items-center justify-center">
+        <motion.div
+          style={{ width: iconSize, height: iconSize }}
+          className={cn(
+            "flex items-center justify-center",
+            isActive ? "text-cyan-400" : "text-slate-300"
+          )}
+        >
           {icon}
         </motion.div>
       </motion.div>
@@ -123,22 +141,24 @@ function MobileIconContainer({
 const FloatingDockDesktop = ({
   items,
   className,
+  activeSection,
 }: {
-  items: { title: string; icon: React.ReactNode; href: string }[];
+  items: { title: string; icon: React.ReactNode; href: string; id?: string }[];
   className?: string;
+  activeSection?: string;
 }) => {
-  const mouseX = useMotionValue(Infinity); //let previously
+  const mouseX = useMotionValue(Infinity);
   return (
     <motion.div
       onMouseMove={(e) => mouseX.set(e.pageX)}
       onMouseLeave={() => mouseX.set(Infinity)}
       className={cn(
-        "mx-auto hidden h-16 items-end gap-4 rounded-2xl bg-gray-50 px-4 pb-3 md:flex dark:bg-neutral-900",
+        "mx-auto hidden h-16 items-end gap-4 rounded-2xl px-4 pb-3 md:flex",
         className,
       )}
     >
       {items.map((item) => (
-        <IconContainer mouseX={mouseX} key={item.title} {...item} />
+        <IconContainer mouseX={mouseX} key={item.title} activeSection={activeSection} {...item} />
       ))}
     </motion.div>
   );
@@ -149,16 +169,21 @@ function IconContainer({
   title,
   icon,
   href,
+  id,
+  activeSection,
 }: {
   mouseX: MotionValue;
   title: string;
   icon: React.ReactNode;
   href: string;
+  id?: string;
+  activeSection?: string;
 }) {
-  const ref = useRef<HTMLDivElement>(null); // let previously
+  const ref = useRef<HTMLDivElement>(null);
+  const isActive = id === activeSection;
 
   const distance = useTransform(mouseX, (val) => {
-  const bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
+    const bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
 
     return val - bounds.x - bounds.width / 2;
   });
@@ -204,7 +229,12 @@ function IconContainer({
         style={{ width, height }}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
-        className="relative flex aspect-square items-center justify-center rounded-full bg-gray-200 dark:bg-neutral-800"
+        className={cn(
+          "relative flex aspect-square items-center justify-center rounded-full transition-colors duration-300",
+          isActive
+            ? "bg-gradient-to-br from-cyan-500/20 to-purple-500/20"
+            : "bg-slate-800/50"
+        )}
       >
         <AnimatePresence>
           {hovered && (
@@ -212,7 +242,11 @@ function IconContainer({
               initial={{ opacity: 0, y: 10, x: "-50%" }}
               animate={{ opacity: 1, y: 0, x: "-50%" }}
               exit={{ opacity: 0, y: 2, x: "-50%" }}
-              className="absolute -top-8 left-1/2 w-fit rounded-md border border-gray-200 bg-gray-100 px-2 py-0.5 text-xs whitespace-pre text-neutral-700 dark:border-neutral-900 dark:bg-neutral-800 dark:text-white"
+              className="absolute -top-10 left-1/2 w-fit rounded-lg px-3 py-1.5 text-xs whitespace-pre font-medium shadow-xl"
+              style={{
+                background: "linear-gradient(135deg, #06b6d4, #a78bfa)",
+                color: "#ffffff",
+              }}
             >
               {title}
             </motion.div>
@@ -220,7 +254,10 @@ function IconContainer({
         </AnimatePresence>
         <motion.div
           style={{ width: widthIcon, height: heightIcon }}
-          className="flex items-center justify-center"
+          className={cn(
+            "flex items-center justify-center transition-colors duration-300",
+            isActive ? "text-cyan-400" : "text-slate-300"
+          )}
         >
           {icon}
         </motion.div>

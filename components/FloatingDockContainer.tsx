@@ -13,6 +13,7 @@ import {
 
 export default function FloatingDockContainer() {
     const [scrollingDown, setScrollingDown] = useState(false);
+    const [activeSection, setActiveSection] = useState("home");
 
     useEffect(() => {
         let lastY = window.scrollY;
@@ -21,15 +22,29 @@ export default function FloatingDockContainer() {
             const delta = currentY - lastY;
 
             if (Math.abs(delta) > 10) {
-                if (currentY > 100) {  // only hide/show dock if scrolled down enough
+                if (currentY > 100) {
                     setScrollingDown(delta > 0);
                 } else {
-                    setScrollingDown(false); // always show dock near top
+                    setScrollingDown(false);
                 }
                 lastY = currentY;
             }
-        };
 
+            // Detect active section
+            const sections = ['home', 'projects', 'contact'];
+            const scrollPosition = currentY + window.innerHeight / 3;
+
+            for (const section of sections) {
+                const element = document.getElementById(section === 'home' ? '' : section);
+                if (element) {
+                    const { offsetTop, offsetHeight } = element;
+                    if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+                        setActiveSection(section);
+                        break;
+                    }
+                }
+            }
+        };
 
         window.addEventListener("scroll", handleScroll, { passive: true });
         return () => window.removeEventListener("scroll", handleScroll);
@@ -38,38 +53,45 @@ export default function FloatingDockContainer() {
     const links = [
         {
             title: "Home",
-            icon: <IconHome className="h-full w-full text-neutral-900 dark:text-neutral-50" />,
+            icon: <IconHome className="h-full w-full" />,
             href: "#",
+            id: "home",
         },
         {
             title: "Projects",
-            icon: <IconTerminal2 className="h-full w-full text-neutral-900 dark:text-neutral-50" />,
+            icon: <IconTerminal2 className="h-full w-full" />,
             href: "#projects",
+            id: "projects",
         },
         {
             title: "Blog",
-            icon: <IconFileText className="h-full w-full text-neutral-900 dark:text-neutral-50" />,
+            icon: <IconFileText className="h-full w-full" />,
             href: "/blog",
+            id: "blog",
         },
         {
             title: "Contact",
-            icon: <IconMail className="h-full w-full text-neutral-900 dark:text-neutral-50" />,
+            icon: <IconMail className="h-full w-full" />,
             href: "#contact",
+            id: "contact",
         },
         {
             title: "Twitter",
-            icon: <IconBrandX className="h-full w-full text-neutral-900 dark:text-neutral-50" />,
+            icon: <IconBrandX className="h-full w-full" />,
             href: "https://twitter.com/bimlesharma",
+            id: "twitter",
         },
         {
             title: "GitHub",
-            icon: <IconBrandGithub className="h-full w-full text-neutral-900 dark:text-neutral-50" />,
+            icon: <IconBrandGithub className="h-full w-full" />,
             href: "https://github.com/bimlesharma",
+            id: "github",
         },
         {
             title: "LinkedIn",
-            icon: <IconBrandLinkedin className="h-full w-full text-neutral-900 dark:text-neutral-50" />,
+            icon: <IconBrandLinkedin className="h-full w-full" />,
             href: "https://www.linkedin.com/in/bimlesharma/",
+            id: "linkedin",
         },
     ];
 
@@ -83,10 +105,11 @@ export default function FloatingDockContainer() {
             }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
         >
-            <FloatingDock 
-            items={links} 
-            mobileClassName="bg-white/20 dark:bg-neutral-800/20 backdrop-blur-md border border-neutral-200 dark:border-neutral-700 rounded-full shadow-lg"
-            desktopClassName="bg-white/20 dark:bg-neutral-800/20 backdrop-blur-md border border-neutral-200 dark:border-neutral-700 rounded-full shadow-lg"
+            <FloatingDock
+                items={links}
+                activeSection={activeSection}
+                mobileClassName="bg-slate-900/80 backdrop-blur-xl border border-slate-700/50 rounded-full shadow-2xl shadow-cyan-500/20"
+                desktopClassName="bg-slate-900/80 backdrop-blur-xl border border-slate-700/50 rounded-full shadow-2xl shadow-cyan-500/20"
             />
         </motion.div>
     );
