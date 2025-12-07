@@ -35,11 +35,11 @@ export default function CursorEffect() {
         const initParticles = () => {
             const particleCount = 100;
             const colors = [
-                '#3b82f6', // Blue
-                '#8b5cf6', // Purple
-                '#06b6d4', // Cyan
-                '#10b981', // Emerald
-                '#f59e0b', // Amber
+                '#06b6d4', // Cyan - primary
+                '#a78bfa', // Purple - secondary
+                '#10b981', // Emerald - accent
+                '#f59e0b', // Amber - chart
+                '#ec4899', // Pink - extra pop
             ];
 
             particlesRef.current = Array.from({ length: particleCount }, () => ({
