@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { getHashnodePosts } from '@/lib/hashnode';
 import type { HashnodePost, HashnodeTag } from '@/lib/types/hashnode';
 import { IoMdArrowBack, IoMdTime } from "react-icons/io";
+import FallbackCover from '@/components/FallbackCover';
 
 export const revalidate = 3600;
 
@@ -81,9 +82,7 @@ const BlogPage = async () => {
                                             className="object-cover group-hover:scale-110 transition-transform duration-700"
                                         />
                                     ) : (
-                                        <div className="w-full h-full bg-gradient-to-br from-purple-900/40 to-blue-900/40 flex items-center justify-center">
-                                            <span className="text-neutral-600 text-lg">No Cover Image</span>
-                                        </div>
+                                        <FallbackCover title={featuredPost.title} />
                                     )}
                                 </div>
                             </div>
@@ -111,9 +110,7 @@ const BlogPage = async () => {
                                                 className="object-cover group-hover:scale-110 transition-transform duration-700"
                                             />
                                         ) : (
-                                            <div className="w-full h-full bg-neutral-800 flex items-center justify-center">
-                                                <span className="text-neutral-600">No Cover Image</span>
-                                            </div>
+                                            <FallbackCover title={post.title} />
                                         )}
                                         <div className="absolute inset-0 bg-gradient-to-t from-neutral-900/90 to-transparent" />
                                     </div>

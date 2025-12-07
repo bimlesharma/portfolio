@@ -5,6 +5,8 @@ import { getPostBySlug, getHashnodePosts } from '@/lib/hashnode';
 import type { HashnodePost, HashnodeTag } from '@/lib/types/hashnode';
 import { IoMdArrowBack, IoMdTime, IoMdCalendar } from "react-icons/io";
 import ScrollProgress from '@/components/ScrollProgress';
+import FallbackCover from '@/components/FallbackCover';
+import BlogContent from '@/components/BlogContent';
 import styles from '../blog.module.css';
 
 export const revalidate = 3600;
@@ -93,7 +95,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                     </header>
 
                     {/* Cover Image */}
-                    {post.coverImage?.url && (
+                    {post.coverImage?.url ? (
                         <div className="aspect-video relative rounded-2xl overflow-hidden mb-16 shadow-2xl shadow-purple-900/20 border border-neutral-800">
                             <Image
                                 src={post.coverImage.url}
@@ -103,13 +105,14 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                                 priority
                             />
                         </div>
+                    ) : (
+                        <div className="aspect-video relative rounded-2xl overflow-hidden mb-16 shadow-2xl shadow-purple-900/20 border border-neutral-800">
+                            <FallbackCover title={post.title} />
+                        </div>
                     )}
 
-                    {/* Content */}
-                    <div
-                        className={styles.blogContent}
-                        dangerouslySetInnerHTML={{ __html: post.content.html }}
-                    />
+                    {/* Content with enhanced code blocks */}
+                    <BlogContent html={post.content.html} className={styles.blogContent} />
                 </article>
 
                 {/* Read Next Section */}
@@ -125,16 +128,18 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                                     href={`/blog/${recentPost.slug}`}
                                     className="group bg-neutral-900/50 border border-neutral-800 rounded-xl overflow-hidden hover:border-purple-500/50 transition-all duration-300 hover:-translate-y-1"
                                 >
-                                    {recentPost.coverImage?.url && (
-                                        <div className="aspect-video relative overflow-hidden">
+                                    <div className="aspect-video relative overflow-hidden">
+                                        {recentPost.coverImage?.url ? (
                                             <Image
                                                 src={recentPost.coverImage.url}
                                                 alt={recentPost.title}
                                                 fill
                                                 className="object-cover group-hover:scale-110 transition-transform duration-500"
                                             />
-                                        </div>
-                                    )}
+                                        ) : (
+                                            <FallbackCover title={recentPost.title} />
+                                        )}
+                                    </div>
                                     <div className="p-4">
                                         <h3 className="font-semibold mb-2 line-clamp-2 group-hover:text-purple-400 transition-colors">
                                             {recentPost.title}
