@@ -6,21 +6,25 @@ import ProjectsSection from '@/components/ProjectsSection';
 import ContactSection from '@/components/ContactSection';
 import ExperienceSection from '@/components/ExperienceSection';
 import EducationSection from '@/components/EducationSection';
+import AchievementsSection from '@/components/AchievementsSection';
 import Footer from '@/components/Footer';
 import BackToTopButton from '@/components/BackToTopButton';
-// import {ModeToggle} from '@/components/ModeToggle';
+import { ModeToggle } from '@/components/ModeToggle';
 import AnimatedBackground from '@/components/AnimatedBackground';
+import CursorEffect from '@/components/CursorEffect';
 
 export default function Home() {
   return (
     <main>
-      {/* <ModeToggle /> */}
+      <CursorEffect />
+      <ModeToggle />
       <HeroSection />
       {/* <AboutSection /> */}
       <SkillsSection />
       <ProjectsSection />
       <ExperienceSection />
       <EducationSection />
+      <AchievementsSection />
       <ContactSection />
       <Footer />
       <BackToTopButton />

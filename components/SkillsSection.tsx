@@ -46,61 +46,54 @@ const ModernSkills = () => {
       name: "Next.js",
       icon: SiNextdotjs,
       color: "#ffffff",
-      level: 90,
+      level: 92,
       category: "Frontend"
     },
     {
       name: "TypeScript",
       icon: SiTypescript,
       color: "#3178C6",
-      level: 88,
+      level: 90,
       category: "Language"
     },
     {
       name: "Node.js",
       icon: SiNodedotjs,
       color: "#339933",
-      level: 85,
+      level: 90,
       category: "Backend"
-    },
-    {
-      name: "Python",
-      icon: SiPython,
-      color: "#3776AB",
-      level: 82,
-      category: "Language"
     },
     {
       name: "JavaScript",
       icon: SiJavascript,
       color: "#F7DF1E",
-      level: 92,
+      level: 95,
       category: "Language"
     },
     {
       name: "MongoDB",
       icon: SiMongodb,
       color: "#47A248",
-      level: 85,
+      level: 88,
       category: "Database"
     },
     {
       name: "PostgreSQL",
       icon: SiPostgresql,
       color: "#336791",
-      level: 80,
+      level: 85,
       category: "Database"
     },
     {
       name: "Docker",
       icon: SiDocker,
       color: "#2496ED",
-      level: 75,
+      level: 82,
       category: "DevOps"
     },
     // {
-      //   name: "AWS",
-      //   icon: FaAws,
+    //   name: "AWS",
+    //   icon: FaAws,
     //   color: "#FF9900",
     //   level: 78,
     //   category: "Cloud"
@@ -116,14 +109,14 @@ const ModernSkills = () => {
       name: "Go (Golang)",
       icon: FaGolang,
       color: "#00ADD8",
-      level: 77,
+      level: 75,
       category: "Backend"
     },
     {
       name: "Git",
       icon: SiGit,
       color: "#F05032",
-      level: 90,
+      level: 92,
       category: "Version Control"
     },
     {
@@ -132,6 +125,13 @@ const ModernSkills = () => {
       color: "#06B6D4",
       level: 90,
       category: "Styling"
+    },
+    {
+      name: "Python",
+      icon: SiPython,
+      color: "#3776AB",
+      level: 80,
+      category: "Language"
     }
   ], []);
 
@@ -207,7 +207,7 @@ const ModernSkills = () => {
           }}
         />
         <motion.div
-          className={`relative w-full h-48  backdrop-blur-sm border border-slate-200/50 dark:border-gray-700/50 rounded-2xl p-6 overflow-hidden`}
+          className={`relative w-full h-24 bg-white/80 dark:bg-slate-800/80 backdrop-blur-md border border-slate-200 dark:border-slate-700 rounded-xl p-4 overflow-hidden shadow-lg`}
           style={{
             rotateX,
             rotateY,
@@ -226,11 +226,12 @@ const ModernSkills = () => {
             }}
           />
 
-          {/* Content */}
-          <div className="relative z-10 h-full flex flex-col justify-between">
-            <div className="flex items-center justify-between mb-4">
+          {/* Content - Horizontal Layout */}
+          <div className="relative z-10 h-full flex items-center gap-4">
+            {/* Icon and Name */}
+            <div className="flex items-center gap-3 flex-1 min-w-0">
               <motion.div
-                className="p-3 rounded-xl"
+                className="p-2 rounded-lg flex-shrink-0"
                 style={{
                   backgroundColor: `${skill.color}20`,
                   border: `1px solid ${skill.color}40`
@@ -241,7 +242,7 @@ const ModernSkills = () => {
                 }}
               >
                 <skill.icon
-                  size={32}
+                  size={24}
                   color={skill.color}
                   role="img"
                   aria-label={skill.name}
@@ -249,80 +250,84 @@ const ModernSkills = () => {
                 />
               </motion.div>
 
-              <motion.span
-                className="text-xs px-2 py-1 rounded-full border"
-                style={{
-                  color: skill.color,
-                  borderColor: `${skill.color}40`,
-                  backgroundColor: `${skill.color}10`
-                }}
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: index * 0.1 + 0.5 }}
-              >
-                {skill.category}
-              </motion.span>
+              <div className="flex-1 min-w-0">
+                <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100 truncate">
+                  {skill.name}
+                </h3>
+                <motion.span
+                  className="text-xs px-2 py-0.5 rounded-full border bg-slate-100 dark:bg-slate-700 inline-block mt-1"
+                  style={{
+                    color: skill.color,
+                    borderColor: `${skill.color}40`,
+                  }}
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: index * 0.1 + 0.5 }}
+                >
+                  {skill.category}
+                </motion.span>
+              </div>
             </div>
 
-            <div>
-              <h3 className="text-slate-900 dark:text-white text-lg font-semibold mb-3">
-                {skill.name}
-              </h3>
-
-              {/* Progress bar */}
-              <div className="space-y-2">
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-400">Proficiency</span>
-                  <span style={{ color: skill.color }}>{skill.level}%</span>
-                </div>
-                <div className="w-full bg-gray-800 rounded-full h-2 overflow-hidden">
-                  <motion.div
-                    className="h-full rounded-full"
-                    style={{
-                      backgroundColor: skill.color,
-                      boxShadow: `0 0 10px ${skill.color}40`
-                    }}
-                    initial={{ width: 0 }}
-                    animate={isInView ? { width: `${skill.level}%` } : { width: 0 }}
-                    transition={{
-                      duration: 1.5,
-                      delay: index * 0.1 + 0.8,
-                      ease: "easeOut"
-                    }}
-                  />
-                </div>
+            {/* Progress bar - Vertical on right */}
+            <div className="flex flex-col items-end gap-1 flex-shrink-0">
+              <span className="text-xs font-semibold" style={{ color: skill.color }}>
+                {skill.level}%
+              </span>
+              <div className="w-20 bg-slate-200 dark:bg-slate-700 rounded-full h-1.5 overflow-hidden">
+                <motion.div
+                  className="h-full rounded-full"
+                  style={{
+                    backgroundColor: skill.color,
+                    boxShadow: `0 0 8px ${skill.color}40`
+                  }}
+                  initial={{ width: 0 }}
+                  animate={isInView ? { width: `${skill.level}%` } : { width: 0 }}
+                  transition={{
+                    duration: 1.5,
+                    delay: index * 0.1 + 0.8,
+                    ease: "easeOut"
+                  }}
+                />
               </div>
             </div>
           </div>
 
           {/* Floating sparkles */}
           <div className="absolute inset-0 pointer-events-none z-10">
-            {[...Array(6)].map((_, i) => (
-              <motion.span
-                key={i}
-                className="absolute w-2 h-2 rounded-full"
-                style={{
-                  backgroundColor: skill.color,
-                  filter: 'blur(3px)',
-                  opacity: 0.6,
-                  left: `${Math.random() * 80 + 10}%`,
-                  top: `${Math.random() * 70 + 10}%`,
-                }}
-                animate={{
-                  x: [0, 4, -4, 0],
-                  y: [0, -6, 6, 0],
-                  opacity: [0.3, 0.8, 0.3],
-                  scale: [0.8, 1.3, 0.8],
-                  rotate: [0, 180, 360],
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  delay: i * 0.2,
-                  ease: "easeInOut",
-                }}
-              />
-            ))}
+            {[...Array(6)].map((_, i) => {
+              // Seeded random for consistent SSR/client positions
+              const seed = index * 1000 + i;
+              const leftPos = ((seed * 9301 + 49297) % 233280) / 233280 * 80 + 10;
+              const topPos = ((seed * 7919 + 31337) % 233280) / 233280 * 70 + 10;
+
+              return (
+                <motion.span
+                  key={i}
+                  className="absolute w-2 h-2 rounded-full"
+                  style={{
+                    backgroundColor: skill.color,
+                    filter: 'blur(3px)',
+                    opacity: 0.6,
+                    left: `${leftPos}%`,
+                    top: `${topPos}%`,
+                  }}
+                  animate={{
+                    x: [0, 4, -4, 0],
+                    y: [0, -6, 6, 0],
+                    opacity: [0.3, 0.8, 0.3],
+                    scale: [0.8, 1.3, 0.8],
+                    rotate: [0, 180, 360],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    delay: i * 0.2,
+                    ease: "easeInOut",
+                  }}
+                />
+              );
+            })}
           </div>
 
         </motion.div>
@@ -333,9 +338,9 @@ const ModernSkills = () => {
   SkillCard.displayName = 'SkillCard';
 
   return (
-    <section ref={ref} className="relative min-h-screen py-20 overflow-hidden">
+    <section ref={ref} className="relative min-h-screen py-20 overflow-hidden bg-slate-50 dark:bg-slate-950">
       {/* Background */}
-      <div className="absolute inset-0 bg-neutral-50 dark:bg-neutral-950 ">
+      <div className="absolute inset-0">
         {/* Animated grid pattern */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0"
@@ -364,13 +369,13 @@ const ModernSkills = () => {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-emerald-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 dark:from-blue-400 dark:via-purple-400 dark:to-emerald-400 bg-clip-text text-transparent">
               My Skills
             </span>
           </motion.h2>
 
           <motion.p
-            className="text-xl text-gray-300 max-w-3xl mx-auto"
+            className="text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto"
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.4 }}
