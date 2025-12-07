@@ -1,0 +1,16 @@
+{
+    "name": "Bimlesh - Full Stack Developer",
+    "short_name": "Bimlesh",
+    "description": "Full Stack Developer • Software Engineer • AI Explorer",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#0a0a0a",
+    "theme_color": "#a855f7",
+    "icons": [
+        {
+            "src": "/favicon.ico",
+            "sizes": "any",
+            "type": "image/x-icon"
+        }
+    ]
+}

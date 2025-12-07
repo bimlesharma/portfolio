@@ -6,6 +6,17 @@ import type { HashnodePost, HashnodeTag } from '@/lib/types/hashnode';
 import { IoMdArrowBack, IoMdTime } from "react-icons/io";
 import FallbackCover from '@/components/FallbackCover';
 import { headers } from 'next/headers';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'Blog',
+    description: 'Thoughts, tutorials, and insights on development, design, and everything in between.',
+    openGraph: {
+        title: 'Blog | Bimlesh',
+        description: 'Thoughts, tutorials, and insights on development, design, and everything in between.',
+        type: 'website',
+    },
+};
 
 export const revalidate = 3600;
 

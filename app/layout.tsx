@@ -14,8 +14,43 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Bimlesh",
+  title: {
+    default: "Bimlesh - Full Stack Developer",
+    template: "%s | Bimlesh",
+  },
   description: "Full Stack Developer • Software Engineer • AI Explorer",
+  keywords: ["Full Stack Developer", "Software Engineer", "AI", "Web Development", "React", "Next.js", "Node.js"],
+  authors: [{ name: "Bimlesh" }],
+  creator: "Bimlesh",
+  metadataBase: new URL('https://bimlesh.xyz'),
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://bimlesh.xyz',
+    title: 'Bimlesh - Full Stack Developer',
+    description: 'Full Stack Developer • Software Engineer • AI Explorer',
+    siteName: 'Bimlesh',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Bimlesh - Full Stack Developer',
+    description: 'Full Stack Developer • Software Engineer • AI Explorer',
+    creator: '@bimlesh',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
   other: {
     'google-adsense-account': 'ca-pub-1364506068858027',
   },
@@ -34,6 +69,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="manifest" href="/manifest.json" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

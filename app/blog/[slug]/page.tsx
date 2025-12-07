@@ -9,8 +9,40 @@ import FallbackCover from '@/components/FallbackCover';
 import BlogContent from '@/components/BlogContent';
 import styles from '../blog.module.css';
 import { headers } from 'next/headers';
+import type { Metadata } from 'next';
 
 export const revalidate = 3600;
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+    const { slug } = await params;
+    const post = await getPostBySlug(slug);
+
+    if (!post) {
+        return {
+            title: 'Post Not Found',
+        };
+    }
+
+    return {
+        title: post.title,
+        description: post.subtitle || post.brief,
+        keywords: post.tags?.map(tag => tag.name) || [],
+        openGraph: {
+            title: post.title,
+            description: post.subtitle || post.brief,
+            type: 'article',
+            publishedTime: post.publishedAt,
+            authors: ['Bimlesh'],
+            images: post.coverImage?.url ? [{ url: post.coverImage.url }] : [],
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title: post.title,
+            description: post.subtitle || post.brief,
+            images: post.coverImage?.url ? [post.coverImage.url] : [],
+        },
+    };
+}
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
