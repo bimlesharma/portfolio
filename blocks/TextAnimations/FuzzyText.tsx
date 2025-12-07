@@ -1,5 +1,6 @@
+'use client';
 /*
-	Installed from https://reactbits.dev/ts/tailwind/
+  Installed from https://reactbits.dev/ts/tailwind/
 */
 
 import React, { useEffect, useRef } from "react";
