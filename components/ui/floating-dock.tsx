@@ -181,6 +181,7 @@ function IconContainer({
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const isActive = id === activeSection;
+  const isBlog = id === "blog";
 
   const distance = useTransform(mouseX, (val) => {
     const bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
@@ -188,7 +189,12 @@ function IconContainer({
     return val - bounds.x - bounds.width / 2;
   });
 
-  const widthTransform = useTransform(distance, [-150, 0, 150], [40, 80, 40]);
+  // Blog button is wider to accommodate text
+  const widthTransform = useTransform(
+    distance,
+    [-150, 0, 150],
+    isBlog ? [80, 120, 80] : [40, 80, 40]
+  );
   const heightTransform = useTransform(distance, [-150, 0, 150], [40, 80, 40]);
 
   const widthTransformIcon = useTransform(distance, [-150, 0, 150], [20, 40, 20]);
@@ -223,26 +229,44 @@ function IconContainer({
   const [hovered, setHovered] = useState(false);
 
   return (
-    <a href={href}>
+    <a href={href} className="relative">
       <motion.div
         ref={ref}
-        style={{ width, height }}
+        style={{ width: isBlog ? width : width, height }}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
         className={cn(
-          "relative flex aspect-square items-center justify-center rounded-full transition-colors duration-300",
+          "relative flex items-center justify-center gap-2 transition-colors duration-300 overflow-hidden",
+          isBlog ? "rounded-full px-3" : "rounded-full",
           isActive
             ? "bg-gradient-to-br from-cyan-500/20 to-purple-500/20"
             : "bg-slate-800/50"
         )}
       >
+        {/* Rotating gradient ring for Blog */}
+        {isBlog && (
+          <>
+            <motion.div
+              className="absolute inset-[-100%]"
+              style={{
+                background: "conic-gradient(from 0deg, #000000, #ffffff, #000000)",
+                opacity: 0.5,
+              }}
+              animate={{ rotate: 360 }}
+              transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+            />
+            {/* Inner background to create border effect */}
+            <div className="absolute inset-[2px] rounded-full bg-slate-900 z-0" />
+          </>
+        )}
+
         <AnimatePresence>
-          {hovered && (
+          {hovered && !isBlog && (
             <motion.div
               initial={{ opacity: 0, y: 10, x: "-50%" }}
               animate={{ opacity: 1, y: 0, x: "-50%" }}
               exit={{ opacity: 0, y: 2, x: "-50%" }}
-              className="absolute -top-10 left-1/2 w-fit rounded-lg px-3 py-1.5 text-xs whitespace-pre font-medium shadow-xl"
+              className="absolute -top-10 left-1/2 w-fit rounded-lg px-3 py-1.5 text-xs whitespace-pre font-medium shadow-xl z-50"
               style={{
                 background: "linear-gradient(135deg, #06b6d4, #a78bfa)",
                 color: "#ffffff",
@@ -252,15 +276,23 @@ function IconContainer({
             </motion.div>
           )}
         </AnimatePresence>
+
+        {/* Icon and Blog text */}
         <motion.div
           style={{ width: widthIcon, height: heightIcon }}
           className={cn(
-            "flex items-center justify-center transition-colors duration-300",
-            isActive ? "text-cyan-400" : "text-slate-300"
+            "flex items-center justify-center transition-colors duration-300 relative z-10",
+            isActive ? "text-cyan-400" : isBlog ? "text-slate-300" : "text-slate-300"
           )}
         >
           {icon}
         </motion.div>
+
+        {isBlog && (
+          <span className="text-sm font-bold bg-slate-300 bg-clip-text text-transparent relative z-10">
+            Blog
+          </span>
+        )}
       </motion.div>
     </a>
   );

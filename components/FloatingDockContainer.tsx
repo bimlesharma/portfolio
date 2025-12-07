@@ -64,12 +64,6 @@ export default function FloatingDockContainer() {
             id: "projects",
         },
         {
-            title: "Blog",
-            icon: <IconFileText className="h-full w-full" />,
-            href: "/blog",
-            id: "blog",
-        },
-        {
             title: "Contact",
             icon: <IconMail className="h-full w-full" />,
             href: "#contact",
@@ -92,6 +86,12 @@ export default function FloatingDockContainer() {
             icon: <IconBrandLinkedin className="h-full w-full" />,
             href: "https://www.linkedin.com/in/bimlesharma/",
             id: "linkedin",
+        },
+        {
+            title: "Blog",
+            icon: <IconFileText className="h-full w-full" />,
+            href: "/blog",
+            id: "blog",
         },
     ];
 

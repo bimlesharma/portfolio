@@ -1,11 +1,13 @@
 'use client';
 
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 
 const experiences = [
   {
     role: 'Software Developer Intern',
     company: 'Government of India',
+    logo: 'https://media.licdn.com/dms/image/v2/D4D0BAQGEkNw8gQ527g/company-logo_200_200/company-logo_200_200/0/1696920514115?e=2147483647&v=beta&t=OmAFbSl_dqMKQJIRP86cW2HYfNS-kbOIkWBs-8eo_Sc',
     date: 'June 2025 – September 2025',
     description: [
       'Developed a GIS-based ENC Viewer using React.js and Leaflet.js, reducing map rendering latency by 40% and significantly improving multi-layer chart navigation.',
@@ -71,8 +73,20 @@ export default function ExperienceSection() {
                 <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
                   <div className="flex items-start gap-4">
                     {/* Company Icon */}
-                    <div className="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center text-white text-2xl font-bold shadow-lg">
-                      {exp.company.charAt(0)}
+                    <div className="flex-shrink-0 w-16 h-16 bg-white rounded-xl flex items-center justify-center shadow-lg overflow-hidden border border-slate-200 dark:border-slate-700">
+                      {exp.logo ? (
+                        <Image
+                          src={exp.logo}
+                          alt={exp.company}
+                          width={64}
+                          height={64}
+                          className="object-contain w-full h-full p-2"
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center text-white text-2xl font-bold">
+                          {exp.company.charAt(0)}
+                        </div>
+                      )}
                     </div>
 
                     <div>

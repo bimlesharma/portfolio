@@ -92,10 +92,28 @@ const HeroSection = () => {
                   download
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="relative px-6 py-3 rounded-lg bg-white dark:bg-slate-800 text-blue-600 dark:text-blue-400 border-2 border-blue-600 dark:border-blue-400 font-semibold shadow-lg hover:bg-blue-50 dark:hover:bg-slate-700 transition duration-300 ease-in-out flex items-center justify-center gap-2"
+                  className="relative rounded-lg shadow-lg group cursor-pointer"
                 >
-                  <Download size={20} />
-                  Download Resume
+                  <div className="relative px-6 py-3 rounded-lg overflow-hidden flex items-center justify-center">
+                    {/* Rotating Gradient Ring */}
+                    <motion.div
+                      className="absolute inset-[-1000%]"
+                      style={{
+                        background: "conic-gradient(from 0deg, #3b82f6, #06b6d4, #8b5cf6, #3b82f6)",
+                      }}
+                      animate={{ rotate: 360 }}
+                      transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+                    />
+
+                    {/* Inner Background Mask */}
+                    <div className="absolute inset-[2px] rounded-[6px] bg-white dark:bg-slate-800 transition-colors duration-300 group-hover:bg-blue-50 dark:group-hover:bg-slate-700" />
+
+                    {/* Content */}
+                    <div className="relative z-10 flex items-center justify-center gap-2 text-blue-600 dark:text-blue-400 font-semibold">
+                      <Download size={20} />
+                      Download Resume
+                    </div>
+                  </div>
                 </motion.a>
               </div>
             </motion.div>
