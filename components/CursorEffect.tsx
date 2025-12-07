@@ -15,7 +15,7 @@ interface Particle {
 export default function CursorEffect() {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const particlesRef = useRef<Particle[]>([]);
-    const mouseRef = useRef({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
+    const mouseRef = useRef({ x: 0, y: 0 });
     const animationFrameRef = useRef<number | undefined>(undefined);
 
     useEffect(() => {
@@ -42,7 +42,7 @@ export default function CursorEffect() {
                 '#f59e0b', // Amber
             ];
 
-            particlesRef.current = Array.from({ length: particleCount }, (_, i) => ({
+            particlesRef.current = Array.from({ length: particleCount }, () => ({
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height,
                 vx: (Math.random() - 0.5) * 0.5,

@@ -50,7 +50,7 @@ const HeroSection = () => {
               transition={{ duration: 0.8 }}
               className="text-center lg:text-left flex flex-col items-center lg:items-start px-4 sm:px-6 lg:px-0"
             >
-              <p className="text-base text-blue-600 dark:text-blue-400 font-semibold">Hi, I'm</p>
+              <p className="text-base text-blue-600 dark:text-blue-400 font-semibold">Hi, I&apos;m</p>
               <h1 className="text-5xl sm:text-5xl md:text-6xl font-extrabold leading-tight uppercase bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 dark:from-blue-400 dark:via-purple-400 dark:to-emerald-400 bg-clip-text text-transparent">
                 Bimlesh
               </h1>

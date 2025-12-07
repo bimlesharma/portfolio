@@ -144,7 +144,7 @@ export default function Footer() {
                 href="#contact"
                 className="inline-block px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-sm font-semibold rounded-lg transition-all duration-300 hover:shadow-lg hover:scale-105"
               >
-                Let's Work Together
+                Let&apos;s Work Together
               </a>
             </div>
           </motion.div>

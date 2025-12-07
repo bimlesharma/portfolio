@@ -2,9 +2,8 @@
 
 import { useRef } from 'react';
 import React from 'react';
-import { motion, useMotionValue, useTransform, useInView } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
 
 const projects = [
   {
@@ -97,7 +96,6 @@ const projects = [
 
 export default function ProjectsSection() {
   const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, amount: 0.2 });
 
   return (
     <section
