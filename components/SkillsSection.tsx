@@ -1,6 +1,6 @@
 "use client";
 import React, { useRef, useState } from "react";
-import { motion, useInView, useMotionValue, useTransform } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import {
   SiReact, SiNextdotjs, SiTypescript, SiNodedotjs, SiPython,
   SiMongodb, SiPostgresql, SiDocker,
@@ -338,7 +338,7 @@ const ModernSkills = () => {
   SkillCard.displayName = 'SkillCard';
 
   return (
-    <section ref={ref} className="relative min-h-screen py-20 overflow-hidden bg-slate-50 dark:bg-slate-950">
+    <section ref={ref} className="relative min-h-screen py-20 bg-slate-50 dark:bg-slate-950 overflow-x-hidden">
       {/* Background */}
       <div className="absolute inset-0">
         {/* Animated grid pattern */}

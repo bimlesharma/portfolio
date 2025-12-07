@@ -34,7 +34,7 @@ export default function AchievementsSection() {
     return (
         <section
             id="achievements"
-            className="relative py-20 min-h-screen bg-slate-50 dark:bg-slate-950"
+            className="relative py-20 min-h-screen bg-slate-50 dark:bg-slate-950 overflow-x-hidden"
         >
             {/* Grid Background */}
             <div className="absolute inset-0 opacity-5">

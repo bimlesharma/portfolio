@@ -19,7 +19,7 @@ export default function ExperienceSection() {
   return (
     <section
       id="experience"
-      className="relative py-20 min-h-screen bg-white dark:bg-slate-900"
+      className="relative py-20 min-h-screen bg-white dark:bg-slate-900 overflow-x-hidden"
     >
       {/* Grid Background */}
       <div className="absolute inset-0 opacity-5">

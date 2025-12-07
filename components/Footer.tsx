@@ -22,7 +22,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="relative bg-slate-900 dark:bg-slate-950 text-slate-300 border-t border-slate-800">
+    <footer className="relative bg-slate-900 dark:bg-slate-950 text-slate-300 border-t border-slate-800 overflow-x-hidden">
       {/* Gradient Overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent to-slate-950/50 pointer-events-none" />
 

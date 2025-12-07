@@ -38,7 +38,7 @@ const SkillTag = ({ icon, text, position, color }: SkillTagProps) => (
 
 const HeroSection = () => {
   return (
-    <div className="min-h-screen w-full font-sans overflow-hidden ">
+    <div className="min-h-screen w-full font-sans overflow-x-hidden ">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main Section */}
         <main className="mt-12 lg:mt-32">

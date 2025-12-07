@@ -14,7 +14,7 @@ import CursorEffect from '@/components/CursorEffect';
 
 export default function Home() {
   return (
-    <main>
+    <main className="overflow-x-hidden">
       <CursorEffect />
       <HeroSection />
       {/* <AboutSection /> */}

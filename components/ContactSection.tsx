@@ -97,7 +97,7 @@ export default function ContactSection() {
   return (
     <section
       id="contact"
-      className="relative min-h-screen bg-white dark:bg-slate-900 py-20 px-4"
+      className="relative min-h-screen bg-white dark:bg-slate-900 py-20 px-4 overflow-x-hidden"
     >
       {/* Grid Background */}
       <div className="absolute inset-0 opacity-5">

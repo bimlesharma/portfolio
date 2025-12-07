@@ -101,7 +101,7 @@ export default function ProjectsSection() {
     <section
       ref={sectionRef}
       id="projects"
-      className="relative py-32 min-h-screen bg-slate-50 dark:bg-slate-950 overflow-hidden"
+      className="relative py-32 min-h-screen bg-slate-50 dark:bg-slate-950 overflow-x-hidden"
     >
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">

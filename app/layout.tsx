@@ -18,6 +18,12 @@ export const metadata: Metadata = {
   description: "Full Stack Developer • Software Engineer • AI Explorer",
 };
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
