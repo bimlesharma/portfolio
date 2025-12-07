@@ -16,6 +16,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Bimlesh",
   description: "Full Stack Developer • Software Engineer • AI Explorer",
+  other: {
+    'google-adsense-account': 'ca-pub-1364506068858027',
+  },
 };
 
 export const viewport = {
