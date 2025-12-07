@@ -1,4 +1,6 @@
-export const getHashnodePosts = async () => {
+import type { HashnodePost, HashnodePostDetail } from './types/hashnode';
+
+export const getHashnodePosts = async (): Promise<HashnodePost[]> => {
     const query = `
     query {
       publication(id: "69086b38b72ed24db2c31280") {
@@ -36,14 +38,14 @@ export const getHashnodePosts = async () => {
         });
 
         const { data } = await response.json();
-        return data.publication.posts.edges.map((edge: any) => edge.node);
+        return data.publication.posts.edges.map((edge: { node: HashnodePost }) => edge.node);
     } catch (error) {
         console.error('Error fetching Hashnode posts:', error);
         return [];
     }
 };
 
-export const getPostBySlug = async (slug: string) => {
+export const getPostBySlug = async (slug: string): Promise<HashnodePostDetail | null> => {
     const query = `
     query {
       publication(id: "69086b38b72ed24db2c31280") {

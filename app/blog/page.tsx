@@ -2,8 +2,8 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { getHashnodePosts } from '@/lib/hashnode';
+import type { HashnodePost, HashnodeTag } from '@/lib/types/hashnode';
 import { IoMdArrowBack, IoMdTime } from "react-icons/io";
-import { motion } from 'framer-motion';
 
 export const revalidate = 3600;
 
@@ -64,7 +64,7 @@ const BlogPage = async () => {
                                     </div>
                                     {featuredPost.tags && featuredPost.tags.length > 0 && (
                                         <div className="flex flex-wrap gap-2 mt-6">
-                                            {featuredPost.tags.slice(0, 3).map((tag: any, idx: number) => (
+                                            {featuredPost.tags.slice(0, 3).map((tag: HashnodeTag, idx: number) => (
                                                 <span key={idx} className="px-3 py-1 text-xs bg-neutral-800/50 border border-neutral-700 rounded-full text-neutral-300">
                                                     {tag.name}
                                                 </span>
@@ -96,7 +96,7 @@ const BlogPage = async () => {
                     <>
                         <h2 className="text-3xl font-bold mb-8 text-neutral-200">Recent Posts</h2>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                            {otherPosts.map((post: any) => (
+                            {otherPosts.map((post: HashnodePost) => (
                                 <Link
                                     href={`/blog/${post.slug}`}
                                     key={post.id}
@@ -134,7 +134,7 @@ const BlogPage = async () => {
                                         </div>
                                         {post.tags && post.tags.length > 0 && (
                                             <div className="flex flex-wrap gap-2">
-                                                {post.tags.slice(0, 2).map((tag: any, idx: number) => (
+                                                {post.tags.slice(0, 2).map((tag: HashnodeTag, idx: number) => (
                                                     <span key={idx} className="px-2 py-1 text-xs bg-neutral-800/50 border border-neutral-700 rounded-full text-neutral-400">
                                                         {tag.name}
                                                     </span>

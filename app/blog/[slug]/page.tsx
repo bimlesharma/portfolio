@@ -2,6 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { getPostBySlug, getHashnodePosts } from '@/lib/hashnode';
+import type { HashnodePost, HashnodeTag } from '@/lib/types/hashnode';
 import { IoMdArrowBack, IoMdTime, IoMdCalendar } from "react-icons/io";
 import ScrollProgress from '@/components/ScrollProgress';
 import styles from '../blog.module.css';
@@ -27,7 +28,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     }
 
     // Get 3 recent posts excluding current one
-    const recentPosts = allPosts.filter((p: any) => p.slug !== slug).slice(0, 3);
+    const recentPosts = allPosts.filter((p: HashnodePost) => p.slug !== slug).slice(0, 3);
 
     return (
         <>
@@ -79,7 +80,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                         {/* Tags */}
                         {post.tags && post.tags.length > 0 && (
                             <div className="flex flex-wrap gap-2">
-                                {post.tags.map((tag: any, idx: number) => (
+                                {post.tags.map((tag: HashnodeTag, idx: number) => (
                                     <span
                                         key={idx}
                                         className="px-3 py-1.5 text-sm bg-purple-500/10 border border-purple-500/30 rounded-full text-purple-300 hover:bg-purple-500/20 transition-colors"
@@ -118,7 +119,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                             Read Next
                         </h2>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            {recentPosts.map((recentPost: any) => (
+                            {recentPosts.map((recentPost: HashnodePost) => (
                                 <Link
                                     key={recentPost.id}
                                     href={`/blog/${recentPost.slug}`}
