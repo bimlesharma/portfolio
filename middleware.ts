@@ -8,7 +8,7 @@ export function middleware(request: NextRequest) {
     if (hostname.startsWith('blog.')) {
         const url = request.nextUrl.clone();
 
-        // If already on /blog path, continue
+        // If already on /blog path, don't add it again
         if (url.pathname.startsWith('/blog')) {
             return NextResponse.next();
         }
@@ -19,9 +19,11 @@ export function middleware(request: NextRequest) {
             return NextResponse.rewrite(url);
         }
 
-        // Rewrite other paths to /blog/path
-        url.pathname = `/blog${url.pathname}`;
-        return NextResponse.rewrite(url);
+        // Rewrite other paths to /blog/path (only if not already prefixed)
+        if (!url.pathname.startsWith('/blog/')) {
+            url.pathname = `/blog${url.pathname}`;
+            return NextResponse.rewrite(url);
+        }
     }
 
     return NextResponse.next();
