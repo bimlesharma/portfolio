@@ -14,11 +14,17 @@ export function middleware(request: NextRequest) {
         return NextResponse.redirect(url, 301);
     }
 
-    // If on blog subdomain, rewrite to /blog path internally (but URL stays clean)
+    // If on blog subdomain, rewrite to /blog path internally
     if (hostname.startsWith('blog.')) {
         const url = request.nextUrl.clone();
 
-        // Don't rewrite if already has /blog prefix
+        // Root path on subdomain -> /blog
+        if (pathname === '/') {
+            url.pathname = '/blog';
+            return NextResponse.rewrite(url);
+        }
+
+        // Other paths on subdomain -> /blog/path (if not already prefixed)
         if (!pathname.startsWith('/blog')) {
             url.pathname = `/blog${pathname}`;
             return NextResponse.rewrite(url);
