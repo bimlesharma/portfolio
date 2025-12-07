@@ -5,12 +5,19 @@ import { getHashnodePosts } from '@/lib/hashnode';
 import type { HashnodePost, HashnodeTag } from '@/lib/types/hashnode';
 import { IoMdArrowBack, IoMdTime } from "react-icons/io";
 import FallbackCover from '@/components/FallbackCover';
+import { headers } from 'next/headers';
 
 export const revalidate = 3600;
 
 const BlogPage = async () => {
     const posts = await getHashnodePosts();
     const [featuredPost, ...otherPosts] = posts;
+
+    // Check if we're on blog subdomain
+    const headersList = await headers();
+    const hostname = headersList.get('host') || '';
+    const isSubdomain = hostname.startsWith('blog.');
+    const basePath = isSubdomain ? '' : '/blog';
 
     return (
         <main className="min-h-screen bg-neutral-950 text-white relative overflow-hidden">
@@ -40,7 +47,7 @@ const BlogPage = async () => {
                 {/* Featured Post */}
                 {featuredPost && (
                     <Link
-                        href={`/blog/${featuredPost.slug}`}
+                        href={`${basePath}/${featuredPost.slug}`}
                         className="group block mb-20"
                     >
                         <div className="relative bg-gradient-to-br from-purple-900/20 to-blue-900/20 border border-purple-500/30 rounded-3xl overflow-hidden hover:border-purple-400/50 transition-all duration-500 hover:shadow-[0_0_80px_-12px_rgba(168,85,247,0.6)]">
@@ -97,7 +104,7 @@ const BlogPage = async () => {
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                             {otherPosts.map((post: HashnodePost) => (
                                 <Link
-                                    href={`/blog/${post.slug}`}
+                                    href={`${basePath}/${post.slug}`}
                                     key={post.id}
                                     className="group relative bg-neutral-900/50 border border-neutral-800 rounded-2xl overflow-hidden hover:border-purple-500/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_0_50px_-12px_rgba(168,85,247,0.5)]"
                                 >

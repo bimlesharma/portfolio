@@ -8,6 +8,7 @@ import ScrollProgress from '@/components/ScrollProgress';
 import FallbackCover from '@/components/FallbackCover';
 import BlogContent from '@/components/BlogContent';
 import styles from '../blog.module.css';
+import { headers } from 'next/headers';
 
 export const revalidate = 3600;
 
@@ -32,6 +33,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     // Get 3 recent posts excluding current one
     const recentPosts = allPosts.filter((p: HashnodePost) => p.slug !== slug).slice(0, 3);
 
+    // Check if we're on blog subdomain
+    const headersList = await headers();
+    const hostname = headersList.get('host') || '';
+    const isSubdomain = hostname.startsWith('blog.');
+    const basePath = isSubdomain ? '' : '/blog';
+
     return (
         <>
             <ScrollProgress />
@@ -43,7 +50,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 </div>
 
                 <article className="max-w-4xl mx-auto px-6 py-12 md:py-20">
-                    <Link href="/blog" className="inline-flex items-center gap-2 text-neutral-400 hover:text-white transition-colors mb-8 group">
+                    <Link href={basePath || '/'} className="inline-flex items-center gap-2 text-neutral-400 hover:text-white transition-colors mb-8 group">
                         <IoMdArrowBack className="group-hover:-translate-x-1 transition-transform" />
                         Back to Blog
                     </Link>
@@ -125,7 +132,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                             {recentPosts.map((recentPost: HashnodePost) => (
                                 <Link
                                     key={recentPost.id}
-                                    href={`/blog/${recentPost.slug}`}
+                                    href={`${basePath}/${recentPost.slug}`}
                                     className="group bg-neutral-900/50 border border-neutral-800 rounded-xl overflow-hidden hover:border-purple-500/50 transition-all duration-300 hover:-translate-y-1"
                                 >
                                     <div className="aspect-video relative overflow-hidden">
