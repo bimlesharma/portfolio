@@ -7,15 +7,6 @@ import Image from 'next/image';
 
 const projects = [
   {
-    title: 'Secure Multi-LLM SaaS Platform',
-    description: 'Secure multi-LLM SaaS platform with FastAPI and spaCy-driven data sanitization, ensuring safe prompt processing across organizations. Built scalable multi-tenant architecture with Auth0 RBAC and integrated Gemini API with LangChain pipelines.',
-    tech: ['Next.js', 'Express.js', 'FastAPI', 'MongoDB', 'Redis', 'Auth0', 'LangChain'],
-    color: '#8B5CF6',
-    image: '/images/multi-llm-preview.png',
-    github: '',
-    demo: '',
-  },
-  {
     title: 'StockBubbles.net',
     description: 'Real-time stock-market visualization platform using dynamic bubble charts with performance-based sizing and coloring. Integrated multiple Indian indices with MongoDB Atlas + Redis caching for low-latency data delivery. Deployed on VPS using Docker and CI/CD.',
     tech: ['Next.js', 'Express.js', 'MongoDB', 'Redis', 'Docker'],
@@ -23,6 +14,24 @@ const projects = [
     image: '/images/stockbubbles-preview.png',
     github: '',
     demo: 'https://stockbubbles.net',
+  },
+  {
+    title: 'ListPeers — Consent-Driven Academic Analytics',
+    description: 'Privacy-first academic analytics platform with explicit consent controls, audit logging, and row-level security. Designed fine-grained privacy controls for peer comparison including opt-in sharing, ranking participation, and identity visibility. Implemented GDPR-aligned data deletion workflows with immutable audit trails using database triggers.',
+    tech: ['Next.js', 'Supabase', 'PostgreSQL', 'Row-Level Security', 'OAuth', 'RPCs'],
+    color: '#EC4899',
+    image: '/images/listpeers-preview.png',
+    github: 'https://github.com/bimlesharma/listpeers',
+    demo: 'https://listpeers.vercel.app/',
+  },
+  {
+    title: 'Smart Delhi Ideathon 2025',
+    description: 'Scalable Next.js event portal handling high-traffic spikes from 5,000+ participants. Developed 15+ reusable components and designed secure SQL-backed system for registrations and project submissions with strong validation workflows.',
+    tech: ['Next.js', 'TypeScript', 'PostgreSQL', 'Firebase', 'Vercel'],
+    color: '#3B82F6',
+    image: '/images/sdi2025-preview.png',
+    github: 'https://github.com/bimlesharma/sdi2025-website',
+    demo: 'https://sdi2025-website.vercel.app/',
   },
   {
     title: 'CryptoWaley',
@@ -34,13 +43,13 @@ const projects = [
     demo: 'https://cryptowaley.com',
   },
   {
-    title: 'Smart Delhi Ideathon 2025',
-    description: 'Scalable Next.js event portal handling high-traffic spikes from 5,000+ participants. Developed 15+ reusable components and designed secure SQL-backed system for registrations and project submissions with strong validation workflows.',
-    tech: ['Next.js', 'TypeScript', 'PostgreSQL', 'Firebase', 'Vercel'],
-    color: '#3B82F6',
-    image: '/images/sdi2025-preview.png',
-    github: 'https://github.com/bimlesharma/sdi2025-website',
-    demo: 'https://sdi2025.in',
+    title: 'Secure Multi-LLM SaaS Platform',
+    description: 'Secure multi-LLM SaaS platform with FastAPI and spaCy-driven data sanitization, ensuring safe prompt processing across organizations. Built scalable multi-tenant architecture with Auth0 RBAC and integrated Gemini API with LangChain pipelines.',
+    tech: ['Next.js', 'Express.js', 'FastAPI', 'MongoDB', 'Redis', 'Auth0', 'LangChain'],
+    color: '#8B5CF6',
+    image: '/images/multi-llm-preview.png',
+    github: '',
+    demo: '',
   },
 ];
 

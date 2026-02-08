@@ -17,6 +17,15 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  redirects: async () => {
+    return [
+      {
+        source: '/:path*',
+        destination: 'https://bimlesh.vercel.app/:path*',
+        permanent: false,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
