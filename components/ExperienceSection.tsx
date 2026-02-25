@@ -8,11 +8,12 @@ const experiences = [
     role: 'Software Developer Intern',
     company: 'Government of India',
     logo: 'https://media.licdn.com/dms/image/v2/D4D0BAQGEkNw8gQ527g/company-logo_200_200/company-logo_200_200/0/1696920514115?e=2147483647&v=beta&t=OmAFbSl_dqMKQJIRP86cW2HYfNS-kbOIkWBs-8eo_Sc',
-    date: 'June 2025 – September 2025',
+    date: 'Jun 2025 – Sep 2025, Jan 2026 – Present',
     description: [
-      'Developed a GIS-based ENC Viewer using React.js and Leaflet.js, reducing map rendering latency by 40% and significantly improving multi-layer chart navigation.',
-      'Implemented local dataset rendering using Natural Earth files, enabling reliable ENC map access on restricted-networks and offline government systems.',
-      'Integrated OGC-compliant WMS/WFS layers to enhance real-time chart visualization and significantly improve geospatial data interoperability.'
+      'Built interactive GIS-based web interfaces using React.js, enabling smooth navigation across complex multi-layer map views.',
+      'Improved frontend rendering performance by 40% through optimized state updates and efficient component re-renders.',
+      'Designed offline-capable UI workflows to support users on restricted-network government systems.',
+      'Integrated real-time geospatial layers (WMS/WFS) into frontend components for dynamic data visualization.'
     ]
   },
 ];

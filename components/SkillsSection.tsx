@@ -338,7 +338,7 @@ const ModernSkills = () => {
   SkillCard.displayName = 'SkillCard';
 
   return (
-    <section ref={ref} className="relative min-h-screen py-20 bg-slate-50 dark:bg-slate-950 overflow-x-hidden">
+    <section id="skills" ref={ref} className="relative min-h-screen py-20 bg-slate-50 dark:bg-slate-950 overflow-x-hidden">
       {/* Background */}
       <div className="absolute inset-0">
         {/* Animated grid pattern */}
