@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import { BrainCircuit, LayoutTemplate, Code, Download } from 'lucide-react';
+import { BrainCircuit, LayoutTemplate, Code, ExternalLink } from 'lucide-react';
 import { motion } from 'framer-motion';
 import clsx from 'clsx';
 import { TypeAnimation } from 'react-type-animation';
@@ -89,7 +89,8 @@ const HeroSection = () => {
 
                 <motion.a
                   href="/bimlesh_resume.pdf"
-                  download
+                  target="_blank"
+                  rel="noopener noreferrer"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="relative rounded-lg shadow-lg group cursor-pointer"
@@ -110,8 +111,8 @@ const HeroSection = () => {
 
                     {/* Content */}
                     <div className="relative z-10 flex items-center justify-center gap-2 text-blue-600 dark:text-blue-400 font-semibold">
-                      <Download size={20} />
-                      Download Resume
+                      My Resume
+                      <ExternalLink size={20} />
                     </div>
                   </div>
                 </motion.a>
