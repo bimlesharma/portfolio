@@ -6,7 +6,7 @@ import {
     IconBrandX,
     IconHome,
     IconTerminal2,
-    IconFileText,
+    // IconFileText,
     IconMail,
     IconBrandLinkedin,
 } from "@tabler/icons-react";
