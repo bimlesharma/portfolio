@@ -1,10 +1,10 @@
 'use client';
-import Image from 'next/image';
 import { BrainCircuit, LayoutTemplate, Code, ExternalLink } from 'lucide-react';
 import { motion } from 'framer-motion';
 import clsx from 'clsx';
 import { TypeAnimation } from 'react-type-animation';
 import FloatingDockContainer from '@/components/FloatingDockContainer';
+import AsciiPortrait from '@/components/AsciiPortrait';
 
 type SkillTagProps = {
   icon: React.ReactNode;
@@ -127,13 +127,10 @@ const HeroSection = () => {
               className="relative flex justify-center items-center h-[500px] lg:h-[650px] mb-10 -mt-12 md:mt-0 lg:mb-0 bg-pink-80"
             >
               <div className="z-0 w-full h-full max-w-sm md:max-w-md lg:max-w-lg flex items-end justify-center rounded-b-full overflow-hidden">
-                <Image
-                  src="/images/me2.png"
-                  alt="Bimlesh Sharma"
-                  width={450}
-                  height={600}
-                  priority
-                  className="object-contain object-bottom h-full"
+                <AsciiPortrait
+                  imageSrc="/images/me2.png"
+                  cols={135}
+                  revealRadius={100}
                 />
               </div>
 
