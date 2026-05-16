@@ -10,23 +10,39 @@ const achievements = [
         year: '2025',
         icon: FaTrophy,
         color: '#F59E0B',
-        description: 'Won the Major League Hacking track at one of India\'s premier hackathons'
+        description: 'Recognized for best use of Generative AI & Auth0 at one of India\'s premier hackathons'
     },
     {
-        title: 'Top 10 Finalist',
-        event: 'GSMA Open Gateway Hackathon',
+        title: 'Top 10 Global Finalist',
+        event: 'GSMA Gateway Hackathon | Nokia\'s Network as Code Challenge',
         year: '2025',
         icon: FaMedal,
         color: '#3B82F6',
-        description: 'Secured position in top 10 teams among hundreds of participants globally'
+        description: 'Secured top 10 position globally at IMC 2025 among hundreds of participants'
     },
     {
-        title: 'SIH Finalist',
+        title: 'SIH 2024 Finalist',
         event: 'Smart India Hackathon 2024',
         year: '2024',
         icon: FaAward,
         color: '#10B981',
-        description: 'Qualified for the national finals (Problem Statement: SIH1682)'
+        description: 'Ranked Top 5 teams out of 500 for Problem Statement 1682'
+    },
+    {
+        title: '4th Position',
+        event: 'HackUnicorn 1.0',
+        year: '2023',
+        icon: FaMedal,
+        color: '#8B5CF6',
+        description: 'Secured 4th position competing against top engineering teams'
+    },
+    {
+        title: '3rd Position',
+        event: 'Hack Heaven Hackathon',
+        year: '2023',
+        icon: FaTrophy,
+        color: '#EC4899',
+        description: 'Won 3rd place for innovative problem-solving and technical execution'
     },
 ];
 

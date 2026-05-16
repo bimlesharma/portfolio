@@ -38,15 +38,15 @@ export default function AboutSection() {
             About Me
           </h2>
           <p className="text-gray-600 dark:text-gray-300 text-md leading-relaxed">
-            Hey there! I&apos;m <strong>Bimlesh</strong>, a passionate full stack developer with a love for clean code, thoughtful UX, and building things that matter.
+            Hey there! I&apos;m <strong>Bimlesh</strong>, a full-stack engineer who architects and ships production-grade systems end-to-end. I specialize in building fast, scalable, and deployment-ready platforms.
             <br /><br />
-            I specialize in creating fast, responsive, and accessible web apps using modern technologies like <strong>React</strong>, <strong>Next.js</strong>, <strong>Node.js</strong>, and <strong>Tailwind CSS</strong>. I&apos;m also deeply interested in <strong>AI/ML</strong> and how it intersects with web applications.
+            I work with modern technologies like <strong>React</strong>, <strong>Next.js</strong>, <strong>Express.js</strong>, <strong>MongoDB</strong>, <strong>PostgreSQL</strong>, <strong>Redis</strong>, and <strong>Docker</strong>. I&apos;m also deeply interested in <strong>AI/ML</strong> and building intelligent, data-driven applications.
           </p>
           <ul className="list-disc pl-5 text-gray-500 dark:text-gray-400">
-            <li>💻 1+ years of full-stack experience</li>
-            <li>🧠 Always exploring AI + creative tech</li>
-            <li>🌍 Based in Delhi, India</li>
-            <li>☕ Coffee + code = productivity</li>
+            <li>💻 2+ years of full-stack development experience</li>
+            <li>🏛️ Built production systems for Government of India</li>
+            <li>🧠 Exploring AI + GenAI + creative tech</li>
+            <li>🌍 Based in New Delhi, India</li>
           </ul>
         </motion.div>
 

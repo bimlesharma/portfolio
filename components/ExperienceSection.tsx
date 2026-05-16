@@ -7,13 +7,24 @@ const experiences = [
   {
     role: 'Software Developer Intern',
     company: 'Government of India',
-    logo: 'https://media.licdn.com/dms/image/v2/D4D0BAQGEkNw8gQ527g/company-logo_200_200/company-logo_200_200/0/1696920514115?e=2147483647&v=beta&t=OmAFbSl_dqMKQJIRP86cW2HYfNS-kbOIkWBs-8eo_Sc',
-    date: 'Jun 2025 – Sep 2025, Jan 2026 – Present',
+    logo: '/images/gov-india-logo.jpg',
+    date: 'Jun 2025 – Sep 2025, Jan 2026 – Apr 2026',
     description: [
-      'Built interactive GIS-based web interfaces using React.js, enabling smooth navigation across complex multi-layer map views.',
-      'Improved frontend rendering performance by 40% through optimized state updates and efficient component re-renders.',
-      'Designed offline-capable UI workflows to support users on restricted-network government systems.',
-      'Integrated real-time geospatial layers (WMS/WFS) into frontend components for dynamic data visualization.'
+      'Architected and developed a full-stack WebGIS platform using Next.js, Express.js, and GeoServer to visualize 170+ Electronic Navigational Chart (ENC) layer types with interactive spatial analysis tools.',
+      'Designed multi-tier system architecture (6 Docker Compose services, Nginx reverse proxy) with offline deployment support for air-gapped government environments (~1.1 GB self-contained package).',
+      'Built project workspace state management that serializes entire user sessions — map viewport, layers, drawings, markers, imported files, tool states — into persistent JSON objects backed by Redis + MongoDB.',
+      'Developed spatial analysis engine using PostGIS ST_Intersects with GiST indexing, supporting buffer queries across multiple geometry types (point, line, polygon, rectangle, circle, coordinates).',
+    ]
+  },
+  {
+    role: 'Web Developer Intern',
+    company: 'CryptoWaley',
+    logo: '/images/cryptowaley-logo.jpeg',
+    date: 'Mar 2024 – Jun 2024',
+    description: [
+      'Engineered scalable and reusable React.js UI components, improving development speed by 30% and establishing a consistent design system across the platform.',
+      'Developed a fully dynamic, SEO-friendly blog module supporting real-time content publishing, resulting in a 25% increase in user engagement and session duration.',
+      'Optimized application performance through state management improvements, code-splitting, and memoization, delivering smoother interactions and faster load times.',
     ]
   },
 ];

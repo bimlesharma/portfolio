@@ -8,7 +8,7 @@ const education = [
     institution: 'Guru Gobind Singh Indraprastha University, New Delhi',
     duration: '2022 – 2026',
     highlights: [
-      'CGPA: 8.476 (Top 10% of the class)',
+      'CGPA: 8.53',
       'Joint Secretary @ IEEE USAR',
     ],
   },

@@ -72,10 +72,10 @@ const HeroSection = () => {
                 />
               </div>
               <p className="hidden md:block text-lg text-slate-600 dark:text-slate-300 max-w-xl mx-auto md:mx-0 mt-4">
-                Full-stack engineer who builds fast, scalable, and deployment-ready systems. Experienced in real-time visualizations, multi-tenant SaaS, secure backend architectures, and high-traffic platforms.
+                Full-stack engineer passionate about building scalable, production-grade systems. Experienced in real-time visualizations, multi-tenant SaaS, GenAI-powered platforms, and containerized deployments.
               </p>
               <p className="hidden md:block text-lg text-slate-600 dark:text-slate-300 max-w-xl mx-auto md:mx-0 mt-2">
-                Strong engineering instincts around performance optimization, caching, API design, and system architecture.
+                Strong instincts around system design, performance optimization, caching, and security.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start mt-6">
                 <motion.a

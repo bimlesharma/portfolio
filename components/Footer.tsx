@@ -163,7 +163,7 @@ export default function Footer() {
           >
             © {currentYear} Bimlesh. Built with
             <FaHeart className="text-red-500 animate-pulse" />
-            using Next.js & Tailwind CSS
+            using Next.js
           </motion.p>
 
           <motion.p
@@ -173,7 +173,7 @@ export default function Footer() {
             transition={{ duration: 0.5, delay: 0.5 }}
             className="text-slate-600"
           >
-            Designed & Developed by Bimlesh Sharma
+            Designed & Developed by Bimlesh
           </motion.p>
         </div>
       </div>

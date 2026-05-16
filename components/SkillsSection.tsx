@@ -5,8 +5,8 @@ import {
   SiReact, SiNextdotjs, SiTypescript, SiNodedotjs, SiPython,
   SiMongodb, SiPostgresql, SiDocker,
   SiTailwindcss, SiJavascript, SiGit, SiExpress, SiRedis,
-  SiGraphql, SiPrisma, SiFigma, SiFastapi,
-  SiFirebase, SiVercel
+  SiGraphql, SiFigma, SiFastapi,
+  SiFirebase, SiVercel, SiNginx, SiSupabase, SiKubernetes
 } from "react-icons/si";
 import { FaGolang, FaAws } from "react-icons/fa6";
 
@@ -111,6 +111,13 @@ const ModernSkills = () => {
       level: 75,
       category: "Backend"
     },
+    {
+      name: "Nginx",
+      icon: SiNginx,
+      color: "#009639",
+      level: 78,
+      category: "Backend"
+    },
 
     // Databases - sorted by level
     {
@@ -134,15 +141,15 @@ const ModernSkills = () => {
       level: 80,
       category: "Database"
     },
-
-    // ORM & API
     {
-      name: "Prisma",
-      icon: SiPrisma,
-      color: "#ffffff",
-      level: 82,
-      category: "ORM"
+      name: "Supabase",
+      icon: SiSupabase,
+      color: "#3ECF8E",
+      level: 78,
+      category: "Database"
     },
+
+    // API
     {
       name: "GraphQL",
       icon: SiGraphql,
@@ -179,7 +186,14 @@ const ModernSkills = () => {
       name: "Docker",
       icon: SiDocker,
       color: "#2496ED",
-      level: 82,
+      level: 85,
+      category: "DevOps"
+    },
+    {
+      name: "Kubernetes",
+      icon: SiKubernetes,
+      color: "#326CE5",
+      level: 70,
       category: "DevOps"
     },
 
