@@ -28,153 +28,138 @@ export async function POST(req: Request) {
       to: 'bimlesh.mdb@gmail.com',
       subject: emailSubject,
       replyTo: email,
-      html: `
-        <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color: #0f172a; padding: 40px 20px; color: #f1f5f9;">
-  <table width="100%" style="max-width: 600px; margin: 0 auto; background: linear-gradient(to bottom, #1e293b, #0f172a); border-radius: 16px; box-shadow: 0 20px 60px rgba(6, 182, 212, 0.15); overflow: hidden; border: 1px solid #334155;">
-
-    <!-- Header with Gradient -->
-    <tr>
-      <td style="padding: 40px 32px; background: linear-gradient(135deg, #06b6d4 0%, #a78bfa 50%, #10b981 100%); text-align: center;">
-        <h2 style="margin: 0; font-size: 28px; font-weight: 700; color: #ffffff; text-shadow: 0 2px 10px rgba(0,0,0,0.3);">New Contact Message</h2>
-        <p style="margin: 12px 0 0; font-size: 14px; color: #e0f2fe; opacity: 0.9;">${new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
-      </td>
-    </tr>
-
-    <!-- Details Section -->
-    <tr>
-      <td style="padding: 32px;">
-        <div style="background: #1e293b; border-radius: 12px; padding: 24px; border: 1px solid #334155;">
-          <table width="100%" style="font-size: 15px; color: #cbd5e1;">
-            <tr>
-              <td style="padding: 10px 0;">
-                <span style="color: #06b6d4; font-weight: 600;">Name:</span>
-                <span style="color: #f1f5f9; margin-left: 8px;">${name}</span>
-              </td>
-            </tr>
-            <tr>
-              <td style="padding: 10px 0;">
-                <span style="color: #06b6d4; font-weight: 600;">Email:</span>
-                <a href="mailto:${email}" style="color: #38bdf8; text-decoration: none; margin-left: 8px;">${email}</a>
-              </td>
-            </tr>
-            <tr>
-              <td style="padding: 10px 0;">
-                <span style="color: #06b6d4; font-weight: 600;">Subject:</span>
-                <span style="color: #f1f5f9; margin-left: 8px;">${emailSubject}</span>
-              </td>
-            </tr>
-          </table>
-        </div>
-
-        <!-- Message Box -->
-        <div style="margin-top: 24px; background: #1e293b; padding: 24px; border-left: 4px solid #06b6d4; border-radius: 12px; line-height: 1.7; color: #cbd5e1;">
-          <div style="color: #06b6d4; font-weight: 600; margin-bottom: 12px; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Message:</div>
-          <div style="color: #e2e8f0;">${message.replace(/\n/g, '<br/>')}</div>
-        </div>
-      </td>
-    </tr>
-
-    <!-- CTA Button -->
-    <tr>
-      <td style="padding: 0 32px 40px; text-align: center;">
-        <a href="mailto:${email}" style="display: inline-block; background: linear-gradient(135deg, #06b6d4, #a78bfa); color: #fff; padding: 14px 32px; border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 15px; box-shadow: 0 4px 14px rgba(6, 182, 212, 0.4);">Reply Now</a>
-      </td>
-    </tr>
-
-    <!-- Footer -->
-    <tr>
-      <td style="background: #0f172a; color: #64748b; font-size: 13px; text-align: center; padding: 24px; border-top: 1px solid #334155;">
-        <div style="margin-bottom: 8px;">This is an automated message from your portfolio contact form</div>
-        <div style="color: #06b6d4; font-weight: 600;">&copy; ${new Date().getFullYear()} bimlesh.xyz</div>
-      </td>
-    </tr>
-
-  </table>
+      html: `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<style>
+  body{margin:0;padding:0;background:#f4f4f5;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:#111827;}
+  .wrapper{padding:40px 16px;}
+  .card{max-width:620px;margin:0 auto;background:#ffffff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;}
+  .header{padding:32px;}
+  .title{margin:0;font-size:24px;font-weight:700;color:#111827;}
+  .date{margin-top:10px;font-size:14px;color:#6b7280;}
+  .divider{height:1px;background:#e5e7eb;}
+  .content{padding:32px;}
+  .row{display:flex;align-items:flex-start;padding:14px 0;border-bottom:1px solid #f3f4f6;}
+  .row:last-child{border-bottom:none;}
+  .label{width:90px;font-weight:600;color:#111827;font-size:15px;flex-shrink:0;}
+  .value{color:#374151;font-size:15px;word-break:break-word;}
+  .email{color:#2563eb;text-decoration:none;}
+  .message-wrapper{margin-top:28px;}
+  .message-label{font-size:12px;font-weight:700;letter-spacing:0.08em;color:#6b7280;margin-bottom:12px;text-transform:uppercase;}
+  .message-box{border:1px solid #d1d5db;border-radius:8px;padding:22px;background:#fafafa;color:#374151;line-height:1.8;font-size:15px;}
+  .button-wrap{margin-top:30px;}
+  .button{display:inline-block;background:#0f172a;color:#ffffff !important;text-decoration:none;padding:13px 26px;border-radius:6px;font-size:14px;font-weight:600;}
+  .footer{border-top:1px solid #e5e7eb;padding:24px;text-align:center;font-size:13px;color:#6b7280;line-height:1.8;}
+  @media(max-width:600px){
+    .header{padding:24px;}
+    .content{padding:24px;}
+    .row{flex-direction:column;gap:6px;}
+    .label{width:100%;}
+    .button{width:100%;text-align:center;box-sizing:border-box;}
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+  <div class="card">
+    <div class="header">
+      <h1 class="title">New Contact Message</h1>
+      <div class="date">Received on ${new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}</div>
+    </div>
+    <div class="divider"></div>
+    <div class="content">
+      <div class="row">
+        <div class="label">Name:</div>
+        <div class="value">${name}</div>
+      </div>
+      <div class="row">
+        <div class="label">Email:</div>
+        <div class="value"><a href="mailto:${email}" class="email">${email}</a></div>
+      </div>
+      <div class="row">
+        <div class="label">Subject:</div>
+        <div class="value">${emailSubject}</div>
+      </div>
+      <div class="message-wrapper">
+        <div class="message-label">Message Body</div>
+        <div class="message-box">${message.replace(/\n/g, '<br/>')}</div>
+      </div>
+      <div class="button-wrap">
+        <a href="mailto:${email}" class="button">Reply to ${name}</a>
+      </div>
+    </div>
+    <div class="footer">
+      Automated message from your portfolio<br/>
+      &copy; ${new Date().getFullYear()} bimlesharma
+    </div>
+  </div>
 </div>
-      `,
+</body>
+</html>`,
     });
 
-    // 2. Send confirmation to sender
+    // 2. Send confirmation to sender (COMMENTED OUT TEMPORARILY — domain expired)
+    /*
     const toSender = await resend.emails.send({
       from: 'no-reply@mail.bimlesh.xyz',
       to: email,
       subject: `Thanks for contacting me, ${name}!`,
       html: `
-        <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color: #0f172a; padding: 40px 20px; color: #f1f5f9;">
-  <table width="100%" style="max-width: 600px; margin: 0 auto; background: linear-gradient(to bottom, #1e293b, #0f172a); border-radius: 16px; box-shadow: 0 20px 60px rgba(6, 182, 212, 0.15); overflow: hidden; border: 1px solid #334155;">
-
-    <!-- Header with Gradient -->
-    <tr>
-      <td style="padding: 40px 32px; background: linear-gradient(135deg, #06b6d4 0%, #a78bfa 50%, #10b981 100%); text-align: center;">
-        <div style="font-size: 48px; margin-bottom: 16px;">✨</div>
-        <h1 style="margin: 0; font-size: 28px; font-weight: 700; color: #ffffff; text-shadow: 0 2px 10px rgba(0,0,0,0.3);">Message Received!</h1>
-        <p style="margin: 12px 0 0; font-size: 14px; color: #e0f2fe; opacity: 0.9;">${new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
-      </td>
-    </tr>
-
-    <!-- Greeting -->
-    <tr>
-      <td style="padding: 32px; font-size: 16px; color: #cbd5e1; line-height: 1.6;">
-        <div style="margin-bottom: 20px;">
-          Hi <strong style="color: #06b6d4;">${name}</strong>,
+        <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color: #f9fafb; padding: 40px 20px; color: #111827;">
+          <table width="100%" style="max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); overflow: hidden; border: 1px solid #e5e7eb;">
+            <tr>
+              <td style="padding: 32px; border-bottom: 1px solid #f3f4f6;">
+                <h2 style="margin: 0; font-size: 24px; font-weight: 600; color: #111827;">Message Received</h2>
+                <p style="margin: 8px 0 0; font-size: 14px; color: #6b7280;">${new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 32px; font-size: 16px; color: #374151; line-height: 1.6;">
+                <p style="margin: 0 0 16px;">Hi <strong>${name}</strong>,</p>
+                <p style="margin: 0 0 24px;">Thank you for reaching out. I have received your message and will review it shortly. I typically respond within 24-48 hours.</p>
+                <div style="background: #f9fafb; padding: 24px; border-radius: 6px; border: 1px solid #e5e7eb; margin-bottom: 24px;">
+                  <strong style="display: block; margin-bottom: 12px; font-size: 12px; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em;">Your Message</strong>
+                  <div style="color: #4b5563; font-style: italic;">${message.replace(/\n/g, '<br/>')}</div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 0 32px 32px;">
+                <a href="https://github.com/bimlesharma" style="display: inline-block; background-color: #111827; color: #ffffff; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 500; font-size: 14px;">Visit My GitHub</a>
+              </td>
+            </tr>
+            <tr>
+              <td style="background-color: #f9fafb; padding: 24px 32px; text-align: center; border-top: 1px solid #e5e7eb; font-size: 13px; color: #6b7280;">
+                <div style="margin-bottom: 4px;">This is an automated confirmation — please do not reply to this email.</div>
+                <div>&copy; ${new Date().getFullYear()} bimlesharma</div>
+              </td>
+            </tr>
+          </table>
         </div>
-        <div>
-          Thank you for reaching out! I've received your message and truly appreciate your interest. I'll review it carefully and get back to you soon.
-        </div>
-      </td>
-    </tr>
-
-    <!-- Message Echo -->
-    <tr>
-      <td style="padding: 0 32px 24px;">
-        <div style="background: #1e293b; padding: 24px; border-left: 4px solid #a78bfa; border-radius: 12px; line-height: 1.7;">
-          <div style="color: #a78bfa; font-weight: 600; margin-bottom: 12px; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Your Message:</div>
-          <div style="color: #cbd5e1; font-style: italic;">${message.replace(/\n/g, '<br/>')}</div>
-        </div>
-      </td>
-    </tr>
-
-    <!-- Response Time Info -->
-    <tr>
-      <td style="padding: 0 32px 32px;">
-        <div style="background: linear-gradient(135deg, #06b6d420, #a78bfa20); border: 1px solid #334155; border-radius: 12px; padding: 20px; text-align: center;">
-          <div style="font-size: 32px; margin-bottom: 12px;">⚡</div>
-          <div style="color: #f1f5f9; font-weight: 600; margin-bottom: 8px;">Quick Response Guaranteed</div>
-          <div style="color: #94a3b8; font-size: 14px;">I typically respond within <strong style="color: #06b6d4;">24-48 hours</strong></div>
-        </div>
-      </td>
-    </tr>
-
-    <!-- CTA Button -->
-    <tr>
-      <td style="padding: 0 32px 40px; text-align: center;">
-        <a href="https://bimlesh.xyz/" style="display: inline-block; background: linear-gradient(135deg, #06b6d4, #a78bfa); color: #fff; padding: 14px 32px; border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 15px; box-shadow: 0 4px 14px rgba(6, 182, 212, 0.4);">Visit My Portfolio</a>
-      </td>
-    </tr>
-
-    <!-- Footer -->
-    <tr>
-      <td style="background: #0f172a; color: #64748b; font-size: 13px; text-align: center; padding: 24px; border-top: 1px solid #334155;">
-        <div style="margin-bottom: 8px;">This is an automated confirmation — please do not reply to this email</div>
-        <div style="margin-bottom: 8px;">For urgent matters: <strong style="color: #06b6d4;">+91-7070519696</strong></div>
-        <div style="color: #06b6d4; font-weight: 600;">&copy; ${new Date().getFullYear()} bimlesh.xyz</div>
-      </td>
-    </tr>
-
-  </table>
-</div>
-
       `,
     });
+    */
 
-    if (toYou.data?.id && toSender.data?.id) {
+    // if (toYou.data?.id && toSender.data?.id) {
+    //   return new Response(
+    //     JSON.stringify({ success: true, ids: [toYou.data.id, toSender.data.id] }),
+    //     { status: 200, headers: { 'Content-Type': 'application/json' } }
+    //   );
+    // }
+
+    // Temporary success logic while toSender is commented out:
+    if (toYou.data?.id) {
       return new Response(
-        JSON.stringify({ success: true, ids: [toYou.data.id, toSender.data.id] }),
+        JSON.stringify({ success: true, id: toYou.data.id }),
         { status: 200, headers: { 'Content-Type': 'application/json' } }
       );
     }
 
-    const errorMsg = toYou.error?.message || toSender.error?.message || 'Unknown error';
+    const errorMsg = toYou.error?.message || 'Unknown error'; // || toSender.error?.message
+    console.error('RESEND API ERROR:', errorMsg);
     return new Response(JSON.stringify({ error: errorMsg }), { status: 500 });
   } catch (error) {
     console.error('Server error:', error);
