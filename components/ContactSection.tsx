@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaSpinner, FaEnvelope, FaLinkedin, FaGithub, FaMapMarkerAlt } from 'react-icons/fa';
-import Toast from './Toast';
+
 
 export default function ContactSection() {
   const [form, setForm] = useState({
@@ -14,16 +14,6 @@ export default function ContactSection() {
   });
 
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
-  const [toast, setToast] = useState<{ show: boolean; type: 'success' | 'error'; message: string }>({
-    show: false,
-    type: 'success',
-    message: '',
-  });
-
-  function showToast(type: 'success' | 'error', message: string) {
-    setToast({ show: true, type, message });
-    setTimeout(() => setToast({ show: false, type, message: '' }), 4000);
-  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -49,14 +39,11 @@ export default function ContactSection() {
       if (res.ok) {
         setForm({ name: '', email: '', subject: '', message: '' });
         setStatus('success');
-        showToast('success', 'Message sent successfully!');
       } else {
         setStatus('error');
-        showToast('error', 'Failed to send message.');
       }
     } catch (err) {
       setStatus('error');
-      showToast('error', 'Unexpected error occurred.');
       console.error('Error sending message:', err);
     }
 
@@ -384,7 +371,7 @@ export default function ContactSection() {
         </div>
       </div>
 
-      <Toast show={toast.show} type={toast.type} message={toast.message} />
+
     </section>
   );
 }
