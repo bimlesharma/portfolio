@@ -1,8 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { getHashnodePosts } from '@/lib/hashnode';
-import type { HashnodePost, HashnodeTag } from '@/lib/types/hashnode';
+import { getSanityPosts } from '@/lib/sanity-api';
+import type { SanityPost } from '@/lib/types/sanity';
+import { urlForImage } from '@/sanity/lib/image';
 import { IoMdTime, IoMdTrendingUp, IoMdGlobe } from "react-icons/io";
 import { FaGithub, FaTwitter, FaLinkedin } from "react-icons/fa";
 import FallbackCover from '@/components/FallbackCover';
@@ -22,7 +23,7 @@ export const metadata: Metadata = {
 export const revalidate = 3600;
 
 const BlogPage = async () => {
-    const posts = await getHashnodePosts();
+    const posts = await getSanityPosts();
     const [featuredPost, ...otherPosts] = posts;
 
     // Check if we're on blog subdomain
@@ -79,7 +80,7 @@ const BlogPage = async () => {
                         {/* Social Links */}
                         <div className="flex items-center justify-center gap-4 mb-12">
                             <a
-                                href="https://bimlesh.xyz"
+                                href="https://bimlesh.dev"
                                 className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full hover:from-purple-500 hover:to-blue-500 transition-all font-medium shadow-lg shadow-purple-500/25"
                             >
                                 <IoMdGlobe className="text-lg" />
@@ -129,7 +130,7 @@ const BlogPage = async () => {
                             <div className="w-px h-12 bg-neutral-800" />
                             <div className="text-center">
                                 <div className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-pink-400 to-purple-400">
-                                    {new Set(posts.flatMap(post => post.tags?.map(tag => tag.name) || [])).size}+
+                                    {new Set(posts.flatMap(post => post.categories || [])).size}+
                                 </div>
                                 <div className="text-sm text-neutral-500 mt-1">Topics</div>
                             </div>
@@ -147,7 +148,7 @@ const BlogPage = async () => {
                     </div>
 
                     <Link
-                        href={`${basePath}/${featuredPost.slug}`}
+                        href={`${basePath}/${featuredPost.slug.current}`}
                         className="group block"
                     >
                         <div className="relative bg-gradient-to-br from-purple-900/20 to-blue-900/20 border border-purple-500/30 rounded-3xl overflow-hidden hover:border-purple-400/50 transition-all duration-500 hover:shadow-[0_0_80px_-12px_rgba(168,85,247,0.6)]">
@@ -170,23 +171,24 @@ const BlogPage = async () => {
                                         <span>•</span>
                                         <span>{new Date(featuredPost.publishedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
                                     </div>
-                                    {featuredPost.tags && featuredPost.tags.length > 0 && (
+                                    {featuredPost.categories && featuredPost.categories.length > 0 && (
                                         <div className="flex flex-wrap gap-2 mt-6">
-                                            {featuredPost.tags.slice(0, 3).map((tag: HashnodeTag, idx: number) => (
+                                            {featuredPost.categories.slice(0, 3).map((category: string, idx: number) => (
                                                 <span key={idx} className="px-3 py-1 text-xs bg-neutral-800/50 border border-neutral-700 rounded-full text-neutral-300">
-                                                    {tag.name}
+                                                    {category}
                                                 </span>
                                             ))}
                                         </div>
                                     )}
                                 </div>
                                 <div className="relative aspect-video md:aspect-square rounded-2xl overflow-hidden">
-                                    {featuredPost.coverImage?.url ? (
+                                    {featuredPost.mainImage ? (
                                         <Image
-                                            src={featuredPost.coverImage.url}
+                                            src={urlForImage(featuredPost.mainImage).url()}
                                             alt={featuredPost.title}
                                             fill
                                             className="object-cover group-hover:scale-110 transition-transform duration-700"
+                                            {...(featuredPost.mainImage.lqip ? { placeholder: "blur", blurDataURL: featuredPost.mainImage.lqip } : {})}
                                         />
                                     ) : (
                                         <FallbackCover title={featuredPost.title} />
@@ -207,19 +209,20 @@ const BlogPage = async () => {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {otherPosts.map((post: HashnodePost) => (
+                        {otherPosts.map((post: SanityPost) => (
                             <Link
-                                href={`${basePath}/${post.slug}`}
-                                key={post.id}
+                                href={`${basePath}/${post.slug.current}`}
+                                key={post._id}
                                 className="group relative bg-neutral-900/50 border border-neutral-800 rounded-2xl overflow-hidden hover:border-purple-500/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_0_50px_-12px_rgba(168,85,247,0.5)]"
                             >
                                 <div className="aspect-video relative overflow-hidden">
-                                    {post.coverImage?.url ? (
+                                    {post.mainImage ? (
                                         <Image
-                                            src={post.coverImage.url}
+                                            src={urlForImage(post.mainImage).url()}
                                             alt={post.title}
                                             fill
                                             className="object-cover group-hover:scale-110 transition-transform duration-700"
+                                            {...(post.mainImage.lqip ? { placeholder: "blur", blurDataURL: post.mainImage.lqip } : {})}
                                         />
                                     ) : (
                                         <FallbackCover title={post.title} />
@@ -241,11 +244,11 @@ const BlogPage = async () => {
                                         </span>
                                         <span>{new Date(post.publishedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
                                     </div>
-                                    {post.tags && post.tags.length > 0 && (
+                                    {post.categories && post.categories.length > 0 && (
                                         <div className="flex flex-wrap gap-2">
-                                            {post.tags.slice(0, 2).map((tag: HashnodeTag, idx: number) => (
+                                            {post.categories.slice(0, 2).map((category: string, idx: number) => (
                                                 <span key={idx} className="px-2 py-1 text-xs bg-neutral-800/50 border border-neutral-700 rounded-full text-neutral-400">
-                                                    {tag.name}
+                                                    {category}
                                                 </span>
                                             ))}
                                         </div>

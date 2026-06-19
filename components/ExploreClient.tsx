@@ -3,11 +3,12 @@ import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { IoMdSearch, IoMdClose, IoMdTime } from 'react-icons/io';
-import type { HashnodePost, HashnodeTag } from '@/lib/types/hashnode';
+import type { SanityPost } from '@/lib/types/sanity';
+import { urlForImage } from '@/sanity/lib/image';
 import FallbackCover from '@/components/FallbackCover';
 
 interface ExploreClientProps {
-    posts: HashnodePost[];
+    posts: SanityPost[];
     basePath: string;
 }
 
@@ -19,8 +20,8 @@ export default function ExploreClient({ posts, basePath }: ExploreClientProps) {
     const allTags = useMemo(() => {
         const tagMap = new Map<string, number>();
         posts.forEach(post => {
-            post.tags?.forEach(tag => {
-                tagMap.set(tag.name, (tagMap.get(tag.name) || 0) + 1);
+            post.categories?.forEach(category => {
+                tagMap.set(category, (tagMap.get(category) || 0) + 1);
             });
         });
         return Array.from(tagMap.entries())
@@ -33,11 +34,11 @@ export default function ExploreClient({ posts, basePath }: ExploreClientProps) {
         return posts.filter(post => {
             const matchesSearch = searchQuery === '' ||
                 post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                post.brief.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                post.tags?.some(tag => tag.name.toLowerCase().includes(searchQuery.toLowerCase()));
+                (post.brief && post.brief.toLowerCase().includes(searchQuery.toLowerCase())) ||
+                post.categories?.some(category => category.toLowerCase().includes(searchQuery.toLowerCase()));
 
             const matchesTag = !selectedTag ||
-                post.tags?.some(tag => tag.name === selectedTag);
+                post.categories?.some(category => category === selectedTag);
 
             return matchesSearch && matchesTag;
         });
@@ -121,16 +122,16 @@ export default function ExploreClient({ posts, basePath }: ExploreClientProps) {
             {/* Posts Grid */}
             {filteredPosts.length > 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {filteredPosts.map((post: HashnodePost) => (
+                    {filteredPosts.map((post: SanityPost) => (
                         <Link
-                            href={`${basePath}/${post.slug}`}
-                            key={post.id}
+                            href={`${basePath}/${post.slug.current}`}
+                            key={post._id}
                             className="group relative bg-neutral-900/50 border border-neutral-800 rounded-2xl overflow-hidden hover:border-purple-500/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_0_50px_-12px_rgba(168,85,247,0.5)]"
                         >
                             <div className="aspect-video relative overflow-hidden">
-                                {post.coverImage?.url ? (
+                                {post.mainImage ? (
                                     <Image
-                                        src={post.coverImage.url}
+                                        src={urlForImage(post.mainImage).url()}
                                         alt={post.title}
                                         fill
                                         className="object-cover group-hover:scale-110 transition-transform duration-700"
@@ -155,11 +156,11 @@ export default function ExploreClient({ posts, basePath }: ExploreClientProps) {
                                     </span>
                                     <span>{new Date(post.publishedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
                                 </div>
-                                {post.tags && post.tags.length > 0 && (
+                                {post.categories && post.categories.length > 0 && (
                                     <div className="flex flex-wrap gap-2">
-                                        {post.tags.slice(0, 2).map((tag: HashnodeTag, idx: number) => (
+                                        {post.categories.slice(0, 2).map((category: string, idx: number) => (
                                             <span key={idx} className="px-2 py-1 text-xs bg-neutral-800/50 border border-neutral-700 rounded-full text-neutral-400">
-                                                {tag.name}
+                                                {category}
                                             </span>
                                         ))}
                                     </div>

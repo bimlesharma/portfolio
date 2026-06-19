@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
     const hostname = request.headers.get('host') || '';
     const { pathname } = request.nextUrl;
 
@@ -36,6 +36,6 @@ export function middleware(request: NextRequest) {
 
 export const config = {
     matcher: [
-        '/((?!api|_next/static|_next/image|favicon.ico).*)',
+        '/((?!api|_next/static|_next/image|favicon.ico|studio).*)',
     ],
 };

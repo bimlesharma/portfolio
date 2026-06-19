@@ -1,16 +1,16 @@
 import { MetadataRoute } from 'next';
-import { getHashnodePosts } from '@/lib/hashnode';
+import { getSanityPosts } from '@/lib/sanity-api';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    const baseUrl = 'https://bimlesh.xyz';
-    const blogBaseUrl = 'https://blog.bimlesh.xyz';
+    const baseUrl = 'https://bimlesh.dev';
+    const blogBaseUrl = 'https://blog.bimlesh.dev'; // or https://bimlesh.dev/blog
 
     // Fetch all blog posts
-    const posts = await getHashnodePosts();
+    const posts = await getSanityPosts();
 
     // Generate blog post URLs
     const blogPosts = posts.map((post) => ({
-        url: `${blogBaseUrl}/${post.slug}`,
+        url: `${baseUrl}/blog/${post.slug.current}`,
         lastModified: new Date(post.publishedAt),
         changeFrequency: 'weekly' as const,
         priority: 0.7,
@@ -25,7 +25,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             priority: 1.0,
         },
         {
-            url: blogBaseUrl,
+            url: `${baseUrl}/blog`,
             lastModified: new Date(),
             changeFrequency: 'daily' as const,
             priority: 0.9,

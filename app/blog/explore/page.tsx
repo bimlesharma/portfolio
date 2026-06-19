@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { getHashnodePosts } from '@/lib/hashnode';
+import { getSanityPosts } from '@/lib/sanity-api';
 import { IoMdArrowBack } from "react-icons/io";
 import { headers } from 'next/headers';
 import type { Metadata } from 'next';
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 export const revalidate = 3600;
 
 const ExplorePage = async () => {
-    const posts = await getHashnodePosts();
+    const posts = await getSanityPosts();
 
     // Check if we're on blog subdomain
     const headersList = await headers();

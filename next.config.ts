@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'cdn.hashnode.com',
+        hostname: 'cdn.sanity.io',
         port: '',
         pathname: '/**',
       },

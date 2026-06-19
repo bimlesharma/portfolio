@@ -20,6 +20,7 @@ export default function AsciiPortrait({ imageSrc, cols = 110, revealRadius = 100
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsMounted(true);
   }, []);
 

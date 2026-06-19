@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider"
+import { GoogleAnalytics } from '@next/third-parties/google';
+import { draftMode } from 'next/headers';
+import { VisualEditing } from 'next-sanity/visual-editing';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,14 +25,14 @@ export const metadata: Metadata = {
   keywords: ["Full Stack Developer", "Software Engineer", "AI", "Web Development", "React", "Next.js", "Node.js"],
   authors: [{ name: "Bimlesh" }],
   creator: "Bimlesh",
-  metadataBase: new URL('https://bimlesh.xyz'),
+  metadataBase: new URL('https://bimlesh.dev'),
   alternates: {
     canonical: '/',
   },
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://bimlesh.xyz',
+    url: 'https://bimlesh.dev',
     title: 'Bimlesh - Full Stack Developer',
     description: 'Full Stack Developer • Software Engineer • AI Explorer',
     siteName: 'Bimlesh',
@@ -62,13 +65,13 @@ export const viewport = {
   maximumScale: 5,
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
       <head>
         <link rel="manifest" href="/manifest.json" />
       </head>
@@ -84,6 +87,8 @@ export default function RootLayout({
         >
           {children}
         </ThemeProvider>
+        {process.env.NEXT_PUBLIC_GA_ID && <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />}
+        {(await draftMode()).isEnabled && <VisualEditing />}
       </body>
     </html>
   );

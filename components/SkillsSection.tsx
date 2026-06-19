@@ -31,6 +31,7 @@ const ModernSkills = () => {
   // Prevent re-renders by stabilizing animation trigger
   React.useEffect(() => {
     if (isInView && !hasAnimated) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setHasAnimated(true);
     }
   }, [isInView, hasAnimated]);

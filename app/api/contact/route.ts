@@ -104,7 +104,7 @@ export async function POST(req: Request) {
     // 2. Send confirmation to sender (COMMENTED OUT TEMPORARILY — domain expired)
     /*
     const toSender = await resend.emails.send({
-      from: 'no-reply@mail.bimlesh.xyz',
+      from: 'no-reply@mail.bimlesh.dev',
       to: email,
       subject: `Thanks for contacting me, ${name}!`,
       html: `
