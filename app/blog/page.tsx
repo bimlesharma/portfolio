@@ -1,12 +1,9 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { getSanityPosts } from '@/lib/sanity-api';
 import type { SanityPost } from '@/lib/types/sanity';
-import { urlForImage } from '@/sanity/lib/image';
-import { IoMdTime, IoMdTrendingUp, IoMdGlobe } from "react-icons/io";
-import { FaGithub, FaTwitter, FaLinkedin } from "react-icons/fa";
-import FallbackCover from '@/components/FallbackCover';
+import { IoMdTrendingUp, IoMdGlobe } from "react-icons/io";
+import TagFilter from '@/components/TagFilter';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -21,11 +18,18 @@ export const metadata: Metadata = {
 
 export const revalidate = 3600;
 
-const BlogPage = async () => {
+const BlogPage = async ({ searchParams }: { searchParams: Promise<{ tag?: string }> }) => {
     const posts = await getSanityPosts();
-    const featuredPost = posts[0];
-    const otherPosts = posts.slice(1);
+    const { tag: activeTag } = await searchParams;
     const basePath = '/blog';
+
+    // Collect all unique tags across all posts
+    const allTags = Array.from(new Set(posts.flatMap((post: SanityPost) => post.categories || []))).sort() as string[];
+
+    // Filter posts based on active tag
+    const filteredPosts = activeTag
+        ? posts.filter((post: SanityPost) => post.categories?.includes(activeTag))
+        : posts;
 
     return (
         <main className="min-h-screen bg-[#050505] text-white relative overflow-hidden">
@@ -65,21 +69,39 @@ const BlogPage = async () => {
                         <span className="text-neutral-800">/</span>
                         <div className="flex items-center gap-2.5 hover:text-neutral-300 transition-colors cursor-default">
                             <IoMdGlobe className="text-blue-400 text-base" /> 
-                            <span className="text-neutral-200 font-semibold">{new Set(posts.flatMap(post => post.categories || [])).size}</span> Unique Topics
+                            <span className="text-neutral-200 font-semibold">{allTags.length}</span> Unique Topics
                         </div>
                     </div>
+
+                    {/* Tag Filter — client component, wrapped in Suspense */}
+                    <Suspense fallback={null}>
+                        <TagFilter tags={allTags} activeTag={activeTag ?? null} />
+                    </Suspense>
                 </div>
             </section>
 
             {/* Content Section (Clean Text List) */}
             <section className="py-12 px-6">
                 <div className="max-w-3xl mx-auto">
-                    {posts.length > 0 ? (
+
+                    {/* Active filter indicator */}
+                    {activeTag && (
+                        <div className="flex items-center gap-2 mb-8 text-sm text-neutral-400">
+                            <span>Showing posts tagged</span>
+                            <span className="bg-purple-500/15 text-purple-300 border border-purple-500/25 px-2.5 py-0.5 rounded-full text-xs font-medium">
+                                {activeTag}
+                            </span>
+                            <span className="text-neutral-600">·</span>
+                            <span className="text-neutral-500">{filteredPosts.length} {filteredPosts.length === 1 ? 'post' : 'posts'}</span>
+                        </div>
+                    )}
+
+                    {filteredPosts.length > 0 ? (
                         <div className="flex flex-col gap-2 relative">
                             {/* Subtle line indicator on the left */}
                             <div className="absolute left-[7.5rem] top-4 bottom-4 w-px bg-gradient-to-b from-transparent via-neutral-800 to-transparent hidden sm:block pointer-events-none"></div>
                             
-                            {posts.map((post: SanityPost) => (
+                            {filteredPosts.map((post: SanityPost) => (
                                 <Link
                                     href={`${basePath}/${post.slug.current}`}
                                     key={post._id}
@@ -97,11 +119,18 @@ const BlogPage = async () => {
                                             {post.brief}
                                         </p>
                                         
-                                        {/* Beautiful Pill Tags */}
+                                        {/* Beautiful Pill Tags — clickable to filter */}
                                         {post.categories && post.categories.length > 0 && (
                                             <div className="flex flex-wrap gap-2">
                                                 {post.categories.slice(0, 3).map((category: string, idx: number) => (
-                                                    <span key={idx} className="bg-purple-500/10 text-purple-400/80 group-hover:text-purple-300 border border-purple-500/10 group-hover:border-purple-500/30 px-2.5 py-1 rounded-full text-xs font-medium tracking-wide transition-colors">
+                                                    <span
+                                                        key={idx}
+                                                        className={`px-2.5 py-1 rounded-full text-xs font-medium tracking-wide border transition-colors ${
+                                                            category === activeTag
+                                                                ? 'bg-purple-500/20 text-purple-200 border-purple-400/50'
+                                                                : 'bg-purple-500/10 text-purple-400/80 group-hover:text-purple-300 border-purple-500/10 group-hover:border-purple-500/30'
+                                                        }`}
+                                                    >
                                                         {category}
                                                     </span>
                                                 ))}
@@ -113,7 +142,8 @@ const BlogPage = async () => {
                         </div>
                     ) : (
                         <div className="py-20 text-center text-neutral-500 bg-neutral-900/20 rounded-3xl border border-neutral-800/50 border-dashed max-w-3xl mx-auto">
-                            <p className="text-lg">No posts published yet.</p>
+                            <p className="text-lg mb-2">No posts found for <span className="text-purple-400">#{activeTag}</span></p>
+                            <p className="text-sm text-neutral-600">Try a different tag or view all posts.</p>
                         </div>
                     )}
                 </div>

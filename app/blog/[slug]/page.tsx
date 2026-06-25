@@ -164,8 +164,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                         )}
                     </header>
 
-                    {/* Cover Image */}
-                    {post.mainImage ? (
+                    {/* Cover Image — only shown if one exists */}
+                    {post.mainImage && (
                         <div className="aspect-video relative rounded-2xl overflow-hidden mb-16 shadow-2xl shadow-purple-900/20 border border-neutral-800">
                             <Image
                                 src={urlForImage(post.mainImage).url()}
@@ -175,10 +175,6 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                                 priority
                                 {...(post.mainImage.lqip ? { placeholder: "blur", blurDataURL: post.mainImage.lqip } : {})}
                             />
-                        </div>
-                    ) : (
-                        <div className="aspect-video relative rounded-2xl overflow-hidden mb-16 shadow-2xl shadow-purple-900/20 border border-neutral-800">
-                            <FallbackCover title={post.title} />
                         </div>
                     )}
 

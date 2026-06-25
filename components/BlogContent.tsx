@@ -1,7 +1,7 @@
 'use client';
 import { PortableText, PortableTextComponents } from '@portabletext/react';
 import CodeBlock from '@/components/CodeBlock';
-import Image from 'next/image';
+import ClickableImage from '@/components/ClickableImage';
 import { urlForImage } from '@/sanity/lib/image';
 
 interface BlogContentProps {
@@ -15,14 +15,13 @@ const components: PortableTextComponents = {
             if (!value?.asset?._ref) {
                 return null;
             }
+            const imgUrl = urlForImage(value).url();
             return (
-                <div className="relative aspect-video my-8 rounded-xl overflow-hidden border border-neutral-800">
-                    <Image
-                        src={urlForImage(value).url()}
-                        alt={value.alt || 'Blog image'}
-                        fill
-                        className="object-cover"
-                    />
+                <div className="my-8">
+                    <ClickableImage src={imgUrl} alt={value.alt || 'Blog image'} />
+                    {value.caption && (
+                        <p className="text-center text-xs text-neutral-500 mt-2 font-mono">{value.caption}</p>
+                    )}
                 </div>
             );
         },
