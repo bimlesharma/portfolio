@@ -47,6 +47,15 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
                     >
                         <a
                             href={`#${heading.slug}`}
+                            onClick={(e) => {
+                                e.preventDefault();
+                                const element = document.getElementById(heading.slug);
+                                if (element) {
+                                    element.scrollIntoView({ behavior: 'smooth' });
+                                    // Optionally update URL hash without jumping
+                                    window.history.pushState(null, '', `#${heading.slug}`);
+                                }
+                            }}
                             className={`block transition-colors hover:text-purple-400 ${
                                 activeId === heading.slug ? 'text-purple-400 font-medium' : 'text-neutral-400'
                             }`}

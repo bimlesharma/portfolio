@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { getPostBySlug, getSanityPosts } from '@/lib/sanity-api';
 import type { SanityPost } from '@/lib/types/sanity';
 import { urlForImage } from '@/sanity/lib/image';
-import { IoMdArrowBack } from "react-icons/io";
+import { IoMdArrowBack, IoMdTime } from "react-icons/io";
 import ScrollProgress from '@/components/ScrollProgress';
 import FallbackCover from '@/components/FallbackCover';
 import BlogContent from '@/components/BlogContent';
@@ -68,7 +68,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         ?.filter((block: any) => block._type === 'block' && (block.style === 'h2' || block.style === 'h3'))
         .map((block: any) => {
             const text = block.children?.map((c: any) => c.text).join('') || '';
-            const slug = text.toLowerCase().replace(/\\s+/g, '-').replace(/[^\\w-]+/g, '');
+            const slug = text.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '');
             return { text, slug, style: block.style };
         }) || [];
 
@@ -95,22 +95,28 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 }}
             />
             <ScrollProgress />
-            <main className="min-h-screen bg-[#0a0a0a] text-white">
-                <div className="max-w-5xl mx-auto px-6 py-12 md:py-20 flex flex-col lg:flex-row gap-12 items-start">
+            <main className="min-h-screen bg-[#050505] text-white relative">
+                {/* Ambient Background Glows */}
+                <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
+                    <div className="absolute top-[-5%] left-[10%] w-[60%] h-[40%] bg-purple-600/10 rounded-full blur-[150px]" />
+                    <div className="absolute top-[40%] right-[-10%] w-[50%] h-[50%] bg-blue-600/10 rounded-full blur-[150px]" />
+                </div>
+
+                <div className="max-w-5xl mx-auto px-6 py-12 md:py-20 flex flex-col lg:flex-row gap-12 relative z-10">
                     <article className="flex-1 w-full max-w-3xl min-w-0 mx-auto">
-                        <Link href={basePath || '/'} className="inline-flex items-center gap-2 text-neutral-500 hover:text-purple-400 transition-colors mb-10 group text-sm font-medium">
-                        <IoMdArrowBack className="group-hover:-translate-x-1 transition-transform" />
-                        Back to Blog
-                    </Link>
+                        <Link href={basePath || '/'} className="inline-flex items-center gap-2 text-neutral-500 hover:text-purple-400 transition-colors mb-12 group text-sm font-medium bg-neutral-900/50 backdrop-blur-md border border-neutral-800/50 px-4 py-2 rounded-full w-fit">
+                            <IoMdArrowBack className="group-hover:-translate-x-1 transition-transform" />
+                            Back to Blog
+                        </Link>
 
                     {/* Header */}
                     <header className="mb-14">
-                        <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-[1.15] tracking-tight">
+                        <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-6 leading-[1.15] tracking-tight drop-shadow-lg">
                             {post.title}
                         </h1>
 
                         {post.brief && (
-                            <p className="text-xl text-neutral-400 mb-8 leading-relaxed">
+                            <p className="text-xl text-neutral-400 mb-8 leading-relaxed font-light">
                                 {post.brief}
                             </p>
                         )}
@@ -120,7 +126,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                             {post.authorName && (
                                 <div className="flex items-center gap-3">
                                     {post.authorImage && (
-                                        <div className="relative w-10 h-10 rounded-full overflow-hidden bg-neutral-800">
+                                        <div className="relative w-10 h-10 rounded-full overflow-hidden bg-neutral-800 border border-neutral-700">
                                             <Image 
                                                 src={urlForImage(post.authorImage).url()} 
                                                 alt={post.authorName} 
@@ -129,17 +135,17 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                                             />
                                         </div>
                                     )}
-                                    <span className="font-medium text-neutral-300">{post.authorName}</span>
+                                    <span className="font-semibold text-neutral-200 tracking-wide">{post.authorName}</span>
                                 </div>
                             )}
                             
-                            <div className="flex items-center gap-4">
+                            <div className="flex items-center gap-4 font-mono">
                                 <span>{new Date(post.publishedAt).toLocaleDateString('en-US', {
                                     year: 'numeric',
                                     month: 'short',
                                     day: 'numeric'
                                 })}</span>
-                                <span>•</span>
+                                <span className="text-neutral-700">•</span>
                                 <span>{post.readTimeInMinutes} min read</span>
                             </div>
                         </div>
@@ -149,9 +155,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                                 {post.categories.map((category: string, idx: number) => (
                                     <span
                                         key={idx}
-                                        className="text-sm font-mono text-neutral-500 hover:text-purple-400 transition-colors cursor-default"
+                                        className="bg-purple-500/10 text-purple-300 border border-purple-500/20 px-3 py-1 rounded-full text-xs font-medium tracking-wide"
                                     >
-                                        #{category}
+                                        {category}
                                     </span>
                                 ))}
                             </div>
@@ -191,37 +197,33 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
                 {/* Read Next Section */}
                 {recentPosts.length > 0 && (
-                    <section className="max-w-3xl mx-auto px-6 py-16 mt-16 border-t border-neutral-900">
+                    <section className="max-w-3xl mx-auto px-6 py-16 mt-16 border-t border-neutral-900/50 relative z-10">
                         <h2 className="text-2xl font-bold mb-8 text-neutral-200">
                             Read Next
                         </h2>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div className="flex flex-col gap-2 relative">
+                            {/* Subtle line indicator on the left */}
+                            <div className="absolute left-[7.5rem] top-4 bottom-4 w-px bg-gradient-to-b from-transparent via-neutral-800 to-transparent hidden sm:block pointer-events-none"></div>
+
                             {recentPosts.map((recentPost: SanityPost) => (
                                 <Link
                                     key={recentPost._id}
                                     href={`${basePath}/${recentPost.slug.current}`}
-                                    className="group flex flex-col gap-3"
+                                    className="group flex flex-col sm:flex-row sm:items-baseline gap-3 sm:gap-8 -mx-4 px-4 py-6 rounded-2xl hover:bg-white/[0.02] transition-colors relative z-10"
                                 >
-                                    <div className="aspect-video relative overflow-hidden rounded-lg bg-neutral-900">
-                                        {recentPost.mainImage ? (
-                                            <Image
-                                                src={urlForImage(recentPost.mainImage).url()}
-                                                alt={recentPost.title}
-                                                fill
-                                                className="object-cover group-hover:scale-105 transition-transform duration-500"
-                                                {...(recentPost.mainImage.lqip ? { placeholder: "blur", blurDataURL: recentPost.mainImage.lqip } : {})}
-                                            />
-                                        ) : (
-                                            <FallbackCover title={recentPost.title} />
-                                        )}
+                                    <div className="shrink-0 w-32 text-sm text-neutral-500 font-mono flex items-center gap-2">
+                                        <span className="w-1.5 h-1.5 rounded-full bg-neutral-800 group-hover:bg-purple-500 transition-colors hidden sm:block relative -left-[1.05rem]"></span>
+                                        {new Date(recentPost.publishedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                                     </div>
-                                    <div>
-                                        <h3 className="font-medium mb-1 line-clamp-2 text-neutral-300 group-hover:text-purple-400 transition-colors">
+                                    <div className="flex-1">
+                                        <h3 className="text-lg font-semibold text-neutral-200 group-hover:text-purple-400 transition-colors mb-2">
                                             {recentPost.title}
                                         </h3>
-                                        <p className="text-sm text-neutral-500">
-                                            {new Date(recentPost.publishedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
-                                        </p>
+                                        {recentPost.brief && (
+                                            <p className="text-neutral-400 text-sm leading-relaxed line-clamp-2">
+                                                {recentPost.brief}
+                                            </p>
+                                        )}
                                     </div>
                                 </Link>
                             ))}

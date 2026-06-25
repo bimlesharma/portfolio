@@ -34,12 +34,12 @@ const components: PortableTextComponents = {
         h1: ({ children }) => <h1 className="text-4xl font-bold mt-12 mb-6">{children}</h1>,
         h2: ({ children, value }) => {
             const text = value.children?.map((c: any) => c.text).join('') || '';
-            const id = text.toLowerCase().replace(/\\s+/g, '-').replace(/[^\\w-]+/g, '');
+            const id = text.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '');
             return <h2 id={id} className="text-3xl font-bold mt-10 mb-5 scroll-mt-24">{children}</h2>;
         },
         h3: ({ children, value }) => {
             const text = value.children?.map((c: any) => c.text).join('') || '';
-            const id = text.toLowerCase().replace(/\\s+/g, '-').replace(/[^\\w-]+/g, '');
+            const id = text.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '');
             return <h3 id={id} className="text-2xl font-bold mt-8 mb-4 scroll-mt-24">{children}</h3>;
         },
         h4: ({ children }) => <h4 className="text-xl font-bold mt-6 mb-3">{children}</h4>,
