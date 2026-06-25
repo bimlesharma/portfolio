@@ -9,12 +9,8 @@ export async function POST(req: Request) {
         // using the parseBody function from next-sanity/webhook
 
         if (body._type === 'post') {
-            revalidatePath('/blog');
-            revalidatePath('/blog/explore');
-            if (body.slug && body.slug.current) {
-                revalidatePath(`/blog/${body.slug.current}`);
-            }
-            return NextResponse.json({ message: 'Revalidated successfully' });
+            revalidatePath('/', 'layout');
+            return NextResponse.json({ message: 'Revalidated successfully via layout' });
         }
 
         return NextResponse.json({ message: 'No revalidation required for this type' });

@@ -28,7 +28,7 @@ async function getFetchClient() {
 export const getSanityPosts = async (): Promise<SanityPost[]> => {
   try {
     const fetchClient = await getFetchClient();
-    const posts = await fetchClient.fetch(postsQuery, {}, { next: { revalidate: 60 } });
+    const posts = await fetchClient.fetch(postsQuery, {}, { next: { revalidate: 60, tags: ['posts'] } });
     return posts || [];
   } catch (error) {
     console.error('Error fetching Sanity posts:', error);
@@ -39,7 +39,7 @@ export const getSanityPosts = async (): Promise<SanityPost[]> => {
 export const getPostBySlug = async (slug: string): Promise<SanityPost | null> => {
   try {
     const fetchClient = await getFetchClient();
-    const post = await fetchClient.fetch(postBySlugQuery, { slug }, { next: { revalidate: 60 } });
+    const post = await fetchClient.fetch(postBySlugQuery, { slug }, { next: { revalidate: 60, tags: ['posts'] } });
     return post || null;
   } catch (error) {
     console.error('Error fetching Sanity post:', error);
