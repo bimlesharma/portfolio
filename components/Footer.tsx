@@ -1,7 +1,9 @@
 'use client';
 
+import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope, FaMapMarkerAlt, FaHeart } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope, FaMapMarkerAlt, FaHeart, FaRss } from 'react-icons/fa';
+import { FaPenNib } from 'react-icons/fa6';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -111,6 +113,41 @@ export default function Footer() {
                   <FaGithub className="text-blue-400" />
                   GitHub Profile
                 </a>
+              </li>
+            </ul>
+          </motion.div>
+
+          {/* Latest Writing */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.25 }}
+          >
+            <h4 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+              <FaPenNib className="text-purple-400 text-sm" />
+              Latest Writing
+            </h4>
+            <ul className="space-y-3">
+              <li>
+                <Link
+                  href="/blog"
+                  className="text-sm text-slate-400 hover:text-purple-400 transition-colors duration-200 flex items-center gap-2 group"
+                >
+                  <span className="w-0 group-hover:w-2 h-0.5 bg-purple-400 transition-all duration-200" />
+                  All Posts
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/blog/feed.xml"
+                  className="text-sm text-slate-400 hover:text-orange-400 transition-colors duration-200 flex items-center gap-2"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FaRss className="text-orange-400 text-xs" />
+                  RSS Feed
+                </Link>
               </li>
             </ul>
           </motion.div>

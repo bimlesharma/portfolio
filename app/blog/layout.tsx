@@ -1,4 +1,13 @@
+import type { Metadata } from 'next';
 import BlogNavbar from '@/components/BlogNavbar';
+
+export const metadata: Metadata = {
+    alternates: {
+        types: {
+            'application/rss+xml': 'https://bimlesh.dev/blog/feed.xml',
+        },
+    },
+};
 
 export default function BlogLayout({ children }: { children: React.ReactNode }) {
     return (

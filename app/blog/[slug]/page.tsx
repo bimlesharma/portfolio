@@ -59,8 +59,17 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         notFound();
     }
 
-    // Get 3 recent posts excluding current one
-    const recentPosts = allPosts.filter((p: SanityPost) => p.slug.current !== slug).slice(0, 3);
+    // Smart related posts: rank by number of shared categories, fall back to latest
+    const currentCategories = new Set(post.categories || []);
+    const recentPosts = allPosts
+        .filter((p: SanityPost) => p.slug.current !== slug)
+        .map((p: SanityPost) => ({
+            post: p,
+            score: (p.categories || []).filter((c: string) => currentCategories.has(c)).length,
+        }))
+        .sort((a, b) => b.score - a.score || new Date(b.post.publishedAt).getTime() - new Date(a.post.publishedAt).getTime())
+        .slice(0, 3)
+        .map(({ post }) => post);
     const basePath = '/blog';
 
     // Extract headings for Table of Contents

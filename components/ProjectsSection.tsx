@@ -172,7 +172,7 @@ export default function ProjectsSection() {
             transition={{ duration: 0.6 }}
             className="inline-block mb-4"
           >
-            <span className="px-6 py-2 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 font-semibold text-sm border border-purple-200 dark:border-purple-800">
+            <span className="px-5 py-1.5 rounded-full bg-purple-500/10 text-purple-300 font-semibold text-sm border border-purple-500/20 backdrop-blur-sm">
               ✨ Portfolio Showcase
             </span>
           </motion.div>
@@ -226,16 +226,17 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
           />
 
           {/* Image Container */}
-          <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white dark:border-slate-700">
+          <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-neutral-800/80 bg-neutral-900/30 backdrop-blur-sm">
             <div className="aspect-[16/10] relative">
               <Image
                 src={project.image}
                 alt={project.title}
                 fill
+                sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover transition-transform duration-700 group-hover:scale-110"
               />
               {/* Gradient Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             </div>
 
             {/* Floating Number Badge */}

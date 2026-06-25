@@ -38,7 +38,12 @@ const SkillTag = ({ icon, text, position, color }: SkillTagProps) => (
 
 const HeroSection = () => {
   return (
-    <div className="min-h-screen w-full font-sans overflow-x-hidden ">
+    <div className="min-h-screen w-full font-sans overflow-x-hidden relative">
+      {/* Ambient glow orbs matching blog aesthetic */}
+      <div className="absolute inset-0 -z-10 pointer-events-none overflow-hidden">
+        <div className="absolute top-[-10%] right-[5%] w-[55%] h-[55%] bg-purple-600/8 rounded-full blur-[130px]" />
+        <div className="absolute bottom-[10%] left-[-5%] w-[40%] h-[40%] bg-blue-600/8 rounded-full blur-[130px]" />
+      </div>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main Section */}
         <main className="mt-12 lg:mt-32">
@@ -50,8 +55,8 @@ const HeroSection = () => {
               transition={{ duration: 0.8 }}
               className="text-center lg:text-left flex flex-col items-center lg:items-start px-4 sm:px-6 lg:px-0"
             >
-              <p className="text-base text-blue-600 dark:text-blue-400 font-semibold">Hi, I&apos;m</p>
-              <h1 className="text-5xl sm:text-5xl md:text-6xl font-extrabold leading-tight uppercase bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 dark:from-blue-400 dark:via-purple-400 dark:to-emerald-400 bg-clip-text text-transparent">
+              <p className="text-base text-purple-400 dark:text-purple-300 font-semibold font-mono tracking-widest uppercase">Hi, I&apos;m</p>
+              <h1 className="text-5xl sm:text-5xl md:text-6xl font-extrabold leading-tight uppercase bg-gradient-to-r from-purple-500 via-blue-400 to-emerald-400 bg-clip-text text-transparent">
                 Bimlesh
               </h1>
               <div className='text-2xl sm:text-2xl md:text-3xl font-bold text-slate-800 dark:text-slate-100 mt-2 h-20 flex items-center'>
@@ -71,10 +76,10 @@ const HeroSection = () => {
                   repeat={Infinity}
                 />
               </div>
-              <p className="hidden md:block text-lg text-slate-600 dark:text-slate-300 max-w-xl mx-auto md:mx-0 mt-4">
+              <p className="hidden md:block text-lg text-slate-500 dark:text-neutral-400 max-w-xl mx-auto md:mx-0 mt-4">
                 Full-stack engineer passionate about building scalable, production-grade systems. Experienced in real-time visualizations, multi-tenant SaaS, GenAI-powered platforms, and containerized deployments.
               </p>
-              <p className="hidden md:block text-lg text-slate-600 dark:text-slate-300 max-w-xl mx-auto md:mx-0 mt-2">
+              <p className="hidden md:block text-lg text-slate-500 dark:text-neutral-400 max-w-xl mx-auto md:mx-0 mt-2">
                 Strong instincts around system design, performance optimization, caching, and security.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start mt-6">
@@ -82,7 +87,7 @@ const HeroSection = () => {
                   href="#projects"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="relative px-6 py-3 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold shadow-lg transition duration-300 ease-in-out"
+                  className="relative px-6 py-3 rounded-lg bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold shadow-lg shadow-purple-900/30 transition duration-300 ease-in-out"
                 >
                   View My Work
                 </motion.a>
