@@ -3,7 +3,6 @@ import { getSanityPosts } from '@/lib/sanity-api';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const baseUrl = 'https://bimlesh.dev';
-    const blogBaseUrl = 'https://blog.bimlesh.dev'; // or https://bimlesh.dev/blog
 
     // Fetch all blog posts
     const posts = await getSanityPosts();

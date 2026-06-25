@@ -11,6 +11,7 @@ import Footer from '@/components/Footer';
 import BackToTopButton from '@/components/BackToTopButton';
 import AnimatedBackground from '@/components/AnimatedBackground';
 import CursorEffect from '@/components/CursorEffect';
+import FloatingDockContainer from '@/components/FloatingDockContainer';
 
 export default function Home() {
   return (
@@ -34,7 +35,7 @@ export default function Home() {
         // borderColor="#444"
         // hoverFillColor="#1e1e1e"
       /> */}
-      {/* <FloatingDock /> */}
+      <FloatingDockContainer />
     </main>
   );
 }

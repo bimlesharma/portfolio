@@ -1,3 +1,4 @@
+'use client';
 import { useEffect, useState } from "react";
 import { FloatingDock } from "@/components/ui/floating-dock";
 import { motion } from "framer-motion";
@@ -6,7 +7,7 @@ import {
     IconBrandX,
     IconHome,
     IconTerminal2,
-    // IconFileText,
+    IconFileText,
     IconMail,
     IconBrandLinkedin,
 } from "@tabler/icons-react";
@@ -54,23 +55,23 @@ export default function FloatingDockContainer() {
         {
             title: "Home",
             icon: <IconHome className="h-full w-full" />,
-            href: "#",
+            href: "/",
             id: "home",
         },
         {
             title: "Projects",
             icon: <IconTerminal2 className="h-full w-full" />,
-            href: "#projects",
+            href: "/#projects",
             id: "projects",
         },
         {
             title: "Contact",
             icon: <IconMail className="h-full w-full" />,
-            href: "#contact",
+            href: "/#contact",
             id: "contact",
         },
         {
-            title: "Twitter",
+            title: "X",
             icon: <IconBrandX className="h-full w-full" />,
             href: "https://twitter.com/bimlesharma",
             id: "twitter",
@@ -87,12 +88,12 @@ export default function FloatingDockContainer() {
             href: "https://www.linkedin.com/in/bimlesharma/",
             id: "linkedin",
         },
-        // {
-        //     title: "Blog",
-        //     icon: <IconFileText className="h-full w-full" />,
-        //     href: "/blog",
-        //     id: "blog",
-        // },
+        {
+            title: "Blog",
+            icon: <IconFileText className="h-full w-full" />,
+            href: "/blog",
+            id: "blog",
+        },
     ];
 
     return (

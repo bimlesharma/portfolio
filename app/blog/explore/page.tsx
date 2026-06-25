@@ -2,7 +2,6 @@ import React from 'react';
 import Link from 'next/link';
 import { getSanityPosts } from '@/lib/sanity-api';
 import { IoMdArrowBack } from "react-icons/io";
-import { headers } from 'next/headers';
 import type { Metadata } from 'next';
 import ExploreClient from '@/components/ExploreClient';
 
@@ -20,24 +19,13 @@ export const revalidate = 3600;
 
 const ExplorePage = async () => {
     const posts = await getSanityPosts();
-
-    // Check if we're on blog subdomain
-    const headersList = await headers();
-    const hostname = headersList.get('host') || '';
-    const isSubdomain = hostname.startsWith('blog.');
-    const basePath = isSubdomain ? '' : '/blog';
+    const basePath = '/blog';
 
     return (
-        <main className="min-h-screen bg-neutral-950 text-white relative overflow-hidden">
-            {/* Background Elements */}
-            <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
-                <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-purple-500/10 rounded-full blur-[120px]" />
-                <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-500/10 rounded-full blur-[120px]" />
-            </div>
-
+        <main className="min-h-screen bg-[#0a0a0a] text-white">
             {/* Back Button */}
             <div className="max-w-7xl mx-auto px-6 pt-12">
-                <Link href={basePath || '/'} className="inline-flex items-center gap-2 text-neutral-400 hover:text-white transition-colors group">
+                <Link href={basePath || '/'} className="inline-flex items-center gap-2 text-neutral-500 hover:text-purple-400 transition-colors mb-8 group text-sm font-medium">
                     <IoMdArrowBack className="group-hover:-translate-x-1 transition-transform" />
                     Back to Blog
                 </Link>

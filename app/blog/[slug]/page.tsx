@@ -4,14 +4,14 @@ import Link from 'next/link';
 import { getPostBySlug, getSanityPosts } from '@/lib/sanity-api';
 import type { SanityPost } from '@/lib/types/sanity';
 import { urlForImage } from '@/sanity/lib/image';
-import { IoMdArrowBack, IoMdTime, IoMdCalendar } from "react-icons/io";
+import { IoMdArrowBack } from "react-icons/io";
 import ScrollProgress from '@/components/ScrollProgress';
 import FallbackCover from '@/components/FallbackCover';
 import BlogContent from '@/components/BlogContent';
 import TableOfContents from '@/components/TableOfContents';
 import ShareButtons from '@/components/ShareButtons';
 import styles from '../blog.module.css';
-import { headers } from 'next/headers';
+import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 
 export const revalidate = 3600;
@@ -56,24 +56,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     ]);
 
     if (!post) {
-        return (
-            <div className="flex flex-col items-center justify-center min-h-screen bg-neutral-950 text-white">
-                <h1 className="text-4xl font-bold mb-4">Post Not Found</h1>
-                <Link href="/blog" className="mt-8 text-purple-400 hover:underline">
-                    Back to Blog
-                </Link>
-            </div>
-        );
+        notFound();
     }
 
     // Get 3 recent posts excluding current one
     const recentPosts = allPosts.filter((p: SanityPost) => p.slug.current !== slug).slice(0, 3);
-
-    // Check if we're on blog subdomain
-    const headersList = await headers();
-    const hostname = headersList.get('host') || '';
-    const isSubdomain = hostname.startsWith('blog.');
-    const basePath = isSubdomain ? '' : '/blog';
+    const basePath = '/blog';
 
     // Extract headings for Table of Contents
     const headings = post.body
@@ -107,28 +95,32 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 }}
             />
             <ScrollProgress />
-            <main className="min-h-screen bg-neutral-950 text-white relative">
-                {/* Background Elements */}
-                <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
-                    <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-purple-500/10 rounded-full blur-[120px]" />
-                    <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-500/10 rounded-full blur-[120px]" />
-                </div>
-
-                <div className="max-w-6xl mx-auto px-6 py-12 md:py-20 flex flex-col lg:flex-row gap-12 items-start">
-                    <article className="flex-1 w-full max-w-4xl min-w-0">
-                        <Link href={basePath || '/'} className="inline-flex items-center gap-2 text-neutral-400 hover:text-white transition-colors mb-8 group">
+            <main className="min-h-screen bg-[#0a0a0a] text-white">
+                <div className="max-w-5xl mx-auto px-6 py-12 md:py-20 flex flex-col lg:flex-row gap-12 items-start">
+                    <article className="flex-1 w-full max-w-3xl min-w-0 mx-auto">
+                        <Link href={basePath || '/'} className="inline-flex items-center gap-2 text-neutral-500 hover:text-purple-400 transition-colors mb-10 group text-sm font-medium">
                         <IoMdArrowBack className="group-hover:-translate-x-1 transition-transform" />
                         Back to Blog
                     </Link>
 
                     {/* Header */}
-                    <header className="mb-12">
+                    <header className="mb-14">
+                        <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-[1.15] tracking-tight">
+                            {post.title}
+                        </h1>
+
+                        {post.brief && (
+                            <p className="text-xl text-neutral-400 mb-8 leading-relaxed">
+                                {post.brief}
+                            </p>
+                        )}
+                        
                         {/* Meta Info */}
-                        <div className="flex flex-wrap items-center gap-6 text-sm text-neutral-400 mb-6">
+                        <div className="flex flex-wrap items-center gap-6 text-sm text-neutral-500 py-6 border-y border-neutral-900 mb-8">
                             {post.authorName && (
-                                <div className="flex items-center gap-2">
+                                <div className="flex items-center gap-3">
                                     {post.authorImage && (
-                                        <div className="relative w-8 h-8 rounded-full overflow-hidden border border-neutral-800">
+                                        <div className="relative w-10 h-10 rounded-full overflow-hidden bg-neutral-800">
                                             <Image 
                                                 src={urlForImage(post.authorImage).url()} 
                                                 alt={post.authorName} 
@@ -141,39 +133,23 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                                 </div>
                             )}
                             
-                            <span className="flex items-center gap-1.5">
-                                <IoMdCalendar className="text-purple-400" />
-                                {new Date(post.publishedAt).toLocaleDateString('en-US', {
+                            <div className="flex items-center gap-4">
+                                <span>{new Date(post.publishedAt).toLocaleDateString('en-US', {
                                     year: 'numeric',
-                                    month: 'long',
+                                    month: 'short',
                                     day: 'numeric'
-                                })}
-                            </span>
-                            
-                            <span className="flex items-center gap-1.5">
-                                <IoMdTime className="text-purple-400" />
-                                {post.readTimeInMinutes} min read
-                            </span>
+                                })}</span>
+                                <span>•</span>
+                                <span>{post.readTimeInMinutes} min read</span>
+                            </div>
                         </div>
-
-                        {/* Title */}
-                        <h1 className="text-4xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white via-purple-200 to-blue-200 mb-6 leading-tight">
-                            {post.title}
-                        </h1>
-
-                        {/* Brief */}
-                        {post.brief && (
-                            <p className="text-xl text-neutral-400 mb-6">
-                                {post.brief}
-                            </p>
-                        )}
 
                         {post.categories && post.categories.length > 0 && (
                             <div className="flex flex-wrap gap-2">
                                 {post.categories.map((category: string, idx: number) => (
                                     <span
                                         key={idx}
-                                        className="px-3 py-1.5 text-sm bg-purple-500/10 border border-purple-500/30 rounded-full text-purple-300 hover:bg-purple-500/20 transition-colors"
+                                        className="text-sm font-mono text-neutral-500 hover:text-purple-400 transition-colors cursor-default"
                                     >
                                         #{category}
                                     </span>
@@ -215,37 +191,36 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
                 {/* Read Next Section */}
                 {recentPosts.length > 0 && (
-                    <section className="max-w-4xl mx-auto px-6 py-16 border-t border-neutral-800">
-                        <h2 className="text-3xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-400">
+                    <section className="max-w-3xl mx-auto px-6 py-16 mt-16 border-t border-neutral-900">
+                        <h2 className="text-2xl font-bold mb-8 text-neutral-200">
                             Read Next
                         </h2>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {recentPosts.map((recentPost: SanityPost) => (
                                 <Link
                                     key={recentPost._id}
                                     href={`${basePath}/${recentPost.slug.current}`}
-                                    className="group bg-neutral-900/50 border border-neutral-800 rounded-xl overflow-hidden hover:border-purple-500/50 transition-all duration-300 hover:-translate-y-1"
+                                    className="group flex flex-col gap-3"
                                 >
-                                    <div className="aspect-video relative overflow-hidden">
+                                    <div className="aspect-video relative overflow-hidden rounded-lg bg-neutral-900">
                                         {recentPost.mainImage ? (
                                             <Image
                                                 src={urlForImage(recentPost.mainImage).url()}
                                                 alt={recentPost.title}
                                                 fill
-                                                className="object-cover group-hover:scale-110 transition-transform duration-500"
+                                                className="object-cover group-hover:scale-105 transition-transform duration-500"
                                                 {...(recentPost.mainImage.lqip ? { placeholder: "blur", blurDataURL: recentPost.mainImage.lqip } : {})}
                                             />
                                         ) : (
                                             <FallbackCover title={recentPost.title} />
                                         )}
                                     </div>
-                                    <div className="p-4">
-                                        <h3 className="font-semibold mb-2 line-clamp-2 group-hover:text-purple-400 transition-colors">
+                                    <div>
+                                        <h3 className="font-medium mb-1 line-clamp-2 text-neutral-300 group-hover:text-purple-400 transition-colors">
                                             {recentPost.title}
                                         </h3>
-                                        <p className="text-sm text-neutral-500 flex items-center gap-1">
-                                            <IoMdTime />
-                                            {recentPost.readTimeInMinutes} min read
+                                        <p className="text-sm text-neutral-500">
+                                            {new Date(recentPost.publishedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                                         </p>
                                     </div>
                                 </Link>
