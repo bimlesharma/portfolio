@@ -45,6 +45,19 @@ export const postType = defineType({
     defineField({
       name: 'publishedAt',
       type: 'datetime',
+      initialValue: () => new Date().toISOString(),
+    }),
+    defineField({
+      name: 'brief',
+      type: 'text',
+      title: 'Brief description',
+      rows: 3,
+    }),
+    defineField({
+      name: 'readTimeInMinutes',
+      type: 'number',
+      title: 'Read Time (Minutes)',
+      description: 'Leave blank to auto-calculate based on content length',
     }),
     defineField({
       name: 'body',

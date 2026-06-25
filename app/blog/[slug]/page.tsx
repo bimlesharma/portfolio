@@ -124,7 +124,23 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                     {/* Header */}
                     <header className="mb-12">
                         {/* Meta Info */}
-                        <div className="flex flex-wrap items-center gap-4 text-sm text-neutral-400 mb-6">
+                        <div className="flex flex-wrap items-center gap-6 text-sm text-neutral-400 mb-6">
+                            {post.authorName && (
+                                <div className="flex items-center gap-2">
+                                    {post.authorImage && (
+                                        <div className="relative w-8 h-8 rounded-full overflow-hidden border border-neutral-800">
+                                            <Image 
+                                                src={urlForImage(post.authorImage).url()} 
+                                                alt={post.authorName} 
+                                                fill 
+                                                className="object-cover" 
+                                            />
+                                        </div>
+                                    )}
+                                    <span className="font-medium text-neutral-300">{post.authorName}</span>
+                                </div>
+                            )}
+                            
                             <span className="flex items-center gap-1.5">
                                 <IoMdCalendar className="text-purple-400" />
                                 {new Date(post.publishedAt).toLocaleDateString('en-US', {
@@ -133,7 +149,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                                     day: 'numeric'
                                 })}
                             </span>
-                            <span>•</span>
+                            
                             <span className="flex items-center gap-1.5">
                                 <IoMdTime className="text-purple-400" />
                                 {post.readTimeInMinutes} min read
