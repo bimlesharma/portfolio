@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import BlogNavbar from "@/components/BlogNavbar";
 import WorkIndex from "@/components/work/WorkIndex";
 
 export const metadata: Metadata = {
@@ -15,10 +14,5 @@ export const metadata: Metadata = {
 };
 
 export default function ProductsPage() {
-  return (
-    <>
-      <BlogNavbar />
-      <WorkIndex kind="product" />
-    </>
-  );
+  return <WorkIndex kind="product" />;
 }

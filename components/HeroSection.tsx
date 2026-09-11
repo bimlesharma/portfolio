@@ -1,9 +1,8 @@
 'use client';
 import { BrainCircuit, LayoutTemplate, Code, ExternalLink } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import clsx from 'clsx';
 import { TypeAnimation } from 'react-type-animation';
-import FloatingDockContainer from '@/components/FloatingDockContainer';
 import AsciiPortrait from '@/components/AsciiPortrait';
 
 type SkillTagProps = {
@@ -37,8 +36,10 @@ const SkillTag = ({ icon, text, position, color }: SkillTagProps) => (
 );
 
 const HeroSection = () => {
+  const reduceMotion = useReducedMotion();
+
   return (
-    <div className="min-h-screen w-full font-sans overflow-x-hidden relative">
+    <div id="home" className="min-h-screen w-full font-sans overflow-x-hidden relative">
       {/* Ambient glow orbs matching blog aesthetic */}
       <div className="absolute inset-0 -z-10 pointer-events-none overflow-hidden">
         <div className="absolute top-[-10%] right-[5%] w-[55%] h-[55%] bg-purple-600/8 rounded-full blur-[130px]" />
@@ -50,9 +51,9 @@ const HeroSection = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             {/* Left */}
             <motion.div
-              initial={{ opacity: 0, x: -40 }}
+              initial={reduceMotion ? false : { opacity: 0, x: -40 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
+              transition={{ duration: reduceMotion ? 0 : 0.8 }}
               className="text-center lg:text-left flex flex-col items-center lg:items-start px-4 sm:px-6 lg:px-0"
             >
               <p className="text-base text-purple-400 dark:text-purple-300 font-semibold font-mono tracking-widest uppercase">Hi, I&apos;m</p>
@@ -60,21 +61,25 @@ const HeroSection = () => {
                 Bimlesh
               </h1>
               <div className='text-2xl sm:text-2xl md:text-3xl font-bold text-slate-800 dark:text-slate-100 mt-2 h-20 flex items-center'>
-                <TypeAnimation
-                  sequence={[
-                    'Full Stack Developer',
-                    2000,
-                    'Software Engineer',
-                    2000,
-                    'AI Explorer',
-                    2000,
-                    'Problem Solver',
-                    2000,
-                  ]}
-                  wrapper="span"
-                  speed={50}
-                  repeat={Infinity}
-                />
+                {reduceMotion ? (
+                  <span>Full Stack Developer</span>
+                ) : (
+                  <TypeAnimation
+                    sequence={[
+                      'Full Stack Developer',
+                      2000,
+                      'Software Engineer',
+                      2000,
+                      'AI Explorer',
+                      2000,
+                      'Problem Solver',
+                      2000,
+                    ]}
+                    wrapper="span"
+                    speed={50}
+                    repeat={Infinity}
+                  />
+                )}
               </div>
               <p className="hidden md:block text-lg text-slate-500 dark:text-neutral-400 max-w-xl mx-auto md:mx-0 mt-4">
                 Full-stack engineer passionate about building scalable, production-grade systems. Experienced in real-time visualizations, multi-tenant SaaS, GenAI-powered platforms, and containerized deployments.
@@ -165,8 +170,6 @@ const HeroSection = () => {
         </main>
       </div>
 
-      {/* Dock */}
-      <FloatingDockContainer />
     </div>
   );
 };

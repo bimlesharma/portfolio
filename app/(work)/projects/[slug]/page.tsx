@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import BlogNavbar from "@/components/BlogNavbar";
 import WorkDetail from "@/components/work/WorkDetail";
 import { getWorkByKind, getWorkBySlug } from "@/lib/work";
 
@@ -37,10 +36,5 @@ export default async function ProjectDetailPage({ params }: PageProps) {
   const item = getWorkBySlug("project", slug);
   if (!item) notFound();
 
-  return (
-    <>
-      <BlogNavbar />
-      <WorkDetail item={item} />
-    </>
-  );
+  return <WorkDetail item={item} />;
 }

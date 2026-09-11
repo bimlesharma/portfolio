@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface Particle {
     x: number;
@@ -12,34 +12,57 @@ interface Particle {
     trail: { x: number; y: number; alpha: number }[];
 }
 
+function shouldEnableCursorEffect(): boolean {
+    if (typeof window === 'undefined') return false;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
+    if (window.matchMedia('(pointer: coarse)').matches) return false;
+    return true;
+}
+
 export default function CursorEffect() {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const particlesRef = useRef<Particle[]>([]);
     const mouseRef = useRef({ x: 0, y: 0 });
     const animationFrameRef = useRef<number | undefined>(undefined);
+    const [enabled, setEnabled] = useState(false);
 
     useEffect(() => {
+        setEnabled(shouldEnableCursorEffect());
+
+        const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+        const pointerQuery = window.matchMedia('(pointer: coarse)');
+        const update = () => setEnabled(shouldEnableCursorEffect());
+
+        motionQuery.addEventListener('change', update);
+        pointerQuery.addEventListener('change', update);
+        return () => {
+            motionQuery.removeEventListener('change', update);
+            pointerQuery.removeEventListener('change', update);
+        };
+    }, []);
+
+    useEffect(() => {
+        if (!enabled) return;
+
         const canvas = canvasRef.current;
         if (!canvas) return;
 
         const ctx = canvas.getContext('2d');
         if (!ctx) return;
 
-        // Set canvas size
         const resizeCanvas = () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         };
 
-        // Initialize particles
         const initParticles = () => {
             const particleCount = 100;
             const colors = [
-                '#06b6d4', // Cyan - primary
-                '#a78bfa', // Purple - secondary
-                '#10b981', // Emerald - accent
-                '#f59e0b', // Amber - chart
-                '#ec4899', // Pink - extra pop
+                '#06b6d4',
+                '#a78bfa',
+                '#10b981',
+                '#f59e0b',
+                '#ec4899',
             ];
 
             particlesRef.current = Array.from({ length: particleCount }, () => ({
@@ -60,25 +83,20 @@ export default function CursorEffect() {
             initParticles();
         });
 
-        // Mouse move handler
         const handleMouseMove = (e: MouseEvent) => {
             mouseRef.current = { x: e.clientX, y: e.clientY };
         };
         window.addEventListener('mousemove', handleMouseMove);
 
-        // Animation loop
         const animate = () => {
-            // Clear canvas with transparency (no black fade)
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             particlesRef.current.forEach((particle) => {
-                // Calculate distance and angle from mouse
                 const dx = particle.x - mouseRef.current.x;
                 const dy = particle.y - mouseRef.current.y;
                 const distance = Math.sqrt(dx * dx + dy * dy);
                 const maxDistance = 200;
 
-                // Apply repulsion force from mouse
                 if (distance < maxDistance && distance > 0) {
                     const force = (1 - distance / maxDistance) * 0.8;
                     const angle = Math.atan2(dy, dx);
@@ -86,38 +104,34 @@ export default function CursorEffect() {
                     particle.vy += Math.sin(angle) * force;
                 }
 
-                // Apply friction
                 particle.vx *= 0.95;
                 particle.vy *= 0.95;
 
-                // Update position
                 particle.x += particle.vx;
                 particle.y += particle.vy;
 
-                // Wrap around screen edges
                 if (particle.x < 0) particle.x = canvas.width;
                 if (particle.x > canvas.width) particle.x = 0;
                 if (particle.y < 0) particle.y = canvas.height;
                 if (particle.y > canvas.height) particle.y = 0;
 
-                // Add current position to trail
                 particle.trail.push({ x: particle.x, y: particle.y, alpha: 1 });
                 if (particle.trail.length > 15) {
                     particle.trail.shift();
                 }
 
-                // Draw trail
                 particle.trail.forEach((point, index) => {
                     const alpha = (index / particle.trail.length) * 0.6;
                     const size = particle.size * (index / particle.trail.length);
 
                     ctx.beginPath();
                     ctx.arc(point.x, point.y, size, 0, Math.PI * 2);
-                    ctx.fillStyle = particle.color + Math.floor(alpha * 255).toString(16).padStart(2, '0');
+                    ctx.fillStyle =
+                        particle.color +
+                        Math.floor(alpha * 255).toString(16).padStart(2, '0');
                     ctx.fill();
                 });
 
-                // Draw main particle
                 ctx.beginPath();
                 ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
                 ctx.fillStyle = particle.color;
@@ -132,7 +146,6 @@ export default function CursorEffect() {
 
         animate();
 
-        // Cleanup
         return () => {
             window.removeEventListener('resize', resizeCanvas);
             window.removeEventListener('mousemove', handleMouseMove);
@@ -140,13 +153,16 @@ export default function CursorEffect() {
                 cancelAnimationFrame(animationFrameRef.current);
             }
         };
-    }, []);
+    }, [enabled]);
+
+    if (!enabled) return null;
 
     return (
         <canvas
             ref={canvasRef}
             className="fixed inset-0 pointer-events-none z-0"
             style={{ background: 'transparent' }}
+            aria-hidden="true"
         />
     );
 }

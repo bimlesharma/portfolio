@@ -1,4 +1,5 @@
 import React, { Suspense } from 'react';
+import Link from 'next/link';
 import { getSanityPosts } from '@/lib/sanity-api';
 import type { SanityPost } from '@/lib/types/sanity';
 import { IoMdTrendingUp, IoMdGlobe } from "react-icons/io";
@@ -47,9 +48,16 @@ const BlogPage = async () => {
                         Writing & Thoughts
                     </h1>
 
-                    <p className="text-lg md:text-xl text-neutral-400 leading-relaxed mb-10 font-light">
+                    <p className="text-lg md:text-xl text-neutral-400 leading-relaxed mb-8 font-light">
                         Deep dives into software engineering, artificial intelligence, and building polished products. Welcome to my digital garden where I document what I build and learn.
                     </p>
+
+                    <Link
+                        href="/blog/explore"
+                        className="mb-10 text-sm font-semibold text-purple-400 transition hover:text-purple-300"
+                    >
+                        Explore by topic →
+                    </Link>
 
                     {/* Stats Line */}
                     <div className="flex items-center gap-5 text-sm font-mono text-neutral-500">

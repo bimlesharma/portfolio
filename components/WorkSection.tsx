@@ -1,12 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import WorkTile from "@/components/work/WorkTile";
 import { getAllWork } from "@/lib/work";
 
 export default function WorkSection() {
   const items = getAllWork();
+  const reduceMotion = useReducedMotion();
 
   return (
     <section
@@ -28,28 +29,44 @@ export default function WorkSection() {
         </div>
 
         <motion.div
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.5, 0.3],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
+          animate={
+            reduceMotion
+              ? undefined
+              : {
+                  scale: [1, 1.2, 1],
+                  opacity: [0.3, 0.5, 0.3],
+                }
+          }
+          transition={
+            reduceMotion
+              ? undefined
+              : {
+                  duration: 8,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }
+          }
           className="absolute top-1/4 -left-48 h-96 w-96 rounded-full bg-purple-500/20 blur-3xl"
         />
         <motion.div
-          animate={{
-            scale: [1, 1.3, 1],
-            opacity: [0.2, 0.4, 0.2],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 2,
-          }}
+          animate={
+            reduceMotion
+              ? undefined
+              : {
+                  scale: [1, 1.3, 1],
+                  opacity: [0.2, 0.4, 0.2],
+                }
+          }
+          transition={
+            reduceMotion
+              ? undefined
+              : {
+                  duration: 10,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 2,
+                }
+          }
           className="absolute bottom-1/4 -right-48 h-96 w-96 rounded-full bg-blue-500/20 blur-3xl"
         />
       </div>

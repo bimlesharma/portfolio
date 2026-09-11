@@ -1,11 +1,8 @@
-'use client';
 import HeroSection from '@/components/HeroSection';
-// import AboutSection from '@/components/AboutSection';
 import SkillsSection from '@/components/SkillsSection';
 import WorkSection from '@/components/WorkSection';
 import ContactSection from '@/components/ContactSection';
 import ExperienceSection from '@/components/ExperienceSection';
-// import EducationSection from '@/components/EducationSection';
 import AchievementsSection from '@/components/AchievementsSection';
 import Footer from '@/components/Footer';
 import BackToTopButton from '@/components/BackToTopButton';
@@ -18,23 +15,14 @@ export default function Home() {
     <main className="overflow-x-hidden">
       <CursorEffect />
       <HeroSection />
-      {/* <AboutSection /> */}
       <WorkSection />
       <SkillsSection />
       <ExperienceSection />
-      {/* <EducationSection /> */}
       <AchievementsSection />
       <ContactSection />
       <Footer />
       <BackToTopButton />
       <AnimatedBackground />
-      {/* <AnimatedBackground
-        // direction="diagonal"
-        // speed={0.6}
-        // squareSize={50}
-        // borderColor="#444"
-        // hoverFillColor="#1e1e1e"
-      /> */}
       <FloatingDockContainer />
     </main>
   );

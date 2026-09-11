@@ -261,10 +261,11 @@ export default function ContactSection() {
             <form onSubmit={handleSubmit} className="space-y-5">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-semibold text-slate-300 mb-2">
+                  <label htmlFor="contact-name" className="block text-sm font-semibold text-slate-300 mb-2">
                     Name *
                   </label>
                   <input
+                    id="contact-name"
                     name="name"
                     type="text"
                     required
@@ -275,10 +276,11 @@ export default function ContactSection() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-slate-300 mb-2">
+                  <label htmlFor="contact-email" className="block text-sm font-semibold text-slate-300 mb-2">
                     Email *
                   </label>
                   <input
+                    id="contact-email"
                     name="email"
                     type="email"
                     required
@@ -291,10 +293,11 @@ export default function ContactSection() {
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-slate-300 mb-2">
+                <label htmlFor="contact-subject" className="block text-sm font-semibold text-slate-300 mb-2">
                   Subject
                 </label>
                 <input
+                  id="contact-subject"
                   name="subject"
                   type="text"
                   placeholder="Project Inquiry"
@@ -305,10 +308,11 @@ export default function ContactSection() {
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-slate-300 mb-2">
+                <label htmlFor="contact-message" className="block text-sm font-semibold text-slate-300 mb-2">
                   Message *
                 </label>
                 <textarea
+                  id="contact-message"
                   name="message"
                   required
                   placeholder="Tell me about your project or inquiry..."

@@ -19,6 +19,9 @@ export default function BlogNavbar() {
                     <Link href="/blog" className="hover:text-purple-400 transition-colors">
                         Blog
                     </Link>
+                    <Link href="/blog/explore" className="hover:text-purple-400 transition-colors">
+                        Explore
+                    </Link>
                     <Link href="/#work" className="hover:text-purple-400 transition-colors">
                         Work
                     </Link>
@@ -26,13 +29,13 @@ export default function BlogNavbar() {
                     <div className="w-px h-4 bg-neutral-800 mx-2 hidden sm:block"></div>
                     
                     <div className="hidden sm:flex items-center gap-4">
-                        <a href="https://github.com/bimlesharma" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+                        <a href="https://github.com/bimlesharma" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="hover:text-white transition-colors">
                             <FaGithub className="text-lg" />
                         </a>
-                        <a href="https://twitter.com/bimlesharma" target="_blank" rel="noopener noreferrer" className="hover:text-purple-400 transition-colors">
+                        <a href="https://twitter.com/bimlesharma" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)" className="hover:text-purple-400 transition-colors">
                             <FaXTwitter className="text-lg" />
                         </a>
-                        <a href="https://www.linkedin.com/in/bimlesharma/" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition-colors">
+                        <a href="https://www.linkedin.com/in/bimlesharma/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="hover:text-blue-400 transition-colors">
                             <FaLinkedin className="text-lg" />
                         </a>
                     </div>

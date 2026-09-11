@@ -2,29 +2,129 @@ import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY!);
 
+// Prefer a verified Resend domain sender via RESEND_FROM_EMAIL (e.g. hello@bimlesh.dev).
+// Falls back to Resend's onboarding address so local/prod keep working until a domain is verified.
+const FROM_EMAIL =
+  process.env.RESEND_FROM_EMAIL?.trim() || 'onboarding@resend.dev';
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const MAX_NAME = 100;
+const MAX_SUBJECT = 200;
+const MAX_MESSAGE = 5000;
+const RATE_LIMIT = 5;
+const RATE_WINDOW_MS = 15 * 60 * 1000;
+
+type RateEntry = { count: number; resetAt: number };
+const rateLimitMap = new Map<string, RateEntry>();
+
 interface ContactRequestBody {
-  name: string;
-  email: string;
+  name?: string;
+  email?: string;
   subject?: string;
-  message: string;
+  message?: string;
+}
+
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function getClientIp(req: Request): string {
+  const forwarded = req.headers.get('x-forwarded-for');
+  if (forwarded) return forwarded.split(',')[0]?.trim() || 'unknown';
+  return req.headers.get('x-real-ip') || 'unknown';
+}
+
+function checkRateLimit(ip: string): boolean {
+  const now = Date.now();
+  const entry = rateLimitMap.get(ip);
+
+  if (!entry || now >= entry.resetAt) {
+    rateLimitMap.set(ip, { count: 1, resetAt: now + RATE_WINDOW_MS });
+    return true;
+  }
+
+  if (entry.count >= RATE_LIMIT) return false;
+  entry.count += 1;
+  return true;
 }
 
 export async function POST(req: Request) {
   try {
-    const { name, email, subject, message } = (await req.json()) as ContactRequestBody;
+    let body: ContactRequestBody;
+    try {
+      body = (await req.json()) as ContactRequestBody;
+    } catch {
+      return new Response(JSON.stringify({ error: 'Invalid JSON body' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
+    const name = typeof body.name === 'string' ? body.name.trim() : '';
+    const email = typeof body.email === 'string' ? body.email.trim() : '';
+    const subject = typeof body.subject === 'string' ? body.subject.trim() : '';
+    const message = typeof body.message === 'string' ? body.message.trim() : '';
 
     if (!name || !email || !message) {
       return new Response(
-        JSON.stringify({ error: 'Missing required fields: name, email, message' }),
-        { status: 400 }
+        JSON.stringify({
+          error: 'Missing required fields: name, email, message',
+        }),
+        { status: 400, headers: { 'Content-Type': 'application/json' } },
       );
     }
 
-    const emailSubject = subject?.trim() || `New message from ${name}`;
+    if (!EMAIL_RE.test(email)) {
+      return new Response(JSON.stringify({ error: 'Invalid email address' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
 
-    // 1. Send to you
+    if (
+      name.length > MAX_NAME ||
+      subject.length > MAX_SUBJECT ||
+      message.length > MAX_MESSAGE
+    ) {
+      return new Response(JSON.stringify({ error: 'Field too long' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
+    // Count only well-formed submissions toward the send quota so malformed
+    // JSON / validation failures cannot exhaust the limit.
+    const ip = getClientIp(req);
+    if (!checkRateLimit(ip)) {
+      return new Response(
+        JSON.stringify({ error: 'Too many requests. Please try again later.' }),
+        { status: 429, headers: { 'Content-Type': 'application/json' } },
+      );
+    }
+
+    if (!process.env.RESEND_API_KEY) {
+      console.error('RESEND_API_KEY is not set');
+      return new Response(
+        JSON.stringify({ error: 'Email service is not configured' }),
+        { status: 500, headers: { 'Content-Type': 'application/json' } },
+      );
+    }
+
+    const safeName = escapeHtml(name);
+    const safeEmail = escapeHtml(email);
+    const safeSubject = escapeHtml(
+      subject || `New message from ${name}`,
+    );
+    const safeMessage = escapeHtml(message).replace(/\n/g, '<br/>');
+    const emailSubject = subject || `New message from ${name}`;
+
     const toYou = await resend.emails.send({
-      from: 'onboarding@resend.dev',
+      from: FROM_EMAIL,
       to: 'bimlesh.mdb@gmail.com',
       subject: emailSubject,
       replyTo: email,
@@ -73,22 +173,22 @@ export async function POST(req: Request) {
     <div class="content">
       <div class="row">
         <div class="label">Name:</div>
-        <div class="value">${name}</div>
+        <div class="value">${safeName}</div>
       </div>
       <div class="row">
         <div class="label">Email:</div>
-        <div class="value"><a href="mailto:${email}" class="email">${email}</a></div>
+        <div class="value"><a href="mailto:${safeEmail}" class="email">${safeEmail}</a></div>
       </div>
       <div class="row">
         <div class="label">Subject:</div>
-        <div class="value">${emailSubject}</div>
+        <div class="value">${safeSubject}</div>
       </div>
       <div class="message-wrapper">
         <div class="message-label">Message Body</div>
-        <div class="message-box">${message.replace(/\n/g, '<br/>')}</div>
+        <div class="message-box">${safeMessage}</div>
       </div>
       <div class="button-wrap">
-        <a href="mailto:${email}" class="button">Reply to ${name}</a>
+        <a href="mailto:${safeEmail}" class="button">Reply to ${safeName}</a>
       </div>
     </div>
     <div class="footer">
@@ -101,71 +201,24 @@ export async function POST(req: Request) {
 </html>`,
     });
 
-    // 2. Send confirmation to sender (COMMENTED OUT TEMPORARILY — domain expired)
-    /*
-    const toSender = await resend.emails.send({
-      from: 'no-reply@mail.bimlesh.dev',
-      to: email,
-      subject: `Thanks for contacting me, ${name}!`,
-      html: `
-        <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color: #f9fafb; padding: 40px 20px; color: #111827;">
-          <table width="100%" style="max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); overflow: hidden; border: 1px solid #e5e7eb;">
-            <tr>
-              <td style="padding: 32px; border-bottom: 1px solid #f3f4f6;">
-                <h2 style="margin: 0; font-size: 24px; font-weight: 600; color: #111827;">Message Received</h2>
-                <p style="margin: 8px 0 0; font-size: 14px; color: #6b7280;">${new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
-              </td>
-            </tr>
-            <tr>
-              <td style="padding: 32px; font-size: 16px; color: #374151; line-height: 1.6;">
-                <p style="margin: 0 0 16px;">Hi <strong>${name}</strong>,</p>
-                <p style="margin: 0 0 24px;">Thank you for reaching out. I have received your message and will review it shortly. I typically respond within 24-48 hours.</p>
-                <div style="background: #f9fafb; padding: 24px; border-radius: 6px; border: 1px solid #e5e7eb; margin-bottom: 24px;">
-                  <strong style="display: block; margin-bottom: 12px; font-size: 12px; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em;">Your Message</strong>
-                  <div style="color: #4b5563; font-style: italic;">${message.replace(/\n/g, '<br/>')}</div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td style="padding: 0 32px 32px;">
-                <a href="https://github.com/bimlesharma" style="display: inline-block; background-color: #111827; color: #ffffff; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 500; font-size: 14px;">Visit My GitHub</a>
-              </td>
-            </tr>
-            <tr>
-              <td style="background-color: #f9fafb; padding: 24px 32px; text-align: center; border-top: 1px solid #e5e7eb; font-size: 13px; color: #6b7280;">
-                <div style="margin-bottom: 4px;">This is an automated confirmation — please do not reply to this email.</div>
-                <div>&copy; ${new Date().getFullYear()} bimlesharma</div>
-              </td>
-            </tr>
-          </table>
-        </div>
-      `,
-    });
-    */
-
-    // if (toYou.data?.id && toSender.data?.id) {
-    //   return new Response(
-    //     JSON.stringify({ success: true, ids: [toYou.data.id, toSender.data.id] }),
-    //     { status: 200, headers: { 'Content-Type': 'application/json' } }
-    //   );
-    // }
-
-    // Temporary success logic while toSender is commented out:
     if (toYou.data?.id) {
       return new Response(
         JSON.stringify({ success: true, id: toYou.data.id }),
-        { status: 200, headers: { 'Content-Type': 'application/json' } }
+        { status: 200, headers: { 'Content-Type': 'application/json' } },
       );
     }
 
-    const errorMsg = toYou.error?.message || 'Unknown error'; // || toSender.error?.message
+    const errorMsg = toYou.error?.message || 'Unknown error';
     console.error('RESEND API ERROR:', errorMsg);
-    return new Response(JSON.stringify({ error: errorMsg }), { status: 500 });
+    return new Response(JSON.stringify({ error: errorMsg }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
   } catch (error) {
     console.error('Server error:', error);
-    return new Response(
-      JSON.stringify({ error: 'Internal Server Error' }),
-      { status: 500, headers: { 'Content-Type': 'application/json' } }
-    );
+    return new Response(JSON.stringify({ error: 'Internal Server Error' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 }

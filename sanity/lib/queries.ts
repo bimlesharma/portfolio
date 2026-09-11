@@ -9,7 +9,7 @@ export const postsQuery = groq`*[_type == "post" && defined(slug.current)] | ord
   "brief": coalesce(brief, pt::text(body)[0..120] + "..."),
   "readTimeInMinutes": coalesce(readTimeInMinutes, round(length(pt::text(body)) / 5 / 180), 3),
   "categories": categories[]->title,
-  "author": author->name
+  "authorName": author->name
 }`
 
 export const postBySlugQuery = groq`*[_type == "post" && slug.current == $slug][0] {

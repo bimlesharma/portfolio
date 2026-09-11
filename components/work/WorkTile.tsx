@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { type WorkItem, workHref, workKindLabel } from "@/lib/work";
 
 type WorkTileProps = {
@@ -19,13 +19,17 @@ export default function WorkTile({
 }: WorkTileProps) {
   const href = workHref(item);
   const isFeatured = featured;
+  const reduceMotion = useReducedMotion();
 
   return (
     <motion.article
-      initial={{ opacity: 0, y: 24 }}
+      initial={reduceMotion ? false : { opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.45, delay: index * 0.06 }}
+      transition={{
+        duration: reduceMotion ? 0 : 0.45,
+        delay: reduceMotion ? 0 : index * 0.06,
+      }}
       className={isFeatured ? "md:col-span-2" : undefined}
     >
       <Link

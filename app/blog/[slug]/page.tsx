@@ -4,9 +4,8 @@ import Link from 'next/link';
 import { getPostBySlug, getSanityPosts } from '@/lib/sanity-api';
 import type { SanityPost } from '@/lib/types/sanity';
 import { urlForImage } from '@/sanity/lib/image';
-import { IoMdArrowBack, IoMdTime } from "react-icons/io";
+import { IoMdArrowBack } from "react-icons/io";
 import ScrollProgress from '@/components/ScrollProgress';
-import FallbackCover from '@/components/FallbackCover';
 import BlogContent from '@/components/BlogContent';
 import TableOfContents from '@/components/TableOfContents';
 import ShareButtons from '@/components/ShareButtons';
@@ -15,6 +14,13 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 
 export const revalidate = 3600;
+
+export async function generateStaticParams() {
+    const posts = await getSanityPosts();
+    return posts
+        .filter((post) => post.slug?.current)
+        .map((post) => ({ slug: post.slug.current }));
+}
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
     const { slug } = await params;

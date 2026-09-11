@@ -36,7 +36,7 @@ export default function FloatingDockContainer() {
             const scrollPosition = currentY + window.innerHeight / 3;
 
             for (const section of sections) {
-                const element = document.getElementById(section === 'home' ? '' : section);
+                const element = document.getElementById(section);
                 if (element) {
                     const { offsetTop, offsetHeight } = element;
                     if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
