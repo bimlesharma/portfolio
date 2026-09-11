@@ -7,6 +7,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import {
   type WorkItem,
   workDemoLabel,
+  workGithubLabel,
   workHref,
   workKindLabel,
 } from "@/lib/work";
@@ -43,6 +44,7 @@ export default function WorkTile({ item, index = 0 }: WorkTileProps) {
   const reduceMotion = useReducedMotion();
   const alwaysShowCtas = useAlwaysShowCtas();
   const demoLabel = workDemoLabel(item.kind);
+  const githubLabel = workGithubLabel(item);
 
   return (
     <motion.article
@@ -60,27 +62,26 @@ export default function WorkTile({ item, index = 0 }: WorkTileProps) {
       <div className="group absolute inset-0 overflow-hidden rounded-2xl border border-white/12 bg-slate-950 shadow-[0_14px_40px_-20px_rgba(0,0,0,0.9)] ring-1 ring-inset ring-white/5">
         <Image
           src={item.image}
-          alt={item.title}
+          alt=""
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
           className={`object-cover transition-transform duration-[650ms] ease-out will-change-transform ${
-            reduceMotion ? "" : "group-hover:scale-[1.04] group-focus-within:scale-[1.04]"
+            reduceMotion
+              ? ""
+              : "group-hover:scale-[1.04] group-focus-within:scale-[1.04]"
           }`}
         />
 
-        {/* Resting legibility */}
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-black/10"
         />
 
-        {/* Hover: deepen for CTA contrast (opacity only — no color thrash) */}
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 bg-black/0 transition-colors duration-300 ease-out group-hover:bg-black/35 group-focus-within:bg-black/35"
         />
 
-        {/* Accent wash — steady, not hover-amplified */}
         <div
           aria-hidden
           className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 opacity-70"
@@ -94,15 +95,21 @@ export default function WorkTile({ item, index = 0 }: WorkTileProps) {
           className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/35 to-transparent"
         />
 
-        {/* Accent edge: draws in on hover */}
         <div
           aria-hidden
           className="pointer-events-none absolute inset-y-0 left-0 w-[3px] origin-center scale-y-0 transition-transform duration-300 ease-out group-hover:scale-y-100 group-focus-within:scale-y-100"
           style={{ backgroundColor: item.color }}
         />
 
+        {/* Primary card surface → detail */}
+        <Link
+          href={href}
+          className="absolute inset-0 z-[1] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white/70"
+          aria-label={`${item.title} details`}
+        />
+
         <span
-          className="absolute left-3 top-3 z-10 rounded-md border border-white/20 px-2.5 py-1 text-[11px] font-bold tracking-wider text-white uppercase shadow-md backdrop-blur-md sm:left-4 sm:top-4"
+          className="pointer-events-none absolute left-3 top-3 z-10 rounded-md border border-white/20 px-2.5 py-1 text-[11px] font-bold tracking-wider text-white uppercase shadow-md backdrop-blur-md sm:left-4 sm:top-4"
           style={{
             backgroundColor: item.color,
             boxShadow: `0 8px 20px -10px ${item.color}`,
@@ -111,14 +118,11 @@ export default function WorkTile({ item, index = 0 }: WorkTileProps) {
           {workKindLabel(item.kind)}
         </span>
 
-        <div className="absolute inset-x-0 bottom-0 z-10 flex flex-col p-4 sm:p-5 md:p-6">
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 flex flex-col p-4 sm:p-5 md:p-6">
           <div>
-            <Link
-              href={href}
-              className="block text-xl font-bold tracking-tight text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.65)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 sm:text-2xl"
-            >
+            <h3 className="text-xl font-bold tracking-tight text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.65)] sm:text-2xl">
               {item.title}
-            </Link>
+            </h3>
             <p className="mt-1.5 line-clamp-2 text-sm leading-snug text-white/85 sm:text-[15px]">
               {item.tagline}
             </p>
@@ -127,8 +131,8 @@ export default function WorkTile({ item, index = 0 }: WorkTileProps) {
           <div
             className={
               alwaysShowCtas
-                ? "mt-3.5 flex flex-wrap items-center gap-2 opacity-100"
-                : "flex flex-wrap items-center gap-2 overflow-hidden opacity-0 max-h-0 mt-0 pointer-events-none transition-[opacity,margin,max-height] duration-300 ease-out group-hover:pointer-events-auto group-hover:mt-3.5 group-hover:max-h-14 group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:mt-3.5 group-focus-within:max-h-14 group-focus-within:opacity-100"
+                ? "pointer-events-auto mt-3.5 flex flex-wrap items-center gap-2 opacity-100"
+                : "pointer-events-none mt-0 flex max-h-0 flex-wrap items-center gap-2 overflow-hidden opacity-0 transition-[opacity,margin,max-height] duration-300 ease-out group-hover:pointer-events-auto group-hover:mt-3.5 group-hover:max-h-14 group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:mt-3.5 group-focus-within:max-h-14 group-focus-within:opacity-100"
             }
           >
             {item.demo ? (
@@ -154,7 +158,7 @@ export default function WorkTile({ item, index = 0 }: WorkTileProps) {
                 className={`${ctaBase} border border-white/30 bg-white/12 text-white backdrop-blur-md hover:bg-white/22`}
                 onClick={(e) => e.stopPropagation()}
               >
-                Source
+                {githubLabel}
               </a>
             ) : null}
             <Link

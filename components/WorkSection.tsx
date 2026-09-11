@@ -88,7 +88,7 @@ export default function WorkSection() {
             className="mb-4 inline-block"
           >
             <span className="rounded-full border border-purple-500/20 bg-purple-500/10 px-5 py-1.5 text-sm font-semibold text-purple-300 backdrop-blur-sm">
-              Portfolio
+              Selected work
             </span>
           </motion.div>
 
@@ -96,42 +96,53 @@ export default function WorkSection() {
             My Work
           </h2>
           <p className="mx-auto max-w-2xl text-lg leading-relaxed text-slate-600 dark:text-slate-300 lg:text-xl">
-            Products I ship and projects I build.
+            Shipping products and building projects across full-stack, AI, and
+            systems.
           </p>
         </motion.div>
 
-        <div className="flex flex-col gap-3 sm:gap-4 md:gap-5">
-          {/* Products: equal halves */}
-          <div className="grid grid-cols-1 items-stretch gap-3 sm:grid-cols-2 sm:gap-4 md:gap-5">
-            {products.map((item, index) => (
-              <WorkTile key={item.slug} item={item} index={index} />
-            ))}
+        <div className="flex flex-col gap-8 sm:gap-10">
+          <div>
+            <div className="mb-3 flex items-baseline justify-between gap-4 sm:mb-4">
+              <h3 className="text-xs font-semibold tracking-[0.2em] text-slate-500 uppercase dark:text-slate-400">
+                Products
+              </h3>
+              <Link
+                href="/products"
+                className="text-xs font-medium text-slate-500 transition hover:text-purple-600 dark:text-slate-400 dark:hover:text-purple-400"
+              >
+                View all →
+              </Link>
+            </div>
+            <div className="grid grid-cols-1 items-stretch gap-3 sm:grid-cols-2 sm:gap-4 md:gap-5">
+              {products.map((item, index) => (
+                <WorkTile key={item.slug} item={item} index={index} />
+              ))}
+            </div>
           </div>
-          {/* Projects: three-across on md+ */}
-          <div className="grid grid-cols-1 items-stretch gap-3 sm:grid-cols-2 sm:gap-4 md:grid-cols-3 md:gap-5">
-            {projects.map((item, index) => (
-              <WorkTile
-                key={item.slug}
-                item={item}
-                index={products.length + index}
-              />
-            ))}
-          </div>
-        </div>
 
-        <div className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm">
-          <Link
-            href="/products"
-            className="font-medium text-slate-500 transition hover:text-purple-600 dark:text-slate-400 dark:hover:text-purple-400"
-          >
-            All products →
-          </Link>
-          <Link
-            href="/projects"
-            className="font-medium text-slate-500 transition hover:text-purple-600 dark:text-slate-400 dark:hover:text-purple-400"
-          >
-            All projects →
-          </Link>
+          <div>
+            <div className="mb-3 flex items-baseline justify-between gap-4 sm:mb-4">
+              <h3 className="text-xs font-semibold tracking-[0.2em] text-slate-500 uppercase dark:text-slate-400">
+                Projects
+              </h3>
+              <Link
+                href="/projects"
+                className="text-xs font-medium text-slate-500 transition hover:text-purple-600 dark:text-slate-400 dark:hover:text-purple-400"
+              >
+                View all →
+              </Link>
+            </div>
+            <div className="grid grid-cols-1 items-stretch gap-3 sm:grid-cols-2 sm:gap-4 md:grid-cols-3 md:gap-5">
+              {projects.map((item, index) => (
+                <WorkTile
+                  key={item.slug}
+                  item={item}
+                  index={products.length + index}
+                />
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>

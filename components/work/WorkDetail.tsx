@@ -4,7 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   type WorkItem,
+  getAdjacentWork,
   workDemoLabel,
+  workGithubLabel,
+  workHref,
   workIndexHref,
   workKindLabel,
 } from "@/lib/work";
@@ -15,8 +18,12 @@ type WorkDetailProps = {
 
 export default function WorkDetail({ item }: WorkDetailProps) {
   const demoLabel = workDemoLabel(item.kind);
+  const githubLabel = workGithubLabel(item);
   const indexHref = workIndexHref(item.kind);
   const kindPlural = item.kind === "product" ? "Products" : "Projects";
+  const hasExternalCtas = Boolean(item.demo || item.github);
+  const isCaseStudyOnly = !item.demo && !item.github;
+  const { prev, next } = getAdjacentWork(item);
 
   return (
     <article className="relative min-h-screen bg-[#050505] text-white">
@@ -49,33 +56,41 @@ export default function WorkDetail({ item }: WorkDetailProps) {
         <h1 className="mb-4 text-4xl font-extrabold tracking-tight md:text-5xl">
           {item.title}
         </h1>
-        <p className="mb-8 max-w-2xl text-lg leading-relaxed text-neutral-400">
+        <p className="mb-4 max-w-2xl text-lg leading-relaxed text-neutral-400">
           {item.summary}
         </p>
 
-        <div className="mb-10 flex flex-wrap gap-3">
-          {item.demo && (
-            <a
-              href={item.demo}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-lg px-5 py-2.5 text-sm font-bold text-white transition hover:opacity-90"
-              style={{ backgroundColor: item.color }}
-            >
-              {demoLabel}
-            </a>
-          )}
-          {item.github && (
-            <a
-              href={item.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-lg border border-neutral-700 bg-neutral-900 px-5 py-2.5 text-sm font-bold text-white transition hover:border-neutral-500"
-            >
-              Source
-            </a>
-          )}
-        </div>
+        {isCaseStudyOnly ? (
+          <p className="mb-10 text-sm text-neutral-500">
+            Case study — no live demo yet.
+          </p>
+        ) : null}
+
+        {hasExternalCtas ? (
+          <div className="mb-10 flex flex-wrap gap-3">
+            {item.demo ? (
+              <a
+                href={item.demo}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-lg px-5 py-2.5 text-sm font-bold text-white transition hover:opacity-90"
+                style={{ backgroundColor: item.color }}
+              >
+                {demoLabel}
+              </a>
+            ) : null}
+            {item.github ? (
+              <a
+                href={item.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-lg border border-neutral-700 bg-neutral-900 px-5 py-2.5 text-sm font-bold text-white transition hover:border-neutral-500"
+              >
+                {githubLabel}
+              </a>
+            ) : null}
+          </div>
+        ) : null}
 
         <div className="relative mb-12 aspect-[16/10] overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-900">
           <Image
@@ -142,6 +157,42 @@ export default function WorkDetail({ item }: WorkDetailProps) {
             </p>
           ))}
         </div>
+
+        {(prev || next) && (
+          <nav
+            aria-label="Adjacent work"
+            className="mt-16 flex flex-col gap-6 border-t border-neutral-900 pt-10 sm:flex-row sm:items-start sm:justify-between"
+          >
+            {prev ? (
+              <Link
+                href={workHref(prev)}
+                className="group max-w-xs transition hover:opacity-90"
+              >
+                <span className="mb-1 block text-xs font-medium tracking-wide text-neutral-500 uppercase">
+                  ← Previous
+                </span>
+                <span className="text-base font-semibold text-white group-hover:text-purple-300">
+                  {prev.title}
+                </span>
+              </Link>
+            ) : (
+              <span />
+            )}
+            {next ? (
+              <Link
+                href={workHref(next)}
+                className="group max-w-xs text-right transition hover:opacity-90 sm:ml-auto"
+              >
+                <span className="mb-1 block text-xs font-medium tracking-wide text-neutral-500 uppercase">
+                  Next →
+                </span>
+                <span className="text-base font-semibold text-white group-hover:text-purple-300">
+                  {next.title}
+                </span>
+              </Link>
+            ) : null}
+          </nav>
+        )}
       </div>
     </article>
   );

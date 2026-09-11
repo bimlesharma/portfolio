@@ -6,7 +6,8 @@ import {
   SiMongodb, SiPostgresql, SiDocker,
   SiTailwindcss, SiJavascript, SiGit, SiExpress, SiRedis,
   SiGraphql, SiFigma, SiFastapi,
-  SiFirebase, SiVercel, SiNginx, SiSupabase, SiKubernetes
+  SiFirebase, SiVercel, SiNginx, SiSupabase, SiKubernetes,
+  SiTauri, SiRust, SiGooglecloud, SiClerk, SiClickhouse,
 } from "react-icons/si";
 import { FaGolang, FaAws } from "react-icons/fa6";
 
@@ -60,6 +61,13 @@ const ModernSkills = () => {
       category: "Language"
     },
     {
+      name: "Rust",
+      icon: SiRust,
+      color: "#DEA584",
+      level: 78,
+      category: "Language"
+    },
+    {
       name: "Go",
       icon: FaGolang,
       color: "#00ADD8",
@@ -87,6 +95,13 @@ const ModernSkills = () => {
       icon: SiTailwindcss,
       color: "#06B6D4",
       level: 90,
+      category: "Frontend"
+    },
+    {
+      name: "Tauri",
+      icon: SiTauri,
+      color: "#24C8DB",
+      level: 78,
       category: "Frontend"
     },
 
@@ -149,6 +164,13 @@ const ModernSkills = () => {
       level: 78,
       category: "Database"
     },
+    {
+      name: "ClickHouse",
+      icon: SiClickhouse,
+      color: "#FFCC01",
+      level: 72,
+      category: "Database"
+    },
 
     // API
     {
@@ -181,6 +203,13 @@ const ModernSkills = () => {
       level: 75,
       category: "Cloud"
     },
+    {
+      name: "GCP",
+      icon: SiGooglecloud,
+      color: "#4285F4",
+      level: 72,
+      category: "Cloud"
+    },
 
     // DevOps
     {
@@ -204,6 +233,13 @@ const ModernSkills = () => {
       icon: SiGit,
       color: "#F05032",
       level: 92,
+      category: "Tools"
+    },
+    {
+      name: "Clerk",
+      icon: SiClerk,
+      color: "#6C47FF",
+      level: 82,
       category: "Tools"
     },
     {

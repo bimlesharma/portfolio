@@ -16,8 +16,9 @@ export type WorkItem = {
   color: string;
   image: string;
   github: string;
+  /** Button label for github URL. Defaults to "Source". Use "Releases" when source is closed. */
+  githubLabel?: string;
   demo: string;
-  featured?: boolean;
   highlights?: string[];
   sections?: WorkSection[];
 };
@@ -37,9 +38,9 @@ export const workItems: WorkItem[] = [
     tech: ["Tauri", "Rust", "React", "Next.js", "TypeScript", "Clerk"],
     color: "#FF6A2B",
     image: "/images/cleanpulse-preview.png",
-    github: "https://github.com/bimlesharma/cleanpulse",
+    github: "https://github.com/bimlesharma/cleanpulse-releases/releases",
+    githubLabel: "Releases",
     demo: "https://cleanpulse.bimlesh.dev",
-    featured: true,
     highlights: [
       "Local scans — paths are not inventoried in the cloud",
       "macOS confirmation sheet before deletes",
@@ -219,6 +220,25 @@ export function workDemoLabel(kind: WorkKind): string {
   return kind === "product" ? "Visit site" : "Live Demo";
 }
 
+export function workGithubLabel(item: WorkItem): string {
+  return item.githubLabel?.trim() || "Source";
+}
+
 export function workIndexHref(kind: WorkKind): string {
   return kind === "product" ? "/products" : "/projects";
+}
+
+export function getAdjacentWork(item: WorkItem): {
+  prev: WorkItem | null;
+  next: WorkItem | null;
+} {
+  const siblings = getWorkByKind(item.kind);
+  const index = siblings.findIndex((sibling) => sibling.slug === item.slug);
+  if (index < 0) {
+    return { prev: null, next: null };
+  }
+  return {
+    prev: index > 0 ? siblings[index - 1]! : null,
+    next: index < siblings.length - 1 ? siblings[index + 1]! : null,
+  };
 }
