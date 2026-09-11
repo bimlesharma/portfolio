@@ -45,7 +45,7 @@ export default function WorkIndex({ kind }: WorkIndexProps) {
       </section>
 
       <section className="relative z-10 mx-auto max-w-5xl px-6 py-16">
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <div className="grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2 sm:gap-5">
           {items.map((item, index) => (
             <WorkTile key={item.slug} item={item} index={index} />
           ))}

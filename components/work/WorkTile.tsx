@@ -1,25 +1,48 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
-import { type WorkItem, workHref, workKindLabel } from "@/lib/work";
+import {
+  type WorkItem,
+  workDemoLabel,
+  workHref,
+  workKindLabel,
+} from "@/lib/work";
 
 type WorkTileProps = {
   item: WorkItem;
   index?: number;
-  /** When true, spans two columns on md+ grids (homepage featured). */
-  featured?: boolean;
 };
 
-export default function WorkTile({
-  item,
-  index = 0,
-  featured = false,
-}: WorkTileProps) {
+function useAlwaysShowCtas(): boolean {
+  const [always, setAlways] = useState(false);
+
+  useEffect(() => {
+    const hoverNone = window.matchMedia("(hover: none)");
+    const coarse = window.matchMedia("(pointer: coarse)");
+    const update = () => setAlways(hoverNone.matches || coarse.matches);
+    update();
+    hoverNone.addEventListener("change", update);
+    coarse.addEventListener("change", update);
+    return () => {
+      hoverNone.removeEventListener("change", update);
+      coarse.removeEventListener("change", update);
+    };
+  }, []);
+
+  return always;
+}
+
+const ctaBase =
+  "inline-flex items-center justify-center rounded-lg px-3.5 py-2 text-xs font-semibold tracking-wide transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-black/50 sm:text-sm";
+
+export default function WorkTile({ item, index = 0 }: WorkTileProps) {
   const href = workHref(item);
-  const isFeatured = featured;
   const reduceMotion = useReducedMotion();
+  const alwaysShowCtas = useAlwaysShowCtas();
+  const demoLabel = workDemoLabel(item.kind);
 
   return (
     <motion.article
@@ -30,42 +53,119 @@ export default function WorkTile({
         duration: reduceMotion ? 0 : 0.45,
         delay: reduceMotion ? 0 : index * 0.06,
       }}
-      className={isFeatured ? "md:col-span-2" : undefined}
+      className="relative h-full"
     >
-      <Link
-        href={href}
-        className="group relative block aspect-[16/10] overflow-hidden rounded-2xl border border-slate-200/60 bg-slate-900 dark:border-slate-800"
-      >
+      <div aria-hidden className="pointer-events-none aspect-[16/10] w-full" />
+
+      <div className="group absolute inset-0 overflow-hidden rounded-2xl border border-white/12 bg-slate-950 shadow-[0_14px_40px_-20px_rgba(0,0,0,0.9)] ring-1 ring-inset ring-white/5">
         <Image
           src={item.image}
           alt={item.title}
           fill
-          sizes={
-            isFeatured
-              ? "(max-width: 768px) 100vw, 66vw"
-              : "(max-width: 768px) 100vw, 33vw"
-          }
-          className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+          sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
+          className={`object-cover transition-transform duration-[650ms] ease-out will-change-transform ${
+            reduceMotion ? "" : "group-hover:scale-[1.04] group-focus-within:scale-[1.04]"
+          }`}
         />
 
-        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-black/10 transition-opacity duration-500 group-hover:from-black/80" />
+        {/* Resting legibility */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-black/10"
+        />
+
+        {/* Hover: deepen for CTA contrast (opacity only — no color thrash) */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-black/0 transition-colors duration-300 ease-out group-hover:bg-black/35 group-focus-within:bg-black/35"
+        />
+
+        {/* Accent wash — steady, not hover-amplified */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 opacity-70"
+          style={{
+            background: `linear-gradient(to top, ${item.color}40, transparent)`,
+          }}
+        />
+
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/35 to-transparent"
+        />
+
+        {/* Accent edge: draws in on hover */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-y-0 left-0 w-[3px] origin-center scale-y-0 transition-transform duration-300 ease-out group-hover:scale-y-100 group-focus-within:scale-y-100"
+          style={{ backgroundColor: item.color }}
+        />
 
         <span
-          className="absolute left-3 top-3 rounded-md px-2 py-0.5 text-[11px] font-semibold tracking-wide text-white/95 backdrop-blur-sm"
-          style={{ backgroundColor: `${item.color}cc` }}
+          className="absolute left-3 top-3 z-10 rounded-md border border-white/20 px-2.5 py-1 text-[11px] font-bold tracking-wider text-white uppercase shadow-md backdrop-blur-md sm:left-4 sm:top-4"
+          style={{
+            backgroundColor: item.color,
+            boxShadow: `0 8px 20px -10px ${item.color}`,
+          }}
         >
           {workKindLabel(item.kind)}
         </span>
 
-        <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5">
-          <h3 className="text-lg font-semibold tracking-tight text-white sm:text-xl">
-            {item.title}
-          </h3>
-          <p className="mt-1 line-clamp-1 text-sm text-white/70">
-            {item.tagline}
-          </p>
+        <div className="absolute inset-x-0 bottom-0 z-10 flex flex-col p-4 sm:p-5 md:p-6">
+          <div>
+            <Link
+              href={href}
+              className="block text-xl font-bold tracking-tight text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.65)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 sm:text-2xl"
+            >
+              {item.title}
+            </Link>
+            <p className="mt-1.5 line-clamp-2 text-sm leading-snug text-white/85 sm:text-[15px]">
+              {item.tagline}
+            </p>
+          </div>
+
+          <div
+            className={
+              alwaysShowCtas
+                ? "mt-3.5 flex flex-wrap items-center gap-2 opacity-100"
+                : "flex flex-wrap items-center gap-2 overflow-hidden opacity-0 max-h-0 mt-0 pointer-events-none transition-[opacity,margin,max-height] duration-300 ease-out group-hover:pointer-events-auto group-hover:mt-3.5 group-hover:max-h-14 group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:mt-3.5 group-focus-within:max-h-14 group-focus-within:opacity-100"
+            }
+          >
+            {item.demo ? (
+              <a
+                href={item.demo}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`${ctaBase} text-white hover:brightness-110`}
+                style={{
+                  backgroundColor: item.color,
+                  boxShadow: `0 8px 22px -10px ${item.color}`,
+                }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                {demoLabel}
+              </a>
+            ) : null}
+            {item.github ? (
+              <a
+                href={item.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`${ctaBase} border border-white/30 bg-white/12 text-white backdrop-blur-md hover:bg-white/22`}
+                onClick={(e) => e.stopPropagation()}
+              >
+                Source
+              </a>
+            ) : null}
+            <Link
+              href={href}
+              className={`${ctaBase} border border-white/25 bg-black/55 text-white backdrop-blur-md hover:bg-black/75`}
+            >
+              Details
+            </Link>
+          </div>
         </div>
-      </Link>
+      </div>
     </motion.article>
   );
 }

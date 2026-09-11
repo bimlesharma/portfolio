@@ -3,10 +3,11 @@
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import WorkTile from "@/components/work/WorkTile";
-import { getAllWork } from "@/lib/work";
+import { getWorkByKind } from "@/lib/work";
 
 export default function WorkSection() {
-  const items = getAllWork();
+  const products = getWorkByKind("product");
+  const projects = getWorkByKind("project");
   const reduceMotion = useReducedMotion();
 
   return (
@@ -99,15 +100,23 @@ export default function WorkSection() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-5">
-          {items.map((item, index) => (
-            <WorkTile
-              key={item.slug}
-              item={item}
-              index={index}
-              featured={item.featured}
-            />
-          ))}
+        <div className="flex flex-col gap-3 sm:gap-4 md:gap-5">
+          {/* Products: equal halves */}
+          <div className="grid grid-cols-1 items-stretch gap-3 sm:grid-cols-2 sm:gap-4 md:gap-5">
+            {products.map((item, index) => (
+              <WorkTile key={item.slug} item={item} index={index} />
+            ))}
+          </div>
+          {/* Projects: three-across on md+ */}
+          <div className="grid grid-cols-1 items-stretch gap-3 sm:grid-cols-2 sm:gap-4 md:grid-cols-3 md:gap-5">
+            {projects.map((item, index) => (
+              <WorkTile
+                key={item.slug}
+                item={item}
+                index={products.length + index}
+              />
+            ))}
+          </div>
         </div>
 
         <div className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm">
