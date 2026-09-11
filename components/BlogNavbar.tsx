@@ -19,8 +19,8 @@ export default function BlogNavbar() {
                     <Link href="/blog" className="hover:text-purple-400 transition-colors">
                         Blog
                     </Link>
-                    <Link href="/#projects" className="hover:text-purple-400 transition-colors">
-                        Projects
+                    <Link href="/#work" className="hover:text-purple-400 transition-colors">
+                        Work
                     </Link>
                     
                     <div className="w-px h-4 bg-neutral-800 mx-2 hidden sm:block"></div>

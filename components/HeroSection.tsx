@@ -84,7 +84,7 @@ const HeroSection = () => {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start mt-6">
                 <motion.a
-                  href="#projects"
+                  href="#work"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="relative px-6 py-3 rounded-lg bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold shadow-lg shadow-purple-900/30 transition duration-300 ease-in-out"

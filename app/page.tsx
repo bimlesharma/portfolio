@@ -2,7 +2,7 @@
 import HeroSection from '@/components/HeroSection';
 // import AboutSection from '@/components/AboutSection';
 import SkillsSection from '@/components/SkillsSection';
-import ProjectsSection from '@/components/ProjectsSection';
+import WorkSection from '@/components/WorkSection';
 import ContactSection from '@/components/ContactSection';
 import ExperienceSection from '@/components/ExperienceSection';
 // import EducationSection from '@/components/EducationSection';
@@ -19,7 +19,7 @@ export default function Home() {
       <CursorEffect />
       <HeroSection />
       {/* <AboutSection /> */}
-      <ProjectsSection />
+      <WorkSection />
       <SkillsSection />
       <ExperienceSection />
       {/* <EducationSection /> */}

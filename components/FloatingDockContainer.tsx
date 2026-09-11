@@ -32,7 +32,7 @@ export default function FloatingDockContainer() {
             }
 
             // Detect active section
-            const sections = ['home', 'projects', 'contact'];
+            const sections = ['home', 'work', 'contact'];
             const scrollPosition = currentY + window.innerHeight / 3;
 
             for (const section of sections) {
@@ -59,10 +59,10 @@ export default function FloatingDockContainer() {
             id: "home",
         },
         {
-            title: "Projects",
+            title: "Work",
             icon: <IconTerminal2 className="h-full w-full" />,
-            href: "/#projects",
-            id: "projects",
+            href: "/#work",
+            id: "work",
         },
         {
             title: "Contact",
