@@ -47,15 +47,10 @@ export default function ExploreClient({ posts, basePath }: ExploreClientProps) {
     }, [posts, searchQuery, selectedTag]);
 
     return (
-        <div className="mx-auto max-w-7xl px-6 py-12">
-            <div className="mb-8 text-center">
-                <h1 className="mb-3 text-4xl font-bold tracking-tight text-white md:text-5xl">
-                    Explore Articles
-                </h1>
-                <p className="mx-auto max-w-2xl text-base text-zinc-400">
-                    Search through {posts.length} articles across {allTags.length} topics
-                </p>
-            </div>
+        <div className="mx-auto max-w-5xl px-4 pb-12 sm:px-6 lg:px-8">
+            <p className="mb-8 text-sm text-muted-foreground">
+                {posts.length} articles across {allTags.length} topics
+            </p>
 
             <div className="mx-auto mb-8 max-w-2xl">
                 <div className="relative">

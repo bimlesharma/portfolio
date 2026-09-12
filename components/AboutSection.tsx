@@ -2,11 +2,12 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import PointerList from '@/components/PointerList';
 
 export default function AboutSection() {
   return (
-    <section id="about" className="bg-background px-6 py-12 text-foreground">
-      <div className="mx-auto flex max-w-6xl flex-col items-center gap-8 md:flex-row">
+    <section id="about" className="bg-background py-12 text-foreground">
+      <div className="mx-auto flex max-w-6xl flex-col items-center gap-8 px-4 sm:px-6 lg:px-8 md:flex-row">
         
         {/* Left - Image */}
         <motion.div
@@ -34,7 +35,7 @@ export default function AboutSection() {
           transition={{ duration: 0.6 }}
           className="w-full space-y-4 md:w-1/2"
         >
-          <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
+          <h2 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
             About Me
           </h2>
           <p className="text-muted-foreground leading-relaxed">
@@ -42,12 +43,14 @@ export default function AboutSection() {
             <br /><br />
             I work with modern technologies like <strong>React</strong>, <strong>Next.js</strong>, <strong>Express.js</strong>, <strong>MongoDB</strong>, <strong>PostgreSQL</strong>, <strong>Redis</strong>, and <strong>Docker</strong>. I&apos;m also deeply interested in <strong>AI/ML</strong> and building intelligent, data-driven applications.
           </p>
-          <ul className="list-disc pl-5 text-muted-foreground">
-            <li>💻 2+ years of full-stack development experience</li>
-            <li>🏛️ Built production systems for Government of India</li>
-            <li>🧠 Exploring AI + GenAI + creative tech</li>
-            <li>🌍 Based in New Delhi, India</li>
-          </ul>
+          <PointerList
+            items={[
+              '2+ years of full-stack development experience',
+              'Built production systems for Government of India',
+              'Exploring AI, GenAI, and creative tech',
+              'Based in New Delhi, India',
+            ]}
+          />
         </motion.div>
 
       </div>

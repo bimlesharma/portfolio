@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import WorkTile from "@/components/work/WorkTile";
-import { Badge } from "@/components/ui/badge";
+import SectionHeader from "@/components/SectionHeader";
 import { getWorkByKind } from "@/lib/work";
 
 export default function WorkSection() {
@@ -22,19 +22,13 @@ export default function WorkSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: reduceMotion ? 0 : 0.4 }}
-          className="mb-8 text-center"
+          className="mx-auto max-w-6xl"
         >
-          <Badge variant="outline" className="mb-3">
-            Selected work
-          </Badge>
-
-          <h2 className="mb-3 text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
-            My Work
-          </h2>
-          <p className="mx-auto max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-            Shipping products and building projects across full-stack, AI, and
-            systems.
-          </p>
+          <SectionHeader
+            eyebrow="Selected work"
+            title="My Work"
+            description="Shipping products and building projects across full-stack, AI, and systems."
+          />
         </motion.div>
 
         <div className="flex flex-col gap-8">

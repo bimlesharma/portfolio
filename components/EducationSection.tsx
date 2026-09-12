@@ -3,6 +3,8 @@
 import { motion } from 'framer-motion';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
+import PointerList from '@/components/PointerList';
+import SectionHeader from '@/components/SectionHeader';
 
 const education = [
   {
@@ -40,14 +42,11 @@ export default function EducationSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4 }}
-          className="mb-8 text-center"
         >
-          <h2 className="mb-3 text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
-            Education
-          </h2>
-          <p className="mx-auto max-w-2xl text-base text-muted-foreground sm:text-lg">
-            Academic background and achievements
-          </p>
+          <SectionHeader
+            title="Education"
+            description="Academic background and achievements"
+          />
         </motion.div>
 
         <div className="space-y-4">
@@ -86,23 +85,7 @@ export default function EducationSection() {
                 </div>
 
                 {/* Highlights */}
-                <div className="space-y-3">
-                  {edu.highlights.map((highlight, i) => (
-                    <motion.div
-                      key={i}
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.4, delay: index * 0.2 + i * 0.1 }}
-                      className="flex items-start gap-3"
-                    >
-                      <span className="mt-1.5 size-1.5 shrink-0 bg-foreground" />
-                      <p className="flex-1 leading-relaxed text-muted-foreground">
-                        {highlight}
-                      </p>
-                    </motion.div>
-                  ))}
-                </div>
+                <PointerList items={edu.highlights} />
                 </CardContent>
               </Card>
             </motion.div>

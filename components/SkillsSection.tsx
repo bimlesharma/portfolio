@@ -2,6 +2,7 @@
 
 import { useCallback, useLayoutEffect, useRef, useState, type ElementType } from "react";
 import { motion, useInView, useReducedMotion } from "framer-motion";
+import SectionHeader from "@/components/SectionHeader";
 import {
   SiReact,
   SiNextdotjs,
@@ -175,7 +176,7 @@ export default function SkillsSection() {
     <section
       id="skills"
       ref={ref}
-      className="relative overflow-x-hidden bg-background py-20 sm:py-24"
+      className="relative overflow-x-hidden bg-background py-12"
     >
       <div className="pointer-events-none absolute inset-0 opacity-[0.04]">
         <div
@@ -192,20 +193,16 @@ export default function SkillsSection() {
 
       <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <motion.div
-          className="mb-12 text-center sm:mb-14"
+          className="text-center"
           initial={reduce ? false : { opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : undefined}
           transition={{ duration: reduce ? 0 : 0.5 }}
         >
-          <p className="mb-3 text-xs font-semibold tracking-[0.2em] text-muted-foreground uppercase">
-            Selected skills
-          </p>
-          <h2 className="mb-3 text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
-            Skills
-          </h2>
-          <p className="mx-auto max-w-xl text-base text-muted-foreground sm:text-lg">
-            Tools I use to ship.
-          </p>
+          <SectionHeader
+            eyebrow="Selected skills"
+            title="Skills"
+            description="Tools I use to ship."
+          />
         </motion.div>
 
         <div

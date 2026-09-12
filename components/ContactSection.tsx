@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaSpinner, FaEnvelope, FaLinkedin, FaGithub, FaMapMarkerAlt } from 'react-icons/fa';
 import { Button } from '@/components/ui/button';
+import SectionHeader from '@/components/SectionHeader';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -85,22 +86,19 @@ export default function ContactSection() {
   return (
     <section
       id="contact"
-      className="relative overflow-hidden bg-background px-4 py-12"
+      className="relative overflow-hidden bg-background py-12"
     >
-      <div className="relative z-10 mx-auto max-w-6xl">
+      <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4 }}
-          className="mb-8 text-center"
         >
-          <h2 className="mb-3 text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
-            Get In Touch
-          </h2>
-          <p className="mx-auto max-w-2xl text-base text-muted-foreground sm:text-lg">
-            Have a question or want to work together? Feel free to reach out!
-          </p>
+          <SectionHeader
+            title="Get In Touch"
+            description="Have a question or want to work together? Feel free to reach out!"
+          />
         </motion.div>
 
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">

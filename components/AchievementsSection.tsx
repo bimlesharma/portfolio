@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { FaTrophy, FaMedal, FaAward } from 'react-icons/fa';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
+import SectionHeader from '@/components/SectionHeader';
 
 const achievements = [
     {
@@ -60,14 +61,11 @@ export default function AchievementsSection() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.4 }}
-                    className="mb-8 text-center"
                 >
-                    <h2 className="mb-3 text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
-                        Achievements
-                    </h2>
-                    <p className="mx-auto max-w-2xl text-base text-muted-foreground sm:text-lg">
-                        Recognition and awards from hackathons and competitions
-                    </p>
+                    <SectionHeader
+                        title="Achievements"
+                        description="Recognition and awards from hackathons and competitions"
+                    />
                 </motion.div>
 
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">

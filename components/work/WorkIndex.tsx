@@ -1,5 +1,5 @@
-import Link from "next/link";
 import WorkTile from "@/components/work/WorkTile";
+import PageHeader from "@/components/PageHeader";
 import {
   type WorkKind,
   getWorkByKind,
@@ -20,32 +20,24 @@ export default function WorkIndex({ kind }: WorkIndexProps) {
       : "Case studies and builds — some live, all worth a look.";
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#050505] text-white">
-      <section className="relative z-10 border-b border-zinc-800 px-6 pb-8 pt-12">
-        <div className="mx-auto max-w-5xl">
-          <Link
-            href="/#work"
-            className="mb-6 inline-flex text-sm font-medium text-zinc-400 transition hover:text-white"
-          >
-            ← Back to home
-          </Link>
-          <p className="mb-3 text-xs font-semibold tracking-widest text-zinc-400 uppercase">
-            {label} index
-          </p>
-          <h1 className="mb-4 text-4xl font-extrabold tracking-tight md:text-5xl">
-            {plural}
-          </h1>
-          <p className="max-w-2xl text-lg text-neutral-400">{subtitle}</p>
-        </div>
-      </section>
+    <main className="min-h-screen bg-background text-foreground">
+      <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6 lg:px-8">
+        <PageHeader
+          crumbs={[
+            { label: "Home", href: "/#work" },
+            { label: plural },
+          ]}
+          eyebrow={`${label} index`}
+          title={plural}
+          description={subtitle}
+        />
 
-      <section className="relative z-10 mx-auto max-w-5xl px-6 py-12">
         <div className="grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2 sm:gap-5">
           {items.map((item, index) => (
             <WorkTile key={item.slug} item={item} index={index} />
           ))}
         </div>
-      </section>
+      </div>
     </main>
   );
 }

@@ -1,9 +1,8 @@
 import React from 'react';
-import Link from 'next/link';
 import { getSanityPosts } from '@/lib/sanity-api';
-import { IoMdArrowBack } from "react-icons/io";
 import type { Metadata } from 'next';
 import ExploreClient from '@/components/ExploreClient';
+import PageHeader from '@/components/PageHeader';
 
 export const metadata: Metadata = {
     title: 'Explore',
@@ -22,13 +21,18 @@ const ExplorePage = async () => {
     const basePath = '/blog';
 
     return (
-        <main className="min-h-screen bg-[#0a0a0a] text-white">
-            {/* Back Button */}
-            <div className="max-w-7xl mx-auto px-6 pt-12">
-                <Link href={basePath || '/'} className="mb-6 inline-flex items-center gap-2 text-sm font-medium text-zinc-500 transition-colors group hover:text-white">
-                    <IoMdArrowBack className="group-hover:-translate-x-1 transition-transform" />
-                    Back to Blog
-                </Link>
+        <main className="min-h-screen bg-background text-foreground">
+            <div className="mx-auto max-w-5xl px-4 pt-12 sm:px-6 lg:px-8">
+                <PageHeader
+                    crumbs={[
+                        { label: "Home", href: "/" },
+                        { label: "Blog", href: basePath },
+                        { label: "Explore" },
+                    ]}
+                    eyebrow="Digital Garden"
+                    title="Explore"
+                    description="Search and explore articles by topics, tags, and keywords."
+                />
             </div>
 
             {/* Client Component with Search and Filters */}
