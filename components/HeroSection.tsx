@@ -35,9 +35,9 @@ const HeroSection = () => {
   return (
     <div id="home" className="relative min-h-screen w-full overflow-hidden bg-transparent font-sans">
       <CursorEffect />
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
         {/* Main Section */}
-        <main className="mt-12 lg:mt-32">
+        <main className="mt-20 lg:mt-32">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             {/* Left */}
             <motion.div

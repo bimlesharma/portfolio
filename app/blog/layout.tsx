@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import BlogNavbar from '@/components/BlogNavbar';
 
 export const metadata: Metadata = {
     alternates: {
@@ -11,8 +10,7 @@ export const metadata: Metadata = {
 
 export default function BlogLayout({ children }: { children: React.ReactNode }) {
     return (
-        <div className="relative min-h-screen flex flex-col bg-[#0a0a0a]">
-            <BlogNavbar />
+        <div className="relative flex min-h-screen flex-col bg-background pt-24">
             <div className="flex-grow">
                 {children}
             </div>

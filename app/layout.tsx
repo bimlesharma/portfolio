@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { draftMode } from 'next/headers';
 import { VisualEditing } from 'next-sanity/visual-editing';
+import SiteHeader from '@/components/SiteHeader';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -85,6 +86,7 @@ export default async function RootLayout({
           enableSystem={false}
           disableTransitionOnChange
         >
+          <SiteHeader />
           {children}
         </ThemeProvider>
         {process.env.NEXT_PUBLIC_GA_ID && <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />}

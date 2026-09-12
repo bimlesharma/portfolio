@@ -7,7 +7,6 @@ import AchievementsSection from '@/components/AchievementsSection';
 import Footer from '@/components/Footer';
 import BackToTopButton from '@/components/BackToTopButton';
 import AnimatedBackground from '@/components/AnimatedBackground';
-import FloatingDockContainer from '@/components/FloatingDockContainer';
 
 export default function Home() {
   return (
@@ -21,7 +20,6 @@ export default function Home() {
       <Footer />
       <BackToTopButton />
       <AnimatedBackground />
-      <FloatingDockContainer />
     </main>
   );
 }

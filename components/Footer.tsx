@@ -24,7 +24,7 @@ export default function Footer() {
 
   return (
     <footer className="relative overflow-x-hidden border-t border-border bg-background text-muted-foreground">
-      <div className="relative z-10 mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      <div className="relative z-10 mx-auto w-full max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
         <div className="mb-6 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
           <div className="space-y-3">
             <h3 className="text-lg font-semibold text-foreground">

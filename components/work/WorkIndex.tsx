@@ -21,7 +21,7 @@ export default function WorkIndex({ kind }: WorkIndexProps) {
 
   return (
     <main className="min-h-screen bg-background text-foreground">
-      <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6 lg:px-8">
+      <div className="mx-auto w-full max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
         <PageHeader
           crumbs={[
             { label: "Home", href: "/#work" },

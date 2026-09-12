@@ -29,10 +29,12 @@ export default function WorkDetail({ item }: WorkDetailProps) {
   const hasExternalCtas = Boolean(item.demo || item.github);
   const isCaseStudyOnly = !item.demo && !item.github;
   const { prev, next } = getAdjacentWork(item);
+  const sections = item.sections ?? [];
 
   return (
     <article className="min-h-screen bg-background text-foreground">
-      <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
+      <div className="mx-auto grid w-full max-w-6xl gap-10 px-4 py-12 sm:px-6 lg:grid-cols-[minmax(0,1fr)_14rem] lg:px-8">
+        <div className="min-w-0">
         <PageHeader
           crumbs={[
             { label: "Home", href: "/#work" },
@@ -78,7 +80,7 @@ export default function WorkDetail({ item }: WorkDetailProps) {
             alt={item.title}
             fill
             priority
-            sizes="(max-width: 768px) 100vw, 768px"
+            sizes="(max-width: 1024px) 100vw, 768px"
             className="object-cover"
           />
         </div>
@@ -103,7 +105,7 @@ export default function WorkDetail({ item }: WorkDetailProps) {
         {item.sections && item.sections.length > 0 ? (
           <div className="mt-8 space-y-6">
             {item.sections.map((section) => (
-              <section key={section.heading}>
+              <section key={section.heading} id={sectionId(section.heading)}>
                 <h2 className="mb-2 text-xl font-semibold text-foreground">
                   {section.heading}
                 </h2>
@@ -161,7 +163,45 @@ export default function WorkDetail({ item }: WorkDetailProps) {
             </nav>
           </>
         ) : null}
+        </div>
+
+        <aside className="hidden lg:block">
+          <div className="sticky top-24 space-y-8">
+            {sections.length > 0 ? (
+              <div>
+                <h2 className="mb-3 text-sm font-semibold text-foreground">On this page</h2>
+                <ul className="space-y-2 text-sm">
+                  {sections.map((section) => (
+                    <li key={section.heading}>
+                      <a
+                        href={`#${sectionId(section.heading)}`}
+                        className="text-muted-foreground transition-colors hover:text-foreground"
+                      >
+                        {section.heading}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
+            <div>
+              <h2 className="mb-3 text-sm font-semibold text-foreground">Stack</h2>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                {item.tech.map((tech) => (
+                  <li key={tech}>{tech}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </aside>
       </div>
     </article>
   );
+}
+
+function sectionId(heading: string) {
+  return heading
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
 }

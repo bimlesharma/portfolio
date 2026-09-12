@@ -30,7 +30,7 @@ export default function BackToTopButton() {
           transition={{ duration: 0.3, ease: 'easeInOut' }}
           onClick={scrollToTop}
           aria-label="Back to Top"
-          className="fixed right-3 bottom-28 z-50 rounded-none border border-border bg-primary p-3 text-primary-foreground transition hover:bg-primary/90 md:right-6 md:bottom-8"
+          className="fixed right-3 bottom-6 z-50 rounded-none border border-border bg-primary p-3 text-primary-foreground transition hover:bg-primary/90 md:right-6 md:bottom-8"
         >
           <FaArrowUp />
         </motion.button>

@@ -112,8 +112,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             />
             <ScrollProgress />
             <main className="min-h-screen bg-background text-foreground">
-                <div className="relative z-10 mx-auto flex max-w-5xl flex-col gap-8 px-4 py-12 sm:px-6 lg:flex-row lg:px-8">
-                    <article className="mx-auto w-full min-w-0 max-w-3xl flex-1">
+                <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col gap-10 px-4 py-12 sm:px-6 lg:flex-row lg:px-8">
+                    <article className="w-full min-w-0 flex-1">
                     <PageHeader
                         crumbs={[
                             { label: "Home", href: "/" },
@@ -183,7 +183,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 </article>
 
                 {headings.length > 0 && (
-                    <aside className="hidden lg:block w-64 shrink-0 relative">
+                    <aside className="relative hidden w-56 shrink-0 lg:block">
                         <TableOfContents headings={headings} />
                     </aside>
                 )}
@@ -191,7 +191,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
                 {/* Read Next Section */}
                 {recentPosts.length > 0 && (
-                    <section className="relative z-10 mx-auto mt-16 max-w-3xl border-t border-border px-4 py-12 sm:px-6 lg:px-8">
+                    <section className="relative z-10 mx-auto mt-16 w-full max-w-6xl border-t border-border px-4 py-12 sm:px-6 lg:px-8">
                         <h2 className="mb-8 text-xl font-semibold text-foreground">
                             Read Next
                         </h2>

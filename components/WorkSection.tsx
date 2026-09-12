@@ -16,13 +16,12 @@ export default function WorkSection() {
       id="work"
       className="relative overflow-x-hidden bg-background py-12"
     >
-      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={reduceMotion ? false : { opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: reduceMotion ? 0 : 0.4 }}
-          className="mx-auto max-w-6xl"
         >
           <SectionHeader
             eyebrow="Selected work"

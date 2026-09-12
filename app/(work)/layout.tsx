@@ -1,14 +1,7 @@
-import BlogNavbar from "@/components/BlogNavbar";
-
 export default function WorkLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <>
-      <BlogNavbar />
-      {children}
-    </>
-  );
+  return <div className="pt-24">{children}</div>;
 }
