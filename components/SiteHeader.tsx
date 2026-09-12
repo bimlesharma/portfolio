@@ -21,7 +21,7 @@ import { cn } from "@/lib/utils";
 const CLEANPULSE = "https://cleanpulse.bimlesh.dev";
 
 const contactLinks = [
-  { label: "Contact form", href: "/#contact", icon: IconMessage },
+  { label: "Contact form", href: "/contact", icon: IconMessage },
   { label: "Email", href: "mailto:bimlesh.mdb@gmail.com", icon: IconMail },
   { label: "X", href: "https://twitter.com/bimlesharma", icon: IconBrandX },
   { label: "LinkedIn", href: "https://www.linkedin.com/in/bimlesharma/", icon: IconBrandLinkedin },
@@ -34,8 +34,9 @@ function isExternal(href: string) {
   return href.startsWith("http") || href.startsWith("mailto:");
 }
 
-function navActive(pathname: string, id: "work" | "blog") {
+function navActive(pathname: string, id: "work" | "resume" | "blog") {
   if (id === "work") return pathname.startsWith("/projects") || pathname.startsWith("/products");
+  if (id === "resume") return pathname.startsWith("/resume");
   return pathname.startsWith("/blog");
 }
 
@@ -83,7 +84,7 @@ export default function SiteHeader() {
 
   const cells = [
     { id: "work" as const, label: "Work", href: "/#work", icon: IconTerminal2 },
-    { id: "resume" as const, label: "Resume", href: "/bimlesh_resume.pdf", icon: IconFileText },
+    { id: "resume" as const, label: "Resume", href: "/resume", icon: IconFileText },
     { id: "blog" as const, label: "Blog", href: "/blog", icon: IconArticle },
   ];
 
@@ -127,6 +128,9 @@ export default function SiteHeader() {
           <Button asChild size="sm">
             <a href={CLEANPULSE} target="_blank" rel="noopener noreferrer">
               CleanPulse
+              <span className="bg-primary-foreground px-1.5 py-0.5 font-mono text-[10px] font-semibold tracking-widest text-primary uppercase">
+                Featured
+              </span>
             </a>
           </Button>
         </div>
@@ -165,7 +169,7 @@ function DockRow({
           href={item.href}
           icon={item.icon}
           expandable={expandable}
-          active={item.id === "work" || item.id === "blog" ? navActive(pathname, item.id) : false}
+          active={navActive(pathname, item.id)}
         />
       ))}
       <div ref={contactRef} className="relative">
@@ -173,7 +177,7 @@ function DockRow({
           label="Contact"
           icon={IconMail}
           expandable={expandable}
-          active={contactOpen}
+          active={contactOpen || pathname.startsWith("/contact")}
           onClick={onToggleContact}
           controls={contactId}
           expanded={contactOpen}

@@ -19,6 +19,7 @@ export type WorkItem = {
   /** Button label for github URL. Defaults to "Source". Use "Releases" when source is closed. */
   githubLabel?: string;
   demo: string;
+  featured?: boolean;
   highlights?: string[];
   sections?: WorkSection[];
 };
@@ -41,6 +42,7 @@ export const workItems: WorkItem[] = [
     github: "https://github.com/bimlesharma/cleanpulse-releases/releases",
     githubLabel: "Releases",
     demo: "https://cleanpulse.bimlesh.dev",
+    featured: true,
     highlights: [
       "Local scans — paths are not inventoried in the cloud",
       "macOS confirmation sheet before deletes",

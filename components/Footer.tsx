@@ -12,8 +12,8 @@ export default function Footer() {
     { name: 'About', href: '#home' },
     { name: 'Work', href: '#work' },
     { name: 'Skills', href: '#skills' },
-    { name: 'Experience', href: '#experience' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'Resume', href: '/resume' },
+    { name: 'Contact', href: '/contact' },
   ];
 
   const socialLinks = [
@@ -109,9 +109,6 @@ export default function Footer() {
               ))}
             </div>
             <div className="flex flex-col items-start gap-2">
-              <Button asChild size="sm">
-                <a href="#contact">Let&apos;s Work Together</a>
-              </Button>
               <Button variant="ghost" size="sm" asChild>
                 <Link href="/blog">All Posts</Link>
               </Button>

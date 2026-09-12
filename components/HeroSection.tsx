@@ -1,5 +1,5 @@
 'use client';
-import { BrainCircuit, LayoutTemplate, Code, ExternalLink } from 'lucide-react';
+import { BrainCircuit, LayoutTemplate, Code } from 'lucide-react';
 import { motion, useReducedMotion } from 'framer-motion';
 import clsx from 'clsx';
 import { TypeAnimation } from 'react-type-animation';
@@ -18,12 +18,12 @@ const SkillTag = ({ icon, text, position }: SkillTagProps) => (
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.6, delay: 1 }}
     className={clsx(
-      'absolute flex items-center gap-2 rounded-none border border-zinc-200 bg-white/80 py-2 pr-4 pl-2 shadow-sm backdrop-blur-md dark:border-zinc-700 dark:bg-zinc-900/80',
+      'absolute flex items-center gap-1.5 rounded-none border border-zinc-200 bg-white/80 py-1.5 pr-3 pl-1.5 shadow-sm backdrop-blur-md dark:border-zinc-700 dark:bg-zinc-900/80',
       position
     )}
   >
-    <div className="bg-zinc-100 p-2 text-zinc-800 dark:bg-zinc-800 dark:text-zinc-100">{icon}</div>
-    <span className="text-sm font-medium text-zinc-800 md:text-base dark:text-zinc-100">
+    <div className="bg-zinc-100 p-1.5 text-zinc-800 dark:bg-zinc-800 dark:text-zinc-100">{icon}</div>
+    <span className="text-xs font-medium text-zinc-800 md:text-sm dark:text-zinc-100">
       {text}
     </span>
   </motion.div>
@@ -88,17 +88,14 @@ const HeroSection = () => {
                 </motion.a>
 
                 <motion.a
-                  href="/bimlesh_resume.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="/contact"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="relative cursor-pointer border border-border bg-background shadow-sm group"
+                  className="relative cursor-pointer border border-border bg-background shadow-sm"
                 >
                   <div className="relative flex items-center justify-center overflow-hidden px-6 py-3">
-                    <div className="relative z-10 flex items-center justify-center gap-2 font-semibold text-foreground">
-                      My Resume
-                      <ExternalLink size={20} />
+                    <div className="relative z-10 font-semibold text-foreground">
+                      Let&apos;s Connect
                     </div>
                   </div>
                 </motion.a>
@@ -123,17 +120,17 @@ const HeroSection = () => {
               {/* Floating Skill Tags */}
               <div className="hidden md:block">
                 <SkillTag
-                  icon={<BrainCircuit size={20} />}
+                  icon={<BrainCircuit size={16} />}
                   text="Problem Solving"
                   position="top-10 left-0"
                 />
                 <SkillTag
-                  icon={<LayoutTemplate size={20} />}
+                  icon={<LayoutTemplate size={16} />}
                   text="GenAI Engineer"
                   position="top-1/3 -right-8"
                 />
                 <SkillTag
-                  icon={<Code size={20} />}
+                  icon={<Code size={16} />}
                   text="Software Development"
                   position="top-2/3 -left-10"
                 />

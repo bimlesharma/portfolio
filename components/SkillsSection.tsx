@@ -38,7 +38,7 @@ type Skill = {
   name: string;
   icon: ElementType;
   category: string;
-  /** Whole or half years. Values under 1 render as "<1". */
+  /** Whole or half years. Values under 1 render as "<1 yr". */
   years: number;
 };
 
@@ -50,13 +50,13 @@ const SKILLS: Skill[] = [
   { name: "Rust", icon: SiRust, category: "Language", years: 0.5 },
 
   { name: "React.js", icon: SiReact, category: "Frontend", years: 3 },
-  { name: "Next.js", icon: SiNextdotjs, category: "Frontend", years: 3 },
+  { name: "Next.js", icon: SiNextdotjs, category: "Frontend", years: 2 },
   { name: "Tailwind CSS", icon: SiTailwindcss, category: "Frontend", years: 3 },
   { name: "Tauri", icon: SiTauri, category: "Frontend", years: 0.5 },
 
   { name: "Node.js", icon: SiNodedotjs, category: "Backend", years: 3 },
   { name: "Express.js", icon: SiExpress, category: "Backend", years: 3 },
-  { name: "Nginx", icon: SiNginx, category: "Backend", years: 1.5 },
+  { name: "Nginx", icon: SiNginx, category: "Backend", years: 1 },
   { name: "FastAPI", icon: SiFastapi, category: "Backend", years: 1 },
 
   { name: "MongoDB", icon: SiMongodb, category: "Database", years: 3 },
@@ -68,8 +68,8 @@ const SKILLS: Skill[] = [
   { name: "GraphQL", icon: SiGraphql, category: "API", years: 1 },
 
   { name: "Vercel", icon: SiVercel, category: "Cloud", years: 3 },
-  { name: "AWS", icon: FaAws, category: "Cloud", years: 1.5 },
-  { name: "GCP", icon: SiGooglecloud, category: "Cloud", years: 1.5 },
+  { name: "AWS", icon: FaAws, category: "Cloud", years: 1 },
+  { name: "GCP", icon: SiGooglecloud, category: "Cloud", years: 1 },
   { name: "Firebase", icon: SiFirebase, category: "Cloud", years: 1 },
 
   { name: "Docker", icon: SiDocker, category: "DevOps", years: 1 },
@@ -80,8 +80,8 @@ const SKILLS: Skill[] = [
 ];
 
 function yearsLabel(years: number): string {
-  if (years < 1) return "<1";
-  return `${years}+`;
+  if (years < 1) return "<1 yr";
+  return `${years}+ yr`;
 }
 
 function checkerTones(count: number, cols: number): Tone[] {
@@ -235,7 +235,7 @@ export default function SkillsSection() {
                   event.preventDefault();
                   buttons.current[next]?.focus();
                 }}
-                className={`relative flex min-h-16 flex-col items-center justify-center gap-1 px-1.5 py-2 text-center select-none focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-zinc-300 focus-visible:outline-offset-2 sm:min-h-[4.75rem] ${
+                className={`relative flex aspect-square h-auto min-h-0 w-full flex-col items-center justify-center gap-1 px-1.5 py-2 text-center select-none focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-zinc-300 focus-visible:outline-offset-2 ${
                   reduce ? "transition-none" : "transition-colors duration-300"
                 } ${tone === "dark" ? "bg-zinc-800" : "bg-zinc-700"}`}
               >
@@ -253,9 +253,8 @@ export default function SkillsSection() {
                 ) : null}
                 <span className="relative z-10 flex flex-col items-center gap-1">
                   <Icon
-                    size={18}
                     aria-hidden
-                    className={`shrink-0 ${active ? "text-zinc-900" : "text-zinc-200"}`}
+                    className={`size-6 shrink-0 ${active ? "text-zinc-900" : "text-zinc-200"}`}
                   />
                   <span
                     className={`line-clamp-2 text-[11px] leading-tight font-semibold sm:text-xs ${

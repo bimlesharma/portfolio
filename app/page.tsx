@@ -1,8 +1,7 @@
 import HeroSection from '@/components/HeroSection';
 import SkillsSection from '@/components/SkillsSection';
 import WorkSection from '@/components/WorkSection';
-import ContactSection from '@/components/ContactSection';
-import ExperienceSection from '@/components/ExperienceSection';
+import ContactCta from '@/components/ContactCta';
 import AchievementsSection from '@/components/AchievementsSection';
 import Footer from '@/components/Footer';
 import BackToTopButton from '@/components/BackToTopButton';
@@ -14,9 +13,8 @@ export default function Home() {
       <HeroSection />
       <WorkSection />
       <SkillsSection />
-      <ExperienceSection />
       <AchievementsSection />
-      <ContactSection />
+      <ContactCta />
       <Footer />
       <BackToTopButton />
       <AnimatedBackground />

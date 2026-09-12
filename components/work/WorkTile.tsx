@@ -95,9 +95,13 @@ export default function WorkTile({ item, index = 0 }: WorkTileProps) {
         />
 
         <span
-          className="pointer-events-none absolute left-3 top-3 z-10 rounded-none border border-white/30 bg-black/70 px-2.5 py-1 text-[11px] font-bold tracking-wider text-white uppercase sm:left-4 sm:top-4"
+          className={
+            item.featured
+              ? "pointer-events-none absolute top-3 left-3 z-10 bg-white px-2.5 py-1 text-[11px] font-bold tracking-wider text-zinc-950 uppercase sm:top-4 sm:left-4"
+              : "pointer-events-none absolute top-3 left-3 z-10 border border-white/30 bg-black/70 px-2.5 py-1 text-[11px] font-bold tracking-wider text-white uppercase sm:top-4 sm:left-4"
+          }
         >
-          {workKindLabel(item.kind)}
+          {item.featured ? "Featured" : workKindLabel(item.kind)}
         </span>
 
         <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 flex flex-col p-4 sm:p-5 md:p-6">
