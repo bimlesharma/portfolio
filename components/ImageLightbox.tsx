@@ -1,7 +1,7 @@
 'use client';
-import { useEffect, useCallback } from 'react';
-import Image from 'next/image';
-import { IoClose, IoExpand } from 'react-icons/io5';
+import { useEffect, useCallback, useState } from 'react';
+import { createPortal } from 'react-dom';
+import { IoClose } from 'react-icons/io5';
 
 interface ImageLightboxProps {
     src: string;
@@ -10,12 +10,18 @@ interface ImageLightboxProps {
 }
 
 export default function ImageLightbox({ src, alt, onClose }: ImageLightboxProps) {
+    const [mounted, setMounted] = useState(false);
+
     const handleKeyDown = useCallback(
         (e: KeyboardEvent) => {
             if (e.key === 'Escape') onClose();
         },
         [onClose]
     );
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
 
     useEffect(() => {
         document.addEventListener('keydown', handleKeyDown);
@@ -26,9 +32,11 @@ export default function ImageLightbox({ src, alt, onClose }: ImageLightboxProps)
         };
     }, [handleKeyDown]);
 
-    return (
+    if (!mounted) return null;
+
+    return createPortal(
         <div
-            className="fixed inset-0 z-[999] flex items-center justify-center bg-black/90 backdrop-blur-md animate-in fade-in duration-200"
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-md"
             onClick={onClose}
         >
             {/* Close button */}
@@ -58,6 +66,7 @@ export default function ImageLightbox({ src, alt, onClose }: ImageLightboxProps)
             <p className="absolute bottom-5 left-1/2 -translate-x-1/2 text-xs text-neutral-600 font-mono">
                 Click anywhere or press ESC to close
             </p>
-        </div>
+        </div>,
+        document.body
     );
 }
