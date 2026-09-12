@@ -31,7 +31,7 @@ export default function TagFilter({ tags, activeTag }: TagFilterProps) {
         <div className="flex flex-wrap gap-2 mt-8">
             <button
                 onClick={() => setTag(null)}
-                className={`px-3 py-1.5 rounded-full text-xs font-medium tracking-wide transition-all duration-200 border ${
+                className={`border px-3 py-1.5 text-xs font-medium tracking-wide transition-colors ${
                     !activeTag
                         ? 'bg-white text-neutral-950 border-white shadow-[0_0_12px_rgba(255,255,255,0.15)]'
                         : 'bg-transparent text-neutral-400 border-neutral-700 hover:border-neutral-500 hover:text-neutral-200'
@@ -44,10 +44,10 @@ export default function TagFilter({ tags, activeTag }: TagFilterProps) {
                 <button
                     key={tag}
                     onClick={() => setTag(activeTag === tag ? null : tag)}
-                    className={`px-3 py-1.5 rounded-full text-xs font-medium tracking-wide transition-all duration-200 border ${
+                    className={`border px-3 py-1.5 text-xs font-medium tracking-wide transition-colors ${
                         activeTag === tag
-                            ? 'bg-purple-500/20 text-purple-200 border-purple-400/60 shadow-[0_0_12px_rgba(168,85,247,0.2)]'
-                            : 'bg-transparent text-neutral-400 border-neutral-800 hover:border-purple-500/40 hover:text-purple-300 hover:bg-purple-500/5'
+                            ? 'border-zinc-200 bg-zinc-100 text-zinc-950'
+                            : 'border-zinc-800 bg-transparent text-zinc-400 hover:border-zinc-500 hover:text-zinc-200'
                     }`}
                 >
                     {tag}

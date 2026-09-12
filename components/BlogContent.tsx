@@ -44,7 +44,7 @@ const components: PortableTextComponents = {
         h4: ({ children }) => <h4 className="text-xl font-bold mt-6 mb-3">{children}</h4>,
         normal: ({ children }) => <p className="text-neutral-300 leading-relaxed mb-6">{children}</p>,
         blockquote: ({ children }) => (
-            <blockquote className="border-l-4 border-purple-500 pl-6 my-8 italic text-neutral-400 bg-purple-500/5 py-4 rounded-r-lg">
+            <blockquote className="my-6 border-l border-zinc-500 py-3 pl-4 text-zinc-400 italic">
                 {children}
             </blockquote>
         ),
@@ -63,7 +63,7 @@ const components: PortableTextComponents = {
                 href={value?.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-purple-400 hover:text-purple-300 underline underline-offset-4 decoration-purple-500/30 hover:decoration-purple-500 transition-all"
+                className="text-zinc-200 underline decoration-zinc-600 underline-offset-4 transition-colors hover:text-white"
             >
                 {children}
             </a>

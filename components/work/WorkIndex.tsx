@@ -21,20 +21,15 @@ export default function WorkIndex({ kind }: WorkIndexProps) {
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#050505] text-white">
-      <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute top-[-10%] left-[20%] h-[50%] w-[50%] rounded-full bg-purple-600/10 blur-[150px]" />
-        <div className="absolute right-[10%] bottom-[-10%] h-[40%] w-[40%] rounded-full bg-blue-600/10 blur-[150px]" />
-      </div>
-
-      <section className="relative z-10 border-b border-neutral-900/50 px-6 pb-12 pt-16">
+      <section className="relative z-10 border-b border-zinc-800 px-6 pb-8 pt-12">
         <div className="mx-auto max-w-5xl">
           <Link
             href="/#work"
-            className="mb-6 inline-flex text-sm font-medium text-neutral-400 transition hover:text-purple-400"
+            className="mb-6 inline-flex text-sm font-medium text-zinc-400 transition hover:text-white"
           >
             ← Back to home
           </Link>
-          <p className="mb-3 text-xs font-semibold tracking-widest text-purple-300 uppercase">
+          <p className="mb-3 text-xs font-semibold tracking-widest text-zinc-400 uppercase">
             {label} index
           </p>
           <h1 className="mb-4 text-4xl font-extrabold tracking-tight md:text-5xl">
@@ -44,7 +39,7 @@ export default function WorkIndex({ kind }: WorkIndexProps) {
         </div>
       </section>
 
-      <section className="relative z-10 mx-auto max-w-5xl px-6 py-16">
+      <section className="relative z-10 mx-auto max-w-5xl px-6 py-12">
         <div className="grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2 sm:gap-5">
           {items.map((item, index) => (
             <WorkTile key={item.slug} item={item} index={index} />

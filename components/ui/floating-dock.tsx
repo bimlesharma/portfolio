@@ -60,7 +60,7 @@ const FloatingDockMobile = ({
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
       className={cn(
-        "fixed bottom-4 left-1/2 z-50 flex -translate-x-1/2 items-end gap-3 rounded-2xl px-4 py-3 md:hidden",
+        "fixed bottom-4 left-1/2 z-50 flex -translate-x-1/2 items-end gap-3 rounded-none px-4 py-3 md:hidden",
         className,
       )}
     >
@@ -117,17 +117,17 @@ function MobileIconContainer({
         ref={ref}
         style={{ width, height }}
         className={cn(
-          "relative flex items-center justify-center rounded-full transition-colors duration-300",
+          "relative flex items-center justify-center rounded-none transition-colors duration-300",
           isActive
-            ? "bg-gradient-to-br from-cyan-500/20 to-purple-500/20"
-            : "bg-slate-800/50"
+            ? "bg-zinc-700"
+            : "bg-zinc-800/80"
         )}
       >
         <motion.div
           style={{ width: iconSize, height: iconSize }}
           className={cn(
             "flex items-center justify-center",
-            isActive ? "text-cyan-400" : "text-slate-300"
+            isActive ? "text-white" : "text-zinc-300"
           )}
         >
           {icon}
@@ -153,7 +153,7 @@ const FloatingDockDesktop = ({
       onMouseMove={(e) => mouseX.set(e.pageX)}
       onMouseLeave={() => mouseX.set(Infinity)}
       className={cn(
-        "mx-auto hidden h-16 items-end gap-4 rounded-2xl px-4 pb-3 md:flex",
+        "mx-auto hidden h-16 items-end gap-4 rounded-none px-4 pb-3 md:flex",
         className,
       )}
     >
@@ -237,10 +237,10 @@ function IconContainer({
         onMouseLeave={() => setHovered(false)}
         className={cn(
           "relative flex items-center justify-center gap-2 transition-colors duration-300 overflow-hidden",
-          isBlog ? "rounded-full px-3" : "rounded-full",
+          isBlog ? "rounded-none px-3" : "rounded-none",
           isActive
-            ? "bg-gradient-to-br from-cyan-500/20 to-purple-500/20"
-            : "bg-slate-800/50"
+            ? "bg-zinc-700"
+            : "bg-zinc-800/80"
         )}
       >
         {/* Rotating gradient ring for Blog */}
@@ -256,7 +256,7 @@ function IconContainer({
               transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
             />
             {/* Inner background to create border effect */}
-            <div className="absolute inset-[2px] rounded-full bg-slate-900 z-0" />
+            <div className="absolute inset-[2px] z-0 rounded-none bg-zinc-950" />
           </>
         )}
 
@@ -266,11 +266,7 @@ function IconContainer({
               initial={{ opacity: 0, y: 10, x: "-50%" }}
               animate={{ opacity: 1, y: 0, x: "-50%" }}
               exit={{ opacity: 0, y: 2, x: "-50%" }}
-              className="absolute -top-10 left-1/2 w-fit rounded-lg px-3 py-1.5 text-xs whitespace-pre font-medium shadow-xl z-50"
-              style={{
-                background: "linear-gradient(135deg, #06b6d4, #a78bfa)",
-                color: "#ffffff",
-              }}
+              className="absolute -top-10 left-1/2 z-50 w-fit rounded-none border border-zinc-700 bg-zinc-950 px-3 py-1.5 text-xs font-medium whitespace-pre text-white shadow-xl"
             >
               {title}
             </motion.div>
@@ -282,7 +278,7 @@ function IconContainer({
           style={{ width: widthIcon, height: heightIcon }}
           className={cn(
             "flex items-center justify-center transition-colors duration-300 relative z-10",
-            isActive ? "text-cyan-400" : isBlog ? "text-slate-300" : "text-slate-300"
+            isActive ? "text-white" : "text-zinc-300"
           )}
         >
           {icon}

@@ -7,13 +7,11 @@ import AchievementsSection from '@/components/AchievementsSection';
 import Footer from '@/components/Footer';
 import BackToTopButton from '@/components/BackToTopButton';
 import AnimatedBackground from '@/components/AnimatedBackground';
-import CursorEffect from '@/components/CursorEffect';
 import FloatingDockContainer from '@/components/FloatingDockContainer';
 
 export default function Home() {
   return (
     <main className="overflow-x-hidden">
-      <CursorEffect />
       <HeroSection />
       <WorkSection />
       <SkillsSection />

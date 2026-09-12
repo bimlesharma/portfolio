@@ -109,8 +109,8 @@ export default function FloatingDockContainer() {
             <FloatingDock
                 items={links}
                 activeSection={activeSection}
-                mobileClassName="bg-slate-900/80 backdrop-blur-xl border border-slate-700/50 rounded-full shadow-2xl shadow-cyan-500/20"
-                desktopClassName="bg-slate-900/80 backdrop-blur-xl border border-slate-700/50 rounded-full shadow-2xl shadow-cyan-500/20"
+                mobileClassName="rounded-none border border-zinc-700 bg-zinc-950/90 backdrop-blur-xl"
+                desktopClassName="rounded-none border border-zinc-700 bg-zinc-950/90 backdrop-blur-xl"
             />
         </motion.div>
     );

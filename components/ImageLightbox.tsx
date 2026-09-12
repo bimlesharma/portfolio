@@ -34,7 +34,7 @@ export default function ImageLightbox({ src, alt, onClose }: ImageLightboxProps)
             {/* Close button */}
             <button
                 onClick={onClose}
-                className="absolute top-5 right-5 z-10 flex items-center gap-2 text-neutral-300 hover:text-white bg-neutral-900/80 hover:bg-neutral-800 border border-neutral-700 px-3 py-2 rounded-full text-sm transition-all"
+                className="absolute top-5 right-5 z-10 flex items-center gap-2 rounded-none border border-zinc-700 bg-zinc-950/80 px-3 py-2 text-sm text-zinc-300 transition-all hover:bg-zinc-900 hover:text-white"
                 aria-label="Close lightbox"
             >
                 <IoClose className="text-lg" />
@@ -50,7 +50,7 @@ export default function ImageLightbox({ src, alt, onClose }: ImageLightboxProps)
                 <img
                     src={src}
                     alt={alt}
-                    className="max-w-full max-h-[90vh] object-contain rounded-xl shadow-2xl ring-1 ring-white/10"
+                    className="max-h-[90vh] max-w-full rounded-none object-contain shadow-2xl ring-1 ring-white/10"
                 />
             </div>
 

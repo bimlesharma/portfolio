@@ -17,10 +17,7 @@
     line-height: 1.2;
     margin-top: 3rem;
     margin-bottom: 1.25rem;
-    background: linear-gradient(to right, #c084fc, #60a5fa);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: #fafafa;
 }
 
 .blogContent h2 {
@@ -41,8 +38,8 @@
     display: inline-block;
     width: 4px;
     height: 1.5em;
-    border-radius: 999px;
-    background: linear-gradient(to bottom, #a855f7, #3b82f6);
+    border-radius: 0;
+    background: #e4e4e7;
     flex-shrink: 0;
     margin-top: 1px;
 }
@@ -76,16 +73,16 @@
 
 /* Links */
 .blogContent a {
-    color: #a78bfa;
+    color: #e4e4e7;
     text-decoration: underline;
-    text-decoration-color: rgba(167, 139, 250, 0.3);
+    text-decoration-color: rgba(228, 228, 231, 0.4);
     text-underline-offset: 3px;
     transition: all 0.2s;
 }
 
 .blogContent a:hover {
-    color: #c4b5fd;
-    text-decoration-color: rgba(196, 181, 253, 0.6);
+    color: #ffffff;
+    text-decoration-color: rgba(255, 255, 255, 0.7);
 }
 
 /* Lists */
@@ -113,25 +110,25 @@
 }
 
 .blogContent li::marker {
-    color: #a78bfa;
+    color: #d4d4d8;
 }
 
 /* Inline Code */
 .blogContent code {
-    background-color: rgba(139, 92, 246, 0.12);
-    border: 1px solid rgba(139, 92, 246, 0.22);
-    border-radius: 0.35rem;
+    background-color: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 0;
     padding: 0.15rem 0.45rem;
     font-size: 0.85em;
     font-family: 'Monaco', 'Fira Code', 'Courier New', monospace;
-    color: #d8b4fe;
+    color: #e4e4e7;
     font-style: normal;
 }
 
 .blogContent pre {
     background-color: #0d1117;
     border: 1px solid #30363d;
-    border-radius: 0.75rem;
+    border-radius: 0;
     padding: 0;
     overflow: hidden;
     margin-top: 2rem;
@@ -208,17 +205,14 @@
 /* Blockquotes — premium glassmorphism pull-quote */
 .blogContent blockquote {
     position: relative;
-    border-left: 3px solid transparent;
-    border-image: linear-gradient(to bottom, #a855f7, #3b82f6) 1;
-    padding: 1.25rem 1.5rem;
+    border-left: 2px solid #e4e4e7;
+    padding: 1rem 1.25rem;
     font-style: italic;
-    color: #d1d5db;
-    margin-top: 2.25rem;
-    margin-bottom: 2.25rem;
-    background: rgba(139, 92, 246, 0.06);
-    border-radius: 0 0.75rem 0.75rem 0;
-    backdrop-filter: blur(8px);
-    box-shadow: inset 0 0 0 1px rgba(139, 92, 246, 0.08);
+    color: #d4d4d8;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 0;
 }
 
 .blogContent blockquote p {
@@ -229,7 +223,7 @@
 
 /* Images */
 .blogContent img {
-    border-radius: 0.75rem;
+    border-radius: 0;
     border: 1px solid #374151;
     margin-top: 2rem;
     margin-bottom: 2rem;
@@ -288,5 +282,5 @@
 /* Emphasis/Italic */
 .blogContent em {
     font-style: italic;
-    color: #d8b4fe;
+    color: #e4e4e7;
 }

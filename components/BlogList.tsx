@@ -42,13 +42,13 @@ export default function BlogList({ posts, allTags, basePath }: BlogListProps) {
             <div className="mt-8 flex flex-col gap-4">
                 {/* Search Bar */}
                 <div className="relative group w-full max-w-sm">
-                    <IoSearch className="absolute left-3.5 top-1/2 -translate-y-1/2 text-neutral-500 group-focus-within:text-purple-400 transition-colors text-base pointer-events-none" />
+                    <IoSearch className="pointer-events-none absolute top-1/2 left-3.5 -translate-y-1/2 text-base text-zinc-500 transition-colors group-focus-within:text-zinc-200" />
                     <input
                         type="text"
                         value={query}
                         onChange={e => setQuery(e.target.value)}
                         placeholder="Search posts…"
-                        className="w-full bg-neutral-900/60 border border-neutral-800 focus:border-purple-500/50 text-neutral-200 placeholder-neutral-600 text-sm font-mono rounded-full pl-9 pr-9 py-2 outline-none transition-all focus:bg-neutral-900/80 focus:shadow-[0_0_0_3px_rgba(168,85,247,0.1)]"
+                        className="w-full rounded-none border border-zinc-800 bg-zinc-950 py-2 pr-9 pl-9 text-sm text-zinc-200 outline-none placeholder:text-zinc-600 focus:border-zinc-500"
                     />
                     {query && (
                         <button
@@ -75,7 +75,7 @@ export default function BlogList({ posts, allTags, basePath }: BlogListProps) {
                     )}
                     {activeTag && query.trim() && <span className="text-neutral-700">·</span>}
                     {activeTag && (
-                        <span className="bg-purple-500/15 text-purple-300 border border-purple-500/25 px-2.5 py-0.5 rounded-full text-xs font-medium">
+                        <span className="border border-zinc-700 px-2 py-0.5 text-xs font-medium text-zinc-300">
                             {activeTag}
                         </span>
                     )}
@@ -97,10 +97,10 @@ export default function BlogList({ posts, allTags, basePath }: BlogListProps) {
                             <FadeInItem key={post._id} delay={index * 0.07}>
                                 <Link
                                     href={`${basePath}/${post.slug.current}`}
-                                    className="group flex flex-col sm:flex-row sm:items-baseline gap-3 sm:gap-8 -mx-4 px-4 py-6 rounded-2xl hover:bg-white/[0.02] transition-colors relative z-10"
+                                    className="group relative z-10 -mx-4 flex flex-col gap-3 px-4 py-4 transition-colors hover:bg-white/[0.03] sm:flex-row sm:items-baseline sm:gap-8"
                                 >
                                     <div className="shrink-0 w-32 text-sm text-neutral-500 font-mono flex items-center gap-2">
-                                        <span className="w-1.5 h-1.5 rounded-full bg-neutral-800 group-hover:bg-purple-500 transition-colors hidden sm:block relative -left-[1.05rem]" />
+                                        <span className="relative -left-[1.05rem] hidden h-1.5 w-1.5 bg-zinc-700 transition-colors group-hover:bg-zinc-200 sm:block" />
                                         {new Date(post.publishedAt).toLocaleDateString('en-US', {
                                             month: 'short',
                                             day: 'numeric',
@@ -108,7 +108,7 @@ export default function BlogList({ posts, allTags, basePath }: BlogListProps) {
                                         })}
                                     </div>
                                     <div className="flex-1">
-                                        <h3 className="text-xl font-semibold text-neutral-200 group-hover:text-purple-400 transition-colors mb-2.5">
+                                        <h3 className="mb-2 text-xl font-semibold text-zinc-200 transition-colors group-hover:text-white">
                                             {post.title}
                                         </h3>
                                         <p className="text-neutral-400 text-base leading-relaxed mb-4 line-clamp-2">
@@ -119,10 +119,10 @@ export default function BlogList({ posts, allTags, basePath }: BlogListProps) {
                                                 {post.categories.slice(0, 3).map((category, idx) => (
                                                     <span
                                                         key={idx}
-                                                        className={`px-2.5 py-1 rounded-full text-xs font-medium tracking-wide border transition-colors ${
+                                                        className={`border px-2 py-0.5 text-xs font-medium tracking-wide transition-colors ${
                                                             category === activeTag
-                                                                ? 'bg-purple-500/20 text-purple-200 border-purple-400/50'
-                                                                : 'bg-purple-500/10 text-purple-400/80 group-hover:text-purple-300 border-purple-500/10 group-hover:border-purple-500/30'
+                                                                ? 'border-zinc-400 bg-zinc-800 text-zinc-100'
+                                                                : 'border-zinc-800 text-zinc-400 group-hover:border-zinc-600 group-hover:text-zinc-200'
                                                         }`}
                                                     >
                                                         {category}
@@ -136,7 +136,7 @@ export default function BlogList({ posts, allTags, basePath }: BlogListProps) {
                         ))}
                     </div>
                 ) : (
-                    <div className="py-20 text-center text-neutral-500 bg-neutral-900/20 rounded-3xl border border-neutral-800/50 border-dashed">
+                    <div className="border border-dashed border-zinc-800 py-12 text-center text-zinc-500">
                         <p className="text-lg mb-2">No posts found</p>
                         <p className="text-sm text-neutral-600">
                             {query ? `No results for "${query}"` : `No posts tagged "${activeTag}"`}

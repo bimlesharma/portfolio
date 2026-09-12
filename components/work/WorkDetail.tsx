@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   type WorkItem,
   getAdjacentWork,
@@ -27,29 +29,18 @@ export default function WorkDetail({ item }: WorkDetailProps) {
 
   return (
     <article className="relative min-h-screen bg-[#050505] text-white">
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div
-          className="absolute top-[-10%] left-[15%] h-[40%] w-[45%] rounded-full opacity-20 blur-[140px]"
-          style={{ backgroundColor: item.color }}
-        />
-        <div className="absolute right-[10%] bottom-[-10%] h-[35%] w-[35%] rounded-full bg-blue-600/10 blur-[140px]" />
-      </div>
-
-      <div className="relative z-10 mx-auto max-w-4xl px-6 pb-24 pt-12">
+      <div className="relative z-10 mx-auto max-w-4xl px-6 pt-12 pb-12">
         <Link
           href={indexHref}
-          className="mb-8 inline-flex text-sm font-medium text-neutral-400 transition hover:text-purple-400"
+          className="mb-6 inline-flex text-sm font-medium text-zinc-400 transition hover:text-white"
         >
           ← All {kindPlural.toLowerCase()}
         </Link>
 
         <div className="mb-4 flex flex-wrap items-center gap-3">
-          <span
-            className="rounded-lg px-2.5 py-1 text-xs font-semibold text-white"
-            style={{ backgroundColor: item.color }}
-          >
+          <Badge variant="secondary">
             {workKindLabel(item.kind)}
-          </span>
+          </Badge>
           <span className="text-sm text-neutral-500">{item.tagline}</span>
         </div>
 
@@ -69,30 +60,23 @@ export default function WorkDetail({ item }: WorkDetailProps) {
         {hasExternalCtas ? (
           <div className="mb-10 flex flex-wrap gap-3">
             {item.demo ? (
-              <a
-                href={item.demo}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-lg px-5 py-2.5 text-sm font-bold text-white transition hover:opacity-90"
-                style={{ backgroundColor: item.color }}
-              >
-                {demoLabel}
-              </a>
+              <Button asChild className="bg-white text-zinc-950 hover:bg-zinc-200">
+                <a href={item.demo} target="_blank" rel="noopener noreferrer">
+                  {demoLabel}
+                </a>
+              </Button>
             ) : null}
             {item.github ? (
-              <a
-                href={item.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-lg border border-neutral-700 bg-neutral-900 px-5 py-2.5 text-sm font-bold text-white transition hover:border-neutral-500"
-              >
-                {githubLabel}
-              </a>
+              <Button variant="outline" asChild className="border-zinc-700 bg-transparent text-white hover:bg-zinc-900">
+                <a href={item.github} target="_blank" rel="noopener noreferrer">
+                  {githubLabel}
+                </a>
+              </Button>
             ) : null}
           </div>
         ) : null}
 
-        <div className="relative mb-12 aspect-[16/10] overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-900">
+        <div className="relative mb-8 aspect-[16/10] overflow-hidden rounded-none border border-zinc-800 bg-zinc-950">
           <Image
             src={item.image}
             alt={item.title}
@@ -105,26 +89,18 @@ export default function WorkDetail({ item }: WorkDetailProps) {
 
         <div className="mb-10 flex flex-wrap gap-2">
           {item.tech.map((tech) => (
-            <span
-              key={tech}
-              className="rounded-lg border px-3 py-1.5 text-xs font-semibold"
-              style={{
-                backgroundColor: `${item.color}18`,
-                borderColor: `${item.color}40`,
-                color: item.color,
-              }}
-            >
+            <Badge key={tech} variant="outline">
               {tech}
-            </span>
+            </Badge>
           ))}
         </div>
 
         {item.highlights && item.highlights.length > 0 && (
-          <ul className="mb-12 grid gap-3 sm:grid-cols-2">
+          <ul className="mb-8 grid gap-2 sm:grid-cols-2">
             {item.highlights.map((highlight) => (
               <li
                 key={highlight}
-                className="rounded-xl border border-neutral-800 bg-neutral-900/50 px-4 py-3 text-sm text-neutral-300"
+                className="rounded-none border border-zinc-800 bg-zinc-950 px-3 py-2 text-sm text-zinc-300"
               >
                 {highlight}
               </li>
@@ -133,7 +109,7 @@ export default function WorkDetail({ item }: WorkDetailProps) {
         )}
 
         {item.sections && item.sections.length > 0 && (
-          <div className="mb-12 space-y-8">
+          <div className="mb-8 space-y-6">
             {item.sections.map((section) => (
               <section key={section.heading}>
                 <h2 className="mb-2 text-xl font-bold text-white">
@@ -171,7 +147,7 @@ export default function WorkDetail({ item }: WorkDetailProps) {
                 <span className="mb-1 block text-xs font-medium tracking-wide text-neutral-500 uppercase">
                   ← Previous
                 </span>
-                <span className="text-base font-semibold text-white group-hover:text-purple-300">
+                <span className="text-base font-semibold text-white group-hover:text-zinc-300">
                   {prev.title}
                 </span>
               </Link>
@@ -186,7 +162,7 @@ export default function WorkDetail({ item }: WorkDetailProps) {
                 <span className="mb-1 block text-xs font-medium tracking-wide text-neutral-500 uppercase">
                   Next →
                 </span>
-                <span className="text-base font-semibold text-white group-hover:text-purple-300">
+                <span className="text-base font-semibold text-white group-hover:text-zinc-300">
                   {next.title}
                 </span>
               </Link>

@@ -1,9 +1,9 @@
 'use client';
 
 import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope, FaMapMarkerAlt, FaHeart, FaRss } from 'react-icons/fa';
-import { FaPenNib } from 'react-icons/fa6';
+import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope, FaMapMarkerAlt, FaRss } from 'react-icons/fa';
+import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -17,78 +17,53 @@ export default function Footer() {
   ];
 
   const socialLinks = [
-    { icon: FaGithub, href: 'https://github.com/bimlesharma', label: 'GitHub', color: '#333' },
-    { icon: FaLinkedin, href: 'https://linkedin.com/in/bimlesharma', label: 'LinkedIn', color: '#0A66C2' },
-    { icon: FaTwitter, href: 'https://twitter.com/bimlesharma', label: 'Twitter', color: '#1DA1F2' },
+    { icon: FaGithub, href: 'https://github.com/bimlesharma', label: 'GitHub' },
+    { icon: FaLinkedin, href: 'https://linkedin.com/in/bimlesharma', label: 'LinkedIn' },
+    { icon: FaTwitter, href: 'https://twitter.com/bimlesharma', label: 'Twitter' },
   ];
 
   return (
-    <footer className="relative bg-slate-900 dark:bg-slate-950 text-slate-300 border-t border-slate-800 overflow-x-hidden">
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-slate-950/50 pointer-events-none" />
-
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
-
-          {/* Brand Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="space-y-4"
-          >
-            <h3 className="text-2xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-emerald-400 bg-clip-text text-transparent">
+    <footer className="relative overflow-x-hidden border-t border-border bg-background text-muted-foreground">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+        <div className="mb-6 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+          <div className="space-y-3">
+            <h3 className="text-lg font-semibold text-foreground">
               Bimlesh
             </h3>
-            <p className="text-sm text-slate-400 leading-relaxed">
+            <p className="text-sm leading-relaxed">
               Full-stack engineer crafting scalable solutions and innovative web experiences.
             </p>
-            <div className="flex items-center gap-2 text-sm text-slate-400">
-              <FaMapMarkerAlt className="text-emerald-400" />
+            <div className="flex items-center gap-2 text-sm">
+              <FaMapMarkerAlt />
               <span>New Delhi, India</span>
             </div>
-          </motion.div>
+          </div>
 
-          {/* Quick Links */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
-            <h4 className="text-lg font-semibold text-white mb-4">Quick Links</h4>
+          <div>
+            <h4 className="mb-3 text-sm font-semibold text-foreground">Quick Links</h4>
             <ul className="space-y-2">
               {quickLinks.map((link) => (
                 <li key={link.name}>
                   <a
                     href={link.href}
-                    className="text-sm text-slate-400 hover:text-blue-400 transition-colors duration-200 flex items-center gap-2 group"
+                    className="text-sm transition-colors hover:text-foreground"
                   >
-                    <span className="w-0 group-hover:w-2 h-0.5 bg-blue-400 transition-all duration-200" />
                     {link.name}
                   </a>
                 </li>
               ))}
             </ul>
-          </motion.div>
+          </div>
 
-          {/* Contact Info */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            <h4 className="text-lg font-semibold text-white mb-4">Get In Touch</h4>
-            <ul className="space-y-3">
+          <div>
+            <h4 className="mb-3 text-sm font-semibold text-foreground">Get In Touch</h4>
+            <ul className="space-y-2">
               <li>
                 <a
                   href="mailto:bimlesh.mdb@gmail.com"
-                  className="text-sm text-slate-400 hover:text-blue-400 transition-colors duration-200 flex items-center gap-2"
+                  className="flex items-center gap-2 text-sm transition-colors hover:text-foreground"
                 >
-                  <FaEnvelope className="text-blue-400" />
+                  <FaEnvelope />
                   bimlesh.mdb@gmail.com
                 </a>
               </li>
@@ -97,9 +72,9 @@ export default function Footer() {
                   href="https://linkedin.com/in/bimlesharma"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm text-slate-400 hover:text-blue-400 transition-colors duration-200 flex items-center gap-2"
+                  className="flex items-center gap-2 text-sm transition-colors hover:text-foreground"
                 >
-                  <FaLinkedin className="text-blue-400" />
+                  <FaLinkedin />
                   LinkedIn Profile
                 </a>
               </li>
@@ -108,110 +83,53 @@ export default function Footer() {
                   href="https://github.com/bimlesharma"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm text-slate-400 hover:text-blue-400 transition-colors duration-200 flex items-center gap-2"
+                  className="flex items-center gap-2 text-sm transition-colors hover:text-foreground"
                 >
-                  <FaGithub className="text-blue-400" />
+                  <FaGithub />
                   GitHub Profile
                 </a>
               </li>
             </ul>
-          </motion.div>
+          </div>
 
-          {/* Latest Writing */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.25 }}
-          >
-            <h4 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-              <FaPenNib className="text-purple-400 text-sm" />
-              Latest Writing
-            </h4>
-            <ul className="space-y-3">
-              <li>
-                <Link
-                  href="/blog"
-                  className="text-sm text-slate-400 hover:text-purple-400 transition-colors duration-200 flex items-center gap-2 group"
-                >
-                  <span className="w-0 group-hover:w-2 h-0.5 bg-purple-400 transition-all duration-200" />
-                  All Posts
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/blog/feed.xml"
-                  className="text-sm text-slate-400 hover:text-orange-400 transition-colors duration-200 flex items-center gap-2"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <FaRss className="text-orange-400 text-xs" />
-                  RSS Feed
-                </Link>
-              </li>
-            </ul>
-          </motion.div>
-
-          {/* Social & CTA */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="space-y-4"
-          >
-            <h4 className="text-lg font-semibold text-white mb-4">Connect</h4>
-            <div className="flex gap-3">
+          <div className="space-y-3">
+            <h4 className="text-sm font-semibold text-foreground">Connect</h4>
+            <div className="flex gap-2">
               {socialLinks.map((social) => (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-lg bg-slate-800 hover:bg-slate-700 flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg group"
-                  aria-label={social.label}
-                >
-                  <social.icon className="text-lg text-slate-400 group-hover:text-blue-400 transition-colors" />
-                </a>
+                <Button key={social.label} variant="outline" size="icon" asChild>
+                  <a
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={social.label}
+                  >
+                    <social.icon />
+                  </a>
+                </Button>
               ))}
             </div>
-            <div className="pt-4">
-              <a
-                href="#contact"
-                className="inline-block px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-sm font-semibold rounded-lg transition-all duration-300 hover:shadow-lg hover:scale-105"
-              >
-                Let&apos;s Work Together
-              </a>
+            <div className="flex flex-col items-start gap-2">
+              <Button asChild size="sm">
+                <a href="#contact">Let&apos;s Work Together</a>
+              </Button>
+              <Button variant="ghost" size="sm" asChild>
+                <Link href="/blog">All Posts</Link>
+              </Button>
+              <Button variant="ghost" size="sm" asChild>
+                <a href="/blog/feed.xml" target="_blank" rel="noopener noreferrer">
+                  <FaRss />
+                  RSS Feed
+                </a>
+              </Button>
             </div>
-          </motion.div>
+          </div>
         </div>
 
-        {/* Divider */}
-        <div className="border-t border-slate-800 my-8" />
+        <Separator className="mb-4" />
 
-        {/* Bottom Bar */}
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-500">
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="flex items-center gap-2"
-          >
-            © {currentYear} Bimlesh. Built with
-            <FaHeart className="text-red-500 animate-pulse" />
-            using Next.js
-          </motion.p>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.5 }}
-            className="text-slate-600"
-          >
-            Designed & Developed by Bimlesh
-          </motion.p>
+        <div className="flex flex-col items-center justify-between gap-2 text-sm md:flex-row">
+          <p>© {currentYear} Bimlesh. Built with Next.js</p>
+          <p>Designed & Developed by Bimlesh</p>
         </div>
       </div>
     </footer>

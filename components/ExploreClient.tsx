@@ -6,6 +6,8 @@ import { IoMdSearch, IoMdClose, IoMdTime } from 'react-icons/io';
 import type { SanityPost } from '@/lib/types/sanity';
 import { urlForImage } from '@/sanity/lib/image';
 import FallbackCover from '@/components/FallbackCover';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 
 interface ExploreClientProps {
     posts: SanityPost[];
@@ -45,27 +47,25 @@ export default function ExploreClient({ posts, basePath }: ExploreClientProps) {
     }, [posts, searchQuery, selectedTag]);
 
     return (
-        <div className="max-w-7xl mx-auto px-6 py-12 md:py-20">
-            {/* Header */}
-            <div className="text-center mb-12">
-                <h1 className="text-4xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 mb-4">
+        <div className="mx-auto max-w-7xl px-6 py-12">
+            <div className="mb-8 text-center">
+                <h1 className="mb-3 text-4xl font-bold tracking-tight text-white md:text-5xl">
                     Explore Articles
                 </h1>
-                <p className="text-xl text-neutral-400 max-w-2xl mx-auto">
+                <p className="mx-auto max-w-2xl text-base text-zinc-400">
                     Search through {posts.length} articles across {allTags.length} topics
                 </p>
             </div>
 
-            {/* Search Bar */}
-            <div className="max-w-2xl mx-auto mb-12">
+            <div className="mx-auto mb-8 max-w-2xl">
                 <div className="relative">
-                    <IoMdSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-2xl text-neutral-500" />
-                    <input
+                    <IoMdSearch className="absolute top-1/2 left-3 z-10 -translate-y-1/2 text-xl text-zinc-500" />
+                    <Input
                         type="text"
                         placeholder="Search articles, topics, or keywords..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="w-full pl-12 pr-12 py-4 bg-neutral-900/50 border border-neutral-800 rounded-2xl text-white placeholder-neutral-500 focus:outline-none focus:border-purple-500/50 transition-colors"
+                        className="h-10 border-zinc-800 bg-zinc-950 pr-10 pl-10 text-white placeholder:text-zinc-500"
                     />
                     {searchQuery && (
                         <button
@@ -79,14 +79,14 @@ export default function ExploreClient({ posts, basePath }: ExploreClientProps) {
             </div>
 
             {/* Topic Tags */}
-            <div className="mb-12">
-                <h2 className="text-2xl font-bold mb-6 text-white">Browse by Topic</h2>
-                <div className="flex flex-wrap gap-3">
+            <div className="mb-8">
+                <h2 className="mb-4 text-lg font-semibold text-white">Browse by Topic</h2>
+                <div className="flex flex-wrap gap-2">
                     <button
                         onClick={() => setSelectedTag(null)}
-                        className={`px-4 py-2 rounded-full transition-all ${selectedTag === null
-                                ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white'
-                                : 'bg-neutral-900/50 border border-neutral-800 text-neutral-400 hover:border-purple-500/50 hover:text-white'
+                        className={`border px-3 py-1.5 text-sm transition-colors ${selectedTag === null
+                                ? 'border-white bg-white text-zinc-950'
+                                : 'border-zinc-800 bg-zinc-950 text-zinc-400 hover:border-zinc-500 hover:text-white'
                             }`}
                     >
                         All Topics ({posts.length})
@@ -95,9 +95,9 @@ export default function ExploreClient({ posts, basePath }: ExploreClientProps) {
                         <button
                             key={tag.name}
                             onClick={() => setSelectedTag(tag.name)}
-                            className={`px-4 py-2 rounded-full transition-all ${selectedTag === tag.name
-                                    ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white'
-                                    : 'bg-neutral-900/50 border border-neutral-800 text-neutral-400 hover:border-purple-500/50 hover:text-white'
+                            className={`border px-3 py-1.5 text-sm transition-colors ${selectedTag === tag.name
+                                    ? 'border-white bg-white text-zinc-950'
+                                    : 'border-zinc-800 bg-zinc-950 text-zinc-400 hover:border-zinc-500 hover:text-white'
                                 }`}
                         >
                             {tag.name} ({tag.count})
@@ -121,12 +121,12 @@ export default function ExploreClient({ posts, basePath }: ExploreClientProps) {
 
             {/* Posts Grid */}
             {filteredPosts.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
                     {filteredPosts.map((post: SanityPost) => (
                         <Link
                             href={`${basePath}/${post.slug.current}`}
                             key={post._id}
-                            className="group relative bg-neutral-900/50 border border-neutral-800 rounded-2xl overflow-hidden hover:border-purple-500/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_0_50px_-12px_rgba(168,85,247,0.5)]"
+                            className="group relative overflow-hidden border border-zinc-800 bg-zinc-950 transition-colors hover:border-zinc-500"
                         >
                             <div className="aspect-video relative overflow-hidden">
                                 {post.mainImage ? (
@@ -142,8 +142,8 @@ export default function ExploreClient({ posts, basePath }: ExploreClientProps) {
                                 <div className="absolute inset-0 bg-gradient-to-t from-neutral-900/90 to-transparent" />
                             </div>
 
-                            <div className="p-6 relative">
-                                <h3 className="text-xl font-bold mb-3 line-clamp-2 group-hover:text-purple-400 transition-colors">
+                            <div className="relative p-4">
+                                <h3 className="mb-2 line-clamp-2 text-lg font-semibold transition-colors group-hover:text-white">
                                     {post.title}
                                 </h3>
                                 <p className="text-neutral-400 text-sm mb-4 line-clamp-3">
@@ -159,7 +159,7 @@ export default function ExploreClient({ posts, basePath }: ExploreClientProps) {
                                 {post.categories && post.categories.length > 0 && (
                                     <div className="flex flex-wrap gap-2">
                                         {post.categories.slice(0, 2).map((category: string, idx: number) => (
-                                            <span key={idx} className="px-2 py-1 text-xs bg-neutral-800/50 border border-neutral-700 rounded-full text-neutral-400">
+                                            <span key={idx} className="border border-zinc-700 px-2 py-0.5 text-xs text-zinc-400">
                                                 {category}
                                             </span>
                                         ))}
@@ -170,17 +170,16 @@ export default function ExploreClient({ posts, basePath }: ExploreClientProps) {
                     ))}
                 </div>
             ) : (
-                <div className="text-center py-20">
-                    <p className="text-2xl text-neutral-500 mb-4">No articles found</p>
-                    <button
+                <div className="py-12 text-center">
+                    <p className="mb-4 text-lg text-zinc-500">No articles found</p>
+                    <Button
                         onClick={() => {
                             setSearchQuery('');
                             setSelectedTag(null);
                         }}
-                        className="px-6 py-3 bg-purple-600 hover:bg-purple-500 rounded-full transition-colors"
                     >
                         Clear Filters
-                    </button>
+                    </Button>
                 </div>
             )}
         </div>

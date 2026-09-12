@@ -56,8 +56,8 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
                                     window.history.pushState(null, '', `#${heading.slug}`);
                                 }
                             }}
-                            className={`block transition-colors hover:text-purple-400 ${
-                                activeId === heading.slug ? 'text-purple-400 font-medium' : 'text-neutral-400'
+                            className={`block transition-colors hover:text-white ${
+                                activeId === heading.slug ? 'font-medium text-white' : 'text-zinc-400'
                             }`}
                         >
                             {heading.text}

@@ -3,6 +3,11 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaSpinner, FaEnvelope, FaLinkedin, FaGithub, FaMapMarkerAlt } from 'react-icons/fa';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 
 
 export default function ContactSection() {
@@ -56,81 +61,49 @@ export default function ContactSection() {
       label: 'Email',
       value: 'bimlesh.mdb@gmail.com',
       link: 'mailto:bimlesh.mdb@gmail.com',
-      color: '#3B82F6',
     },
     {
       icon: FaLinkedin,
       label: 'LinkedIn',
       value: 'linkedin.com/in/bimlesharma',
       link: 'https://linkedin.com/in/bimlesharma',
-      color: '#0A66C2',
     },
     {
       icon: FaGithub,
       label: 'GitHub',
       value: 'github.com/bimlesharma',
       link: 'https://github.com/bimlesharma',
-      color: '#6B7280',
     },
     {
       icon: FaMapMarkerAlt,
       label: 'Location',
       value: 'New Delhi, India',
       link: '',
-      color: '#10B981',
     },
   ];
 
   return (
     <section
       id="contact"
-      className="relative min-h-screen bg-slate-950 py-20 px-4 overflow-hidden"
+      className="relative overflow-hidden bg-background px-4 py-12"
     >
-      {/* Animated Background */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 via-purple-500/5 to-emerald-500/5" />
-        <div
-          className="absolute inset-0 opacity-10"
-          style={{
-            backgroundImage: `radial-gradient(circle at 2px 2px, rgba(6, 182, 212, 0.15) 1px, transparent 0)`,
-            backgroundSize: '40px 40px',
-          }}
-        />
-      </div>
-
-      <div className="relative z-10 max-w-7xl mx-auto">
-        {/* Header */}
+      <div className="relative z-10 mx-auto max-w-6xl">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          transition={{ duration: 0.4 }}
+          className="mb-8 text-center"
         >
-          <motion.h2
-            className="text-5xl lg:text-6xl font-bold mb-6"
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <span className="bg-gradient-to-r from-cyan-400 via-purple-400 to-emerald-400 bg-clip-text text-transparent">
-              Get In Touch
-            </span>
-          </motion.h2>
-          <motion.p
-            className="text-xl text-slate-300 max-w-2xl mx-auto"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
+          <h2 className="mb-3 text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
+            Get In Touch
+          </h2>
+          <p className="mx-auto max-w-2xl text-base text-muted-foreground sm:text-lg">
             Have a question or want to work together? Feel free to reach out!
-          </motion.p>
+          </p>
         </motion.div>
 
-        {/* 2-Column Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
           {/* Left Side - Contact Info */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -157,72 +130,38 @@ export default function ContactSection() {
                       rel={info.link.startsWith('http') ? 'noopener noreferrer' : undefined}
                       className="block"
                     >
-                      <div className="relative bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-2xl p-5 hover:border-slate-700 transition-all duration-300 group-hover:scale-105">
-                        {/* Glow effect */}
-                        <div
-                          className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500"
-                          style={{
-                            background: `radial-gradient(circle at 50% 50%, ${info.color}, transparent 70%)`,
-                          }}
-                        />
-
-                        <div className="relative flex items-center gap-4">
-                          {/* Icon */}
-                          <div
-                            className="flex-shrink-0 w-14 h-14 rounded-xl flex items-center justify-center"
-                            style={{
-                              background: `linear-gradient(135deg, ${info.color}20, ${info.color}10)`,
-                            }}
-                          >
-                            <info.icon size={24} style={{ color: info.color }} />
+                      <Card className="py-4 transition-colors hover:bg-muted/40">
+                        <CardContent className="flex items-center gap-4">
+                          <div className="flex size-10 shrink-0 items-center justify-center border bg-muted">
+                            <info.icon size={16} className="text-foreground" />
                           </div>
-
-                          {/* Content */}
-                          <div className="flex-1 min-w-0">
-                            <p className="text-sm font-medium text-slate-400 mb-0.5">
+                          <div className="min-w-0 flex-1">
+                            <p className="text-xs font-medium text-muted-foreground">
                               {info.label}
                             </p>
-                            <p className="text-base font-semibold text-slate-100 truncate">
+                            <p className="truncate text-sm font-medium text-foreground">
                               {info.value}
                             </p>
                           </div>
-
-                          {/* Arrow */}
-                          <svg
-                            className="w-5 h-5 text-slate-600 group-hover:text-cyan-400 group-hover:translate-x-1 transition-all"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                          </svg>
-                        </div>
-                      </div>
+                        </CardContent>
+                      </Card>
                     </a>
                   ) : (
-                    <div className="relative bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-2xl p-5">
-                      <div className="flex items-center gap-4">
-                        {/* Icon */}
-                        <div
-                          className="flex-shrink-0 w-14 h-14 rounded-xl flex items-center justify-center"
-                          style={{
-                            background: `linear-gradient(135deg, ${info.color}20, ${info.color}10)`,
-                          }}
-                        >
-                          <info.icon size={24} style={{ color: info.color }} />
+                    <Card className="py-4">
+                      <CardContent className="flex items-center gap-4">
+                        <div className="flex size-10 shrink-0 items-center justify-center border bg-muted">
+                          <info.icon size={16} className="text-foreground" />
                         </div>
-
-                        {/* Content */}
-                        <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium text-slate-400 mb-0.5">
+                        <div className="min-w-0 flex-1">
+                          <p className="text-xs font-medium text-muted-foreground">
                             {info.label}
                           </p>
-                          <p className="text-base font-semibold text-slate-100">
+                          <p className="text-sm font-medium text-foreground">
                             {info.value}
                           </p>
                         </div>
-                      </div>
-                    </div>
+                      </CardContent>
+                    </Card>
                   )}
                 </motion.div>
               ))}
@@ -234,19 +173,14 @@ export default function ContactSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="relative bg-gradient-to-br from-cyan-500/10 via-purple-500/10 to-emerald-500/10 border border-cyan-500/20 rounded-2xl p-5"
+              className="border bg-muted/40 p-4"
             >
-              <div className="flex items-start gap-3">
-                <div className="text-3xl">⚡</div>
-                <div>
-                  <h3 className="text-base font-bold text-slate-100 mb-1">
-                    Quick Response
-                  </h3>
-                  <p className="text-sm text-slate-300">
-                    I typically respond within 24 hours. For urgent matters, reach out via LinkedIn or email.
-                  </p>
-                </div>
-              </div>
+              <h3 className="mb-1 text-sm font-semibold text-foreground">
+                Quick Response
+              </h3>
+              <p className="text-sm text-muted-foreground">
+                I typically respond within 24 hours. For urgent matters, reach out via LinkedIn or email.
+              </p>
             </motion.div>
           </motion.div>
 
@@ -256,15 +190,14 @@ export default function ContactSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-2xl p-6 md:p-8"
           >
-            <form onSubmit={handleSubmit} className="space-y-5">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label htmlFor="contact-name" className="block text-sm font-semibold text-slate-300 mb-2">
-                    Name *
-                  </label>
-                  <input
+            <Card className="py-5">
+            <CardContent>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div className="space-y-2">
+                  <Label htmlFor="contact-name">Name</Label>
+                  <Input
                     id="contact-name"
                     name="name"
                     type="text"
@@ -272,14 +205,11 @@ export default function ContactSection() {
                     placeholder="Enter your name"
                     value={form.name}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-xl bg-slate-800/50 text-slate-100 border border-slate-700 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition"
                   />
                 </div>
-                <div>
-                  <label htmlFor="contact-email" className="block text-sm font-semibold text-slate-300 mb-2">
-                    Email *
-                  </label>
-                  <input
+                <div className="space-y-2">
+                  <Label htmlFor="contact-email">Email</Label>
+                  <Input
                     id="contact-email"
                     name="email"
                     type="email"
@@ -287,31 +217,25 @@ export default function ContactSection() {
                     placeholder="your.email@gmail.com"
                     value={form.email}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-xl bg-slate-800/50 text-slate-100 border border-slate-700 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition"
                   />
                 </div>
               </div>
 
-              <div>
-                <label htmlFor="contact-subject" className="block text-sm font-semibold text-slate-300 mb-2">
-                  Subject
-                </label>
-                <input
+              <div className="space-y-2">
+                <Label htmlFor="contact-subject">Subject</Label>
+                <Input
                   id="contact-subject"
                   name="subject"
                   type="text"
                   placeholder="Project Inquiry"
                   value={form.subject}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-xl bg-slate-800/50 text-slate-100 border border-slate-700 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition"
                 />
               </div>
 
-              <div>
-                <label htmlFor="contact-message" className="block text-sm font-semibold text-slate-300 mb-2">
-                  Message *
-                </label>
-                <textarea
+              <div className="space-y-2">
+                <Label htmlFor="contact-message">Message</Label>
+                <Textarea
                   id="contact-message"
                   name="message"
                   required
@@ -319,15 +243,14 @@ export default function ContactSection() {
                   value={form.message}
                   onChange={handleChange}
                   rows={6}
-                  className="w-full px-4 py-3 rounded-xl bg-slate-800/50 text-slate-100 border border-slate-700 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition resize-none"
-                ></textarea>
+                  className="resize-none"
+                />
               </div>
 
-              <button
+              <Button
                 type="submit"
                 disabled={status === 'sending'}
-                className={`w-full flex items-center justify-center gap-2 px-6 py-4 text-white font-bold rounded-xl transition-all duration-200 bg-gradient-to-r from-cyan-600 to-purple-600 hover:from-cyan-500 hover:to-purple-500 shadow-lg hover:shadow-xl hover:scale-105 ${status === 'sending' ? 'opacity-70 cursor-not-allowed' : ''
-                  }`}
+                className="w-full"
               >
                 {status === 'sending' ? (
                   <>
@@ -340,37 +263,21 @@ export default function ContactSection() {
                     Send Message
                   </>
                 )}
-              </button>
+              </Button>
 
               {status === 'success' && (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="p-4 bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 rounded-lg"
-                >
-                  <p className="text-emerald-700 dark:text-emerald-400 font-medium text-center flex items-center justify-center gap-2">
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    Message sent successfully!
-                  </p>
-                </motion.div>
+                <p className="border border-border bg-muted p-3 text-center text-sm text-foreground">
+                  Message sent successfully!
+                </p>
               )}
               {status === 'error' && (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg"
-                >
-                  <p className="text-red-700 dark:text-red-400 font-medium text-center flex items-center justify-center gap-2">
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                    Something went wrong. Please try again.
-                  </p>
-                </motion.div>
+                <p className="border border-destructive/40 bg-destructive/10 p-3 text-center text-sm text-destructive">
+                  Something went wrong. Please try again.
+                </p>
               )}
             </form>
+            </CardContent>
+            </Card>
           </motion.div>
         </div>
       </div>

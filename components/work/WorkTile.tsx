@@ -37,7 +37,7 @@ function useAlwaysShowCtas(): boolean {
 }
 
 const ctaBase =
-  "inline-flex items-center justify-center rounded-lg px-3.5 py-2 text-xs font-semibold tracking-wide transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-black/50 sm:text-sm";
+  "inline-flex items-center justify-center rounded-none px-3.5 py-2 text-xs font-semibold tracking-wide transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-black/50 sm:text-sm";
 
 export default function WorkTile({ item, index = 0 }: WorkTileProps) {
   const href = workHref(item);
@@ -59,7 +59,7 @@ export default function WorkTile({ item, index = 0 }: WorkTileProps) {
     >
       <div aria-hidden className="pointer-events-none aspect-[16/10] w-full" />
 
-      <div className="group absolute inset-0 overflow-hidden rounded-2xl border border-white/12 bg-slate-950 shadow-[0_14px_40px_-20px_rgba(0,0,0,0.9)] ring-1 ring-inset ring-white/5">
+      <div className="group absolute inset-0 overflow-hidden rounded-none border border-white/15 bg-zinc-950">
         <Image
           src={item.image}
           alt=""
@@ -84,21 +84,7 @@ export default function WorkTile({ item, index = 0 }: WorkTileProps) {
 
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 opacity-70"
-          style={{
-            background: `linear-gradient(to top, ${item.color}40, transparent)`,
-          }}
-        />
-
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/35 to-transparent"
-        />
-
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-y-0 left-0 w-[3px] origin-center scale-y-0 transition-transform duration-300 ease-out group-hover:scale-y-100 group-focus-within:scale-y-100"
-          style={{ backgroundColor: item.color }}
+          className="pointer-events-none absolute inset-y-0 left-0 w-px origin-center scale-y-0 bg-white transition-transform duration-300 ease-out group-hover:scale-y-100 group-focus-within:scale-y-100"
         />
 
         {/* Primary card surface → detail */}
@@ -109,11 +95,7 @@ export default function WorkTile({ item, index = 0 }: WorkTileProps) {
         />
 
         <span
-          className="pointer-events-none absolute left-3 top-3 z-10 rounded-md border border-white/20 px-2.5 py-1 text-[11px] font-bold tracking-wider text-white uppercase shadow-md backdrop-blur-md sm:left-4 sm:top-4"
-          style={{
-            backgroundColor: item.color,
-            boxShadow: `0 8px 20px -10px ${item.color}`,
-          }}
+          className="pointer-events-none absolute left-3 top-3 z-10 rounded-none border border-white/30 bg-black/70 px-2.5 py-1 text-[11px] font-bold tracking-wider text-white uppercase sm:left-4 sm:top-4"
         >
           {workKindLabel(item.kind)}
         </span>
@@ -140,11 +122,7 @@ export default function WorkTile({ item, index = 0 }: WorkTileProps) {
                 href={item.demo}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`${ctaBase} text-white hover:brightness-110`}
-                style={{
-                  backgroundColor: item.color,
-                  boxShadow: `0 8px 22px -10px ${item.color}`,
-                }}
+                className={`${ctaBase} bg-white text-zinc-950 hover:bg-zinc-200`}
                 onClick={(e) => e.stopPropagation()}
               >
                 {demoLabel}

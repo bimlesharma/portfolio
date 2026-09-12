@@ -35,10 +35,10 @@ export default function CodeBlock({ code, language = 'text' }: CodeBlockProps) {
     };
 
     return (
-        <div className="relative group my-6 rounded-lg overflow-hidden border border-neutral-800">
+        <div className="group relative my-6 overflow-hidden rounded-none border border-zinc-800">
             {/* Language label and copy button */}
             <div className="flex items-center justify-between px-4 py-2 bg-neutral-900 border-b border-neutral-800">
-                <span className="text-xs font-mono text-purple-400 uppercase font-semibold">
+                <span className="font-mono text-xs font-semibold text-zinc-400 uppercase">
                     {language}
                 </span>
                 <button

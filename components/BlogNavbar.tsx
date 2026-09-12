@@ -9,20 +9,20 @@ export default function BlogNavbar() {
                 {/* Logo / Home Link */}
                 <Link 
                     href="/" 
-                    className="text-lg font-bold tracking-tight text-white hover:text-purple-400 transition-colors"
+                    className="text-lg font-bold tracking-tight text-white hover:text-white transition-colors"
                 >
                     Bimlesh.
                 </Link>
 
                 {/* Navigation Links */}
                 <div className="flex items-center gap-6 text-sm font-medium text-neutral-400">
-                    <Link href="/blog" className="hover:text-purple-400 transition-colors">
+                    <Link href="/blog" className="hover:text-white transition-colors">
                         Blog
                     </Link>
-                    <Link href="/blog/explore" className="hover:text-purple-400 transition-colors">
+                    <Link href="/blog/explore" className="hover:text-white transition-colors">
                         Explore
                     </Link>
-                    <Link href="/#work" className="hover:text-purple-400 transition-colors">
+                    <Link href="/#work" className="hover:text-white transition-colors">
                         Work
                     </Link>
                     
@@ -32,7 +32,7 @@ export default function BlogNavbar() {
                         <a href="https://github.com/bimlesharma" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="hover:text-white transition-colors">
                             <FaGithub className="text-lg" />
                         </a>
-                        <a href="https://twitter.com/bimlesharma" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)" className="hover:text-purple-400 transition-colors">
+                        <a href="https://twitter.com/bimlesharma" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)" className="hover:text-white transition-colors">
                             <FaXTwitter className="text-lg" />
                         </a>
                         <a href="https://www.linkedin.com/in/bimlesharma/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="hover:text-blue-400 transition-colors">

@@ -114,9 +114,9 @@ export default function AsciiPortrait({ imageSrc, cols = 110, revealRadius = 100
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8 }}
-          className="relative text-[3px] sm:text-[3.6px] md:text-[4.2px] lg:text-[5px] leading-[1.15] font-mono text-cyan-400 select-none whitespace-pre tracking-[0.04em]"
+          className="relative font-mono text-[3px] leading-[1.15] tracking-[0.04em] whitespace-pre text-zinc-300 select-none sm:text-[3.6px] md:text-[4.2px] lg:text-[5px]"
           style={{
-            textShadow: '0 0 6px rgba(6, 182, 212, 0.35), 0 0 16px rgba(6, 182, 212, 0.12)',
+            textShadow: '0 0 6px rgba(255, 255, 255, 0.12)',
             fontFamily: "'Courier New', 'Consolas', monospace",
           }}
         >
@@ -138,14 +138,14 @@ export default function AsciiPortrait({ imageSrc, cols = 110, revealRadius = 100
           />
         </motion.pre>
       ) : (
-        <div className="w-full h-full animate-pulse bg-slate-800/30 rounded-b-full" />
+        <div className="h-full w-full animate-pulse rounded-b-full bg-zinc-800/30" />
       )}
 
       {/* Scanline overlay */}
       <div
         className="absolute inset-0 pointer-events-none opacity-[0.06]"
         style={{
-          backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(6, 182, 212, 0.15) 2px, rgba(6, 182, 212, 0.15) 4px)',
+          backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255, 255, 255, 0.12) 2px, rgba(255, 255, 255, 0.12) 4px)',
         }}
       />
     </div>

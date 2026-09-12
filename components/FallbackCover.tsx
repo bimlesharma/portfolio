@@ -9,14 +9,10 @@ export default function FallbackCover({ title, className = '' }: FallbackCoverPr
     // Generate a consistent gradient based on title
     const getGradientColors = (str: string) => {
         const gradients = [
-            'from-purple-600 via-pink-600 to-blue-600',
-            'from-cyan-600 via-blue-600 to-purple-600',
-            'from-emerald-600 via-teal-600 to-cyan-600',
-            'from-orange-600 via-red-600 to-pink-600',
-            'from-indigo-600 via-purple-600 to-pink-600',
-            'from-rose-600 via-pink-600 to-fuchsia-600',
-            'from-amber-600 via-orange-600 to-red-600',
-            'from-lime-600 via-green-600 to-emerald-600',
+            'from-zinc-900 to-zinc-700',
+            'from-zinc-800 to-zinc-950',
+            'from-neutral-800 to-zinc-900',
+            'from-zinc-700 to-zinc-950',
         ];
 
         // Use title to consistently pick a gradient

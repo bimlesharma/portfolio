@@ -22,11 +22,11 @@ export default function ClickableImage({ src, alt }: ClickableImageProps) {
                 <img
                     src={src}
                     alt={alt}
-                    className="w-full rounded-xl border border-neutral-800 object-cover transition-all duration-300 group-hover:brightness-90 group-hover:border-purple-500/30"
+                    className="w-full rounded-none border border-zinc-800 object-cover transition-all duration-300 group-hover:border-zinc-500 group-hover:brightness-90"
                 />
                 {/* Expand icon hint on hover */}
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
-                    <div className="bg-black/60 backdrop-blur-sm rounded-full p-3 border border-white/10">
+                    <div className="rounded-none border border-white/10 bg-black/60 p-3 backdrop-blur-sm">
                         <IoExpand className="text-white text-xl" />
                     </div>
                 </div>

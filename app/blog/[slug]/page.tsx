@@ -111,15 +111,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             />
             <ScrollProgress />
             <main className="min-h-screen bg-[#050505] text-white relative">
-                {/* Ambient Background Glows */}
-                <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
-                    <div className="absolute top-[-5%] left-[10%] w-[60%] h-[40%] bg-purple-600/10 rounded-full blur-[150px]" />
-                    <div className="absolute top-[40%] right-[-10%] w-[50%] h-[50%] bg-blue-600/10 rounded-full blur-[150px]" />
-                </div>
-
-                <div className="max-w-5xl mx-auto px-6 py-12 md:py-20 flex flex-col lg:flex-row gap-12 relative z-10">
-                    <article className="flex-1 w-full max-w-3xl min-w-0 mx-auto">
-                        <Link href={basePath || '/'} className="inline-flex items-center gap-2 text-neutral-500 hover:text-purple-400 transition-colors mb-12 group text-sm font-medium bg-neutral-900/50 backdrop-blur-md border border-neutral-800/50 px-4 py-2 rounded-full w-fit">
+                <div className="relative z-10 mx-auto flex max-w-5xl flex-col gap-8 px-6 py-12 lg:flex-row">
+                    <article className="mx-auto w-full max-w-3xl min-w-0 flex-1">
+                        <Link href={basePath || '/'} className="mb-8 inline-flex w-fit items-center gap-2 border border-zinc-800 px-3 py-1.5 text-sm font-medium text-zinc-400 transition-colors group hover:text-white">
                             <IoMdArrowBack className="group-hover:-translate-x-1 transition-transform" />
                             Back to Blog
                         </Link>
@@ -141,7 +135,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                             {post.authorName && (
                                 <div className="flex items-center gap-3">
                                     {post.authorImage && (
-                                        <div className="relative w-10 h-10 rounded-full overflow-hidden bg-neutral-800 border border-neutral-700">
+                                        <div className="relative h-10 w-10 overflow-hidden border border-zinc-700 bg-zinc-900">
                                             <Image 
                                                 src={urlForImage(post.authorImage).url()} 
                                                 alt={post.authorName} 
@@ -170,7 +164,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                                 {post.categories.map((category: string, idx: number) => (
                                     <span
                                         key={idx}
-                                        className="bg-purple-500/10 text-purple-300 border border-purple-500/20 px-3 py-1 rounded-full text-xs font-medium tracking-wide"
+                                        className="border border-zinc-700 px-2 py-0.5 text-xs font-medium tracking-wide text-zinc-300"
                                     >
                                         {category}
                                     </span>
@@ -181,7 +175,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
                     {/* Cover Image — only shown if one exists */}
                     {post.mainImage && (
-                        <div className="aspect-video relative rounded-2xl overflow-hidden mb-16 shadow-2xl shadow-purple-900/20 border border-neutral-800">
+                        <div className="relative mb-8 aspect-video overflow-hidden rounded-none border border-zinc-800">
                             <Image
                                 src={urlForImage(post.mainImage).url()}
                                 alt={post.title}
@@ -220,14 +214,14 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                                 <Link
                                     key={recentPost._id}
                                     href={`${basePath}/${recentPost.slug.current}`}
-                                    className="group flex flex-col sm:flex-row sm:items-baseline gap-3 sm:gap-8 -mx-4 px-4 py-6 rounded-2xl hover:bg-white/[0.02] transition-colors relative z-10"
+                                    className="group relative z-10 -mx-4 flex flex-col gap-3 px-4 py-4 transition-colors hover:bg-white/[0.03] sm:flex-row sm:items-baseline sm:gap-8"
                                 >
                                     <div className="shrink-0 w-32 text-sm text-neutral-500 font-mono flex items-center gap-2">
-                                        <span className="w-1.5 h-1.5 rounded-full bg-neutral-800 group-hover:bg-purple-500 transition-colors hidden sm:block relative -left-[1.05rem]"></span>
+                                        <span className="relative -left-[1.05rem] hidden h-1.5 w-1.5 bg-zinc-700 transition-colors group-hover:bg-zinc-200 sm:block"></span>
                                         {new Date(recentPost.publishedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                                     </div>
                                     <div className="flex-1">
-                                        <h3 className="text-lg font-semibold text-neutral-200 group-hover:text-purple-400 transition-colors mb-2">
+                                        <h3 className="mb-2 text-lg font-semibold text-zinc-200 transition-colors group-hover:text-white">
                                             {recentPost.title}
                                         </h3>
                                         {recentPost.brief && (

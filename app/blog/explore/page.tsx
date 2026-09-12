@@ -25,7 +25,7 @@ const ExplorePage = async () => {
         <main className="min-h-screen bg-[#0a0a0a] text-white">
             {/* Back Button */}
             <div className="max-w-7xl mx-auto px-6 pt-12">
-                <Link href={basePath || '/'} className="inline-flex items-center gap-2 text-neutral-500 hover:text-purple-400 transition-colors mb-8 group text-sm font-medium">
+                <Link href={basePath || '/'} className="mb-6 inline-flex items-center gap-2 text-sm font-medium text-zinc-500 transition-colors group hover:text-white">
                     <IoMdArrowBack className="group-hover:-translate-x-1 transition-transform" />
                     Back to Blog
                 </Link>

@@ -19,7 +19,7 @@ export default function ShareButtons({ title }: { title: string }) {
                 href={`https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 bg-neutral-900 text-neutral-400 hover:text-blue-400 hover:bg-neutral-800 rounded-full transition-colors"
+                className="rounded-none border border-zinc-800 bg-zinc-950 p-2 text-zinc-400 transition-colors hover:bg-zinc-900 hover:text-white"
                 aria-label="Share on Twitter"
             >
                 <IoLogoTwitter size={20} />
@@ -28,7 +28,7 @@ export default function ShareButtons({ title }: { title: string }) {
                 href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodedUrl}&title=${encodedTitle}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 bg-neutral-900 text-neutral-400 hover:text-blue-600 hover:bg-neutral-800 rounded-full transition-colors"
+                className="rounded-none border border-zinc-800 bg-zinc-950 p-2 text-zinc-400 transition-colors hover:bg-zinc-900 hover:text-white"
                 aria-label="Share on LinkedIn"
             >
                 <IoLogoLinkedin size={20} />
