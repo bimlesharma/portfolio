@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { FaTrophy, FaMedal, FaAward } from 'react-icons/fa';
+import { Trophy, Medal, Award } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import SectionHeader from '@/components/SectionHeader';
@@ -11,7 +11,7 @@ const achievements = [
         title: 'MLH Track Winner',
         event: 'HackCBS 8.0',
         year: '2025',
-        icon: FaTrophy,
+        icon: Trophy,
         color: '#F59E0B',
         description: 'Recognized for best use of Generative AI & Auth0 at one of India\'s premier hackathons'
     },
@@ -19,7 +19,7 @@ const achievements = [
         title: 'Top 10 Global Finalist',
         event: 'GSMA Gateway Hackathon | Nokia\'s Network as Code Challenge',
         year: '2025',
-        icon: FaMedal,
+        icon: Medal,
         color: '#3B82F6',
         description: 'Secured top 10 position globally at IMC 2025 among hundreds of participants'
     },
@@ -27,7 +27,7 @@ const achievements = [
         title: 'SIH 2024 Finalist',
         event: 'Smart India Hackathon 2024',
         year: '2024',
-        icon: FaAward,
+        icon: Award,
         color: '#10B981',
         description: 'Ranked Top 5 teams out of 500 for Problem Statement 1682'
     },
@@ -35,7 +35,7 @@ const achievements = [
         title: '4th Position',
         event: 'HackUnicorn 1.0',
         year: '2023',
-        icon: FaMedal,
+        icon: Medal,
         color: '#8B5CF6',
         description: 'Secured 4th position competing against top engineering teams'
     },
@@ -43,7 +43,7 @@ const achievements = [
         title: '3rd Position',
         event: 'Hack Heaven Hackathon',
         year: '2023',
-        icon: FaTrophy,
+        icon: Trophy,
         color: '#EC4899',
         description: 'Won 3rd place for innovative problem-solving and technical execution'
     },

@@ -364,7 +364,7 @@ html {
 
 /* styles/globals.css */
 .input-field {
-  @apply w-full px-4 py-3 rounded-none bg-white dark:bg-zinc-800 text-zinc-900 dark:text-white border border-zinc-300 dark:border-zinc-600 focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100 placeholder:text-zinc-500;
+  @apply w-full px-4 py-3 rounded-none bg-zinc-800 text-white border border-zinc-600 focus:outline-none focus:ring-2 focus:ring-zinc-100 placeholder:text-zinc-500;
 }
 
 

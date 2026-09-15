@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import type { SanityPost } from '@/lib/types/sanity';
 import TagFilter from '@/components/TagFilter';
 import FadeInItem from '@/components/FadeInItem';
-import { IoSearch, IoClose } from 'react-icons/io5';
+import { Search, X } from 'lucide-react';
 
 interface BlogListProps {
     posts: SanityPost[];
@@ -42,7 +42,7 @@ export default function BlogList({ posts, allTags, basePath }: BlogListProps) {
             <div className="mt-8 flex flex-col gap-4">
                 {/* Search Bar */}
                 <div className="relative group w-full max-w-sm">
-                    <IoSearch className="pointer-events-none absolute top-1/2 left-3.5 -translate-y-1/2 text-base text-zinc-500 transition-colors group-focus-within:text-zinc-200" />
+                    <Search className="pointer-events-none absolute top-1/2 left-3.5 size-4 -translate-y-1/2 text-zinc-500 transition-colors group-focus-within:text-zinc-200" />
                     <input
                         type="text"
                         value={query}
@@ -56,7 +56,7 @@ export default function BlogList({ posts, allTags, basePath }: BlogListProps) {
                             className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 hover:text-neutral-200 transition-colors"
                             aria-label="Clear search"
                         >
-                            <IoClose />
+                            <X className="size-4" />
                         </button>
                     )}
                 </div>

@@ -1,5 +1,5 @@
 'use client';
-import { IoLogoTwitter, IoLogoLinkedin } from 'react-icons/io5';
+import { Twitter, Linkedin } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 export default function ShareButtons({ title }: { title: string }) {
@@ -22,7 +22,7 @@ export default function ShareButtons({ title }: { title: string }) {
                 className="rounded-none border border-zinc-800 bg-zinc-950 p-2 text-zinc-400 transition-colors hover:bg-zinc-900 hover:text-white"
                 aria-label="Share on Twitter"
             >
-                <IoLogoTwitter size={20} />
+                <Twitter size={20} />
             </a>
             <a
                 href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodedUrl}&title=${encodedTitle}`}
@@ -31,7 +31,7 @@ export default function ShareButtons({ title }: { title: string }) {
                 className="rounded-none border border-zinc-800 bg-zinc-950 p-2 text-zinc-400 transition-colors hover:bg-zinc-900 hover:text-white"
                 aria-label="Share on LinkedIn"
             >
-                <IoLogoLinkedin size={20} />
+                <Linkedin size={20} />
             </a>
         </div>
     );

@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import { IoCopy, IoCheckmark } from 'react-icons/io5';
+import { Copy, Check } from 'lucide-react';
 
 interface CodeBlockProps {
     code: string;
@@ -48,12 +48,12 @@ export default function CodeBlock({ code, language = 'text' }: CodeBlockProps) {
                 >
                     {copied ? (
                         <>
-                            <IoCheckmark className="text-green-400" />
+                            <Check className="size-3.5 text-green-400" />
                             <span>Copied!</span>
                         </>
                     ) : (
                         <>
-                            <IoCopy />
+                            <Copy className="size-3.5" />
                             <span>Copy</span>
                         </>
                     )}

@@ -5,15 +5,15 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import {
-  IconBrandGithub,
-  IconBrandLinkedin,
-  IconBrandX,
-  IconArticle,
-  IconFileText,
-  IconMail,
-  IconMessage,
-  IconTerminal2,
-} from "@tabler/icons-react";
+  BookOpen,
+  FileText,
+  Github,
+  Linkedin,
+  Mail,
+  MessageSquare,
+  Terminal,
+  Twitter,
+} from "lucide-react";
 import { pageFrameClass } from "@/components/PageFrame";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -21,11 +21,11 @@ import { cn } from "@/lib/utils";
 const CLEANPULSE = "https://cleanpulse.bimlesh.dev";
 
 const contactLinks = [
-  { label: "Contact form", href: "/contact", icon: IconMessage },
-  { label: "Email", href: "mailto:bimlesh.mdb@gmail.com", icon: IconMail },
-  { label: "X", href: "https://twitter.com/bimlesharma", icon: IconBrandX },
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/bimlesharma/", icon: IconBrandLinkedin },
-  { label: "GitHub", href: "https://github.com/bimlesharma", icon: IconBrandGithub },
+  { label: "Contact form", href: "/contact", icon: MessageSquare },
+  { label: "Email", href: "mailto:bimlesh.mdb@gmail.com", icon: Mail },
+  { label: "X", href: "https://twitter.com/bimlesharma", icon: Twitter },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/bimlesharma/", icon: Linkedin },
+  { label: "GitHub", href: "https://github.com/bimlesharma", icon: Github },
 ];
 
 const unfold = { type: "spring" as const, stiffness: 420, damping: 34, mass: 0.7 };
@@ -83,9 +83,9 @@ export default function SiteHeader() {
   if (pathname.startsWith("/studio")) return null;
 
   const cells = [
-    { id: "work" as const, label: "Work", href: "/#work", icon: IconTerminal2 },
-    { id: "resume" as const, label: "Resume", href: "/resume", icon: IconFileText },
-    { id: "blog" as const, label: "Blog", href: "/blog", icon: IconArticle },
+    { id: "work" as const, label: "Work", href: "/#work", icon: Terminal },
+    { id: "resume" as const, label: "Resume", href: "/resume", icon: FileText },
+    { id: "blog" as const, label: "Blog", href: "/blog", icon: BookOpen },
   ];
 
   return (
@@ -175,7 +175,7 @@ function DockRow({
       <div ref={contactRef} className="relative">
         <DockCell
           label="Contact"
-          icon={IconMail}
+          icon={Mail}
           expandable={expandable}
           active={contactOpen || pathname.startsWith("/contact")}
           onClick={onToggleContact}

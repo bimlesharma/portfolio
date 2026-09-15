@@ -1,12 +1,9 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
 import PointerList from "@/components/PointerList";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
 import {
   type WorkItem,
   getAdjacentWork,
@@ -127,7 +124,7 @@ export default function WorkDetail({ item }: WorkDetailProps) {
 
         {prev || next ? (
           <>
-            <Separator className="mt-12" />
+            <hr className="mt-12 border-border" />
             <nav
               aria-label="Adjacent work"
               className="flex flex-col gap-6 pt-8 sm:flex-row sm:items-start sm:justify-between"

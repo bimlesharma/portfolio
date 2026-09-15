@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope, FaMapMarkerAlt, FaRss } from 'react-icons/fa';
+import { Github, Linkedin, Twitter, Mail, MapPin, Rss } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 
@@ -17,9 +17,9 @@ export default function Footer() {
   ];
 
   const socialLinks = [
-    { icon: FaGithub, href: 'https://github.com/bimlesharma', label: 'GitHub' },
-    { icon: FaLinkedin, href: 'https://linkedin.com/in/bimlesharma', label: 'LinkedIn' },
-    { icon: FaTwitter, href: 'https://twitter.com/bimlesharma', label: 'Twitter' },
+    { icon: Github, href: 'https://github.com/bimlesharma', label: 'GitHub' },
+    { icon: Linkedin, href: 'https://linkedin.com/in/bimlesharma', label: 'LinkedIn' },
+    { icon: Twitter, href: 'https://twitter.com/bimlesharma', label: 'Twitter' },
   ];
 
   return (
@@ -34,7 +34,7 @@ export default function Footer() {
               Full-stack engineer crafting scalable solutions and innovative web experiences.
             </p>
             <div className="flex items-center gap-2 text-sm">
-              <FaMapMarkerAlt />
+              <MapPin className="size-4" />
               <span>New Delhi, India</span>
             </div>
           </div>
@@ -63,7 +63,7 @@ export default function Footer() {
                   href="mailto:bimlesh.mdb@gmail.com"
                   className="flex items-center gap-2 text-sm transition-colors hover:text-foreground"
                 >
-                  <FaEnvelope />
+                  <Mail className="size-4" />
                   bimlesh.mdb@gmail.com
                 </a>
               </li>
@@ -74,7 +74,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 text-sm transition-colors hover:text-foreground"
                 >
-                  <FaLinkedin />
+                  <Linkedin className="size-4" />
                   LinkedIn Profile
                 </a>
               </li>
@@ -85,7 +85,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 text-sm transition-colors hover:text-foreground"
                 >
-                  <FaGithub />
+                  <Github className="size-4" />
                   GitHub Profile
                 </a>
               </li>
@@ -114,7 +114,7 @@ export default function Footer() {
               </Button>
               <Button variant="ghost" size="sm" asChild>
                 <a href="/blog/feed.xml" target="_blank" rel="noopener noreferrer">
-                  <FaRss />
+                  <Rss className="size-4" />
                   RSS Feed
                 </a>
               </Button>

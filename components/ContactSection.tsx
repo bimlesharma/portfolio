@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { FaSpinner, FaEnvelope, FaLinkedin, FaGithub, FaMapMarkerAlt, FaPhone } from 'react-icons/fa';
+import { Loader2, Mail, Linkedin, Github, MapPin, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -10,31 +10,31 @@ import { Textarea } from '@/components/ui/textarea';
 
 const contactInfo = [
   {
-    icon: FaEnvelope,
+    icon: Mail,
     label: 'Email',
     value: 'bimlesh.mdb@gmail.com',
     link: 'mailto:bimlesh.mdb@gmail.com',
   },
   {
-    icon: FaPhone,
+    icon: Phone,
     label: 'Phone',
     value: '+91-7070519696',
     link: 'tel:+917070519696',
   },
   {
-    icon: FaLinkedin,
+    icon: Linkedin,
     label: 'LinkedIn',
     value: 'linkedin.com/in/bimlesharma',
     link: 'https://linkedin.com/in/bimlesharma',
   },
   {
-    icon: FaGithub,
+    icon: Github,
     label: 'GitHub',
     value: 'github.com/bimlesharma',
     link: 'https://github.com/bimlesharma',
   },
   {
-    icon: FaMapMarkerAlt,
+    icon: MapPin,
     label: 'Location',
     value: 'New Delhi, India',
     link: '',
@@ -178,12 +178,12 @@ export default function ContactSection() {
             <Button type="submit" disabled={status === 'sending'} className="w-full">
               {status === 'sending' ? (
                 <>
-                  <FaSpinner className="animate-spin" />
+                  <Loader2 className="size-4 animate-spin" />
                   Sending...
                 </>
               ) : (
                 <>
-                  <FaEnvelope />
+                  <Mail className="size-4" />
                   Send Message
                 </>
               )}

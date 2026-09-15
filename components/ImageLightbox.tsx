@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useCallback, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { IoClose } from 'react-icons/io5';
+import { X } from 'lucide-react';
 
 interface ImageLightboxProps {
     src: string;
@@ -45,7 +45,7 @@ export default function ImageLightbox({ src, alt, onClose }: ImageLightboxProps)
                 className="absolute top-5 right-5 z-10 flex items-center gap-2 rounded-none border border-zinc-700 bg-zinc-950/80 px-3 py-2 text-sm text-zinc-300 transition-all hover:bg-zinc-900 hover:text-white"
                 aria-label="Close lightbox"
             >
-                <IoClose className="text-lg" />
+                <X className="size-4" />
                 <span className="font-mono text-xs">ESC</span>
             </button>
 

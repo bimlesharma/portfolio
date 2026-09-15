@@ -2,7 +2,7 @@ import React, { Suspense } from 'react';
 import Link from 'next/link';
 import { getSanityPosts } from '@/lib/sanity-api';
 import type { SanityPost } from '@/lib/types/sanity';
-import { IoMdTrendingUp, IoMdGlobe } from "react-icons/io";
+import { TrendingUp, Globe } from "lucide-react";
 import BlogList from '@/components/BlogList';
 import PageHeader from '@/components/PageHeader';
 import type { Metadata } from 'next';
@@ -44,12 +44,12 @@ const BlogPage = async () => {
                     </Link>
                     <div className="mt-6 flex items-center gap-5 text-sm font-mono text-muted-foreground">
                         <div className="flex items-center gap-2.5">
-                            <IoMdTrendingUp className="text-base text-foreground" />
+                            <TrendingUp className="size-4 text-foreground" />
                             <span className="font-semibold text-foreground">{posts.length}</span> Published Posts
                         </div>
                         <span className="text-border">/</span>
                         <div className="flex items-center gap-2.5">
-                            <IoMdGlobe className="text-base text-foreground" />
+                            <Globe className="size-4 text-foreground" />
                             <span className="font-semibold text-foreground">{allTags.length}</span> Unique Topics
                         </div>
                     </div>

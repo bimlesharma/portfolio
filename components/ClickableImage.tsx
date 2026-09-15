@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import ImageLightbox from './ImageLightbox';
-import { IoExpand } from 'react-icons/io5';
+import { Expand } from 'lucide-react';
 
 interface ClickableImageProps {
     src: string;
@@ -27,7 +27,7 @@ export default function ClickableImage({ src, alt }: ClickableImageProps) {
                 {/* Expand icon hint on hover */}
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
                     <div className="rounded-none border border-white/10 bg-black/60 p-3 backdrop-blur-sm">
-                        <IoExpand className="text-white text-xl" />
+                        <Expand className="size-5 text-white" />
                     </div>
                 </div>
             </div>

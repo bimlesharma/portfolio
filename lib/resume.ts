@@ -1,10 +1,10 @@
 import {
-  getWorkBySlug,
   workDemoLabel,
   workGithubLabel,
   workHref,
+  workItems,
   workKindLabel,
-  type WorkKind,
+  type WorkItem,
 } from "@/lib/work";
 
 export const resumeSummary =
@@ -176,86 +176,22 @@ export const resumeAchievements = [
   },
 ] as const;
 
-type ResumeProjectSource = {
-  kind?: WorkKind;
-  slug?: string;
-  title?: string;
-  tagline?: string;
+type ResumeOnlyProject = {
+  title: string;
+  tagline: string;
   dates: string;
   /** YYYY-MM, used only to order the timeline. */
   start: string;
   end: string;
   freelance?: boolean;
   bullets: string[];
-  tech?: string[];
-  demo?: string;
-  demoLabel?: string;
+  tech: string[];
+  demo: string;
+  demoLabel: string;
 };
 
-const resumeProjects: ResumeProjectSource[] = [
-  {
-    kind: "project",
-    slug: "shieldllm",
-    dates: "Nov 2025 – Present",
-    start: "2025-11",
-    end: "9999-12",
-    bullets: [
-      "Architected a production-grade SaaS platform with a FastAPI backend, orchestrating data pipelines and third-party APIs for customizable retrieval workflows.",
-      "Built an end-to-end search pipeline using FAISS vector indexing and Redis-based semantic caching, reducing retrieval latency by 60%.",
-      "Implemented a spaCy-driven PII sanitization layer to filter sensitive data before processing.",
-      "Designed a multi-tenant architecture using Auth0 for RBAC and MongoDB Atlas for knowledge-base management.",
-      "Used Gemini and LangChain for customizable AI workflows and RAG on those tenant knowledge bases.",
-    ],
-  },
-  {
-    kind: "product",
-    slug: "listpeers",
-    dates: "Dec 2025 – Jan 2026",
-    start: "2025-12",
-    end: "2026-01",
-    bullets: [
-      "Built a consent-driven academic analytics platform in Next.js, with dashboards and peer comparison views for SGPA/CGPA trends.",
-      "Implemented frontend-controlled visibility modes (Anonymous, Pseudonymous, Visible) with real-time UI updates, backed by Supabase Auth (OAuth).",
-      "Enforced privacy boundaries with Row-Level Security and consent-gated APIs so grades are not public by default.",
-    ],
-  },
-  {
-    kind: "product",
-    slug: "cleanpulse",
-    dates: "Sep 2026 – Present",
-    start: "2026-09",
-    end: "9999-12",
-    bullets: [
-      "Built a local-first Mac cleaner that finds regenerable clutter and large files, then confirms deletes before anything is removed. Paths stay on the machine.",
-      "Desktop app is a Tauri and Rust scanner with a React UI. The marketing site and install flow run on Next.js with Clerk auth.",
-      "Ships signed releases with curl and Homebrew install. Source is closed; public releases are the distribution path.",
-    ],
-  },
-  {
-    kind: "project",
-    slug: "stockbubbles",
-    dates: "Oct 2025 – Dec 2025",
-    start: "2025-10",
-    end: "2025-12",
-    freelance: true,
-    bullets: [
-      "Real-time market visualization using dynamic bubble charts, with size and color driven by performance.",
-      "Covers multiple Indian indices with dataset switching, backed by MongoDB Atlas and Redis for low-latency delivery.",
-      "Deployed on a VPS with Docker and CI/CD.",
-    ],
-  },
-  {
-    kind: "project",
-    slug: "sdi2025",
-    dates: "Dec 2025 – Feb 2026",
-    start: "2025-12",
-    end: "2026-02",
-    freelance: true,
-    bullets: [
-      "Next.js event portal built for traffic spikes from 5,000+ participants.",
-      "15+ reusable components and a SQL-backed flow for registrations and project submissions, with validation and data-integrity checks.",
-    ],
-  },
+/** Projects that appear on the resume but not in the work catalog. */
+const resumeOnlyProjects: ResumeOnlyProject[] = [
   {
     title: "CryptoWaley",
     tagline: "Freelance web platform",
@@ -289,45 +225,52 @@ export type ResumeProject = {
   githubLabel: string;
 };
 
+type ResumeProjectSortable = ResumeProject & {
+  start: string;
+  end: string;
+};
+
 export function getResumeProjects(): ResumeProject[] {
-  return [...resumeProjects]
+  const fromWork: ResumeProjectSortable[] = workItems
+    .filter((item): item is WorkItem & { resume: NonNullable<WorkItem["resume"]> } =>
+      Boolean(item.resume),
+    )
+    .map((item) => ({
+      title: item.title,
+      href: workHref(item),
+      kindLabel: workKindLabel(item.kind),
+      tagline: item.tagline,
+      dates: item.resume.dates,
+      freelance: Boolean(item.resume.freelance),
+      bullets: item.resume.bullets,
+      tech: item.tech,
+      demo: item.demo,
+      demoLabel: workDemoLabel(item.kind),
+      github: item.github,
+      githubLabel: workGithubLabel(item),
+      start: item.resume.start,
+      end: item.resume.end,
+    }));
+
+  const fromResumeOnly: ResumeProjectSortable[] = resumeOnlyProjects.map((entry) => ({
+    title: entry.title,
+    href: "",
+    kindLabel: "Project",
+    tagline: entry.tagline,
+    dates: entry.dates,
+    freelance: Boolean(entry.freelance),
+    bullets: entry.bullets,
+    tech: entry.tech,
+    demo: entry.demo,
+    demoLabel: entry.demoLabel,
+    github: "",
+    githubLabel: "",
+    start: entry.start,
+    end: entry.end,
+  }));
+
+  return [...fromWork, ...fromResumeOnly]
     .sort((a, b) => b.start.localeCompare(a.start) || b.end.localeCompare(a.end))
-    .map((entry) => {
-      if (!entry.kind || !entry.slug) {
-        return {
-          title: entry.title ?? "Untitled",
-          href: "",
-          kindLabel: "Project",
-          tagline: entry.tagline ?? "",
-          dates: entry.dates,
-          freelance: Boolean(entry.freelance),
-          bullets: entry.bullets,
-          tech: entry.tech ?? [],
-          demo: entry.demo ?? "",
-          demoLabel: entry.demoLabel ?? "Visit site",
-          github: "",
-          githubLabel: "",
-        };
-      }
-
-      const work = getWorkBySlug(entry.kind, entry.slug);
-      if (!work) {
-        throw new Error(`Resume project missing from work catalog: ${entry.kind}/${entry.slug}`);
-      }
-
-      return {
-        title: work.title,
-        href: workHref(work),
-        kindLabel: workKindLabel(entry.kind),
-        tagline: work.tagline,
-        dates: entry.dates,
-        freelance: Boolean(entry.freelance),
-        bullets: entry.bullets,
-        tech: work.tech,
-        demo: work.demo,
-        demoLabel: workDemoLabel(entry.kind),
-        github: work.github,
-        githubLabel: workGithubLabel(work),
-      };
-    });
+    .map(({ start: _start, end: _end, ...project }) => project);
 }
+

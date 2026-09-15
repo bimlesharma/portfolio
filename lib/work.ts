@@ -5,6 +5,15 @@ export type WorkSection = {
   body: string;
 };
 
+export type WorkResumeOverlay = {
+  dates: string;
+  /** YYYY-MM, used only to order the timeline. */
+  start: string;
+  end: string;
+  freelance?: boolean;
+  bullets: string[];
+};
+
 export type WorkItem = {
   kind: WorkKind;
   slug: string;
@@ -22,6 +31,8 @@ export type WorkItem = {
   featured?: boolean;
   highlights?: string[];
   sections?: WorkSection[];
+  /** Present ⇒ appears on the resume timeline. */
+  resume?: WorkResumeOverlay;
 };
 
 export const workItems: WorkItem[] = [
@@ -63,6 +74,16 @@ export const workItems: WorkItem[] = [
         body: "Desktop: Tauri 2, Rust scanner, React UI. Web: Next.js, Clerk, Vercel. Releases via GitHub + Homebrew cask.",
       },
     ],
+    resume: {
+      dates: "Sep 2026 – Present",
+      start: "2026-09",
+      end: "9999-12",
+      bullets: [
+        "Built a local-first Mac cleaner that finds regenerable clutter and large files, then confirms deletes before anything is removed. Paths stay on the machine.",
+        "Desktop app is a Tauri and Rust scanner with a React UI. The marketing site and install flow run on Next.js with Clerk auth.",
+        "Ships signed releases with curl and Homebrew install. Source is closed; public releases are the distribution path.",
+      ],
+    },
   },
   {
     kind: "product",
@@ -99,6 +120,16 @@ export const workItems: WorkItem[] = [
         body: "A live academic analytics product where privacy boundaries are part of the data model.",
       },
     ],
+    resume: {
+      dates: "Dec 2025 – Jan 2026",
+      start: "2025-12",
+      end: "2026-01",
+      bullets: [
+        "Built a consent-driven academic analytics platform in Next.js, with dashboards and peer comparison views for SGPA/CGPA trends.",
+        "Implemented frontend-controlled visibility modes (Anonymous, Pseudonymous, Visible) with real-time UI updates, backed by Supabase Auth (OAuth).",
+        "Enforced privacy boundaries with Row-Level Security and consent-gated APIs so grades are not public by default.",
+      ],
+    },
   },
   {
     kind: "project",
@@ -127,6 +158,17 @@ export const workItems: WorkItem[] = [
         body: "A live market visualization that maps performance into bubble size and color so index moves are readable at a glance.",
       },
     ],
+    resume: {
+      dates: "Oct 2025 – Dec 2025",
+      start: "2025-10",
+      end: "2025-12",
+      freelance: true,
+      bullets: [
+        "Real-time market visualization using dynamic bubble charts, with size and color driven by performance.",
+        "Covers multiple Indian indices with dataset switching, backed by MongoDB Atlas and Redis for low-latency delivery.",
+        "Deployed on a VPS with Docker and CI/CD.",
+      ],
+    },
   },
   {
     kind: "project",
@@ -164,6 +206,18 @@ export const workItems: WorkItem[] = [
         body: "An org-ready chat platform that sanitizes prompts before they hit LLMs and isolates tenants with Auth0 roles.",
       },
     ],
+    resume: {
+      dates: "Nov 2025 – Present",
+      start: "2025-11",
+      end: "9999-12",
+      bullets: [
+        "Architected a production-grade SaaS platform with a FastAPI backend, orchestrating data pipelines and third-party APIs for customizable retrieval workflows.",
+        "Built an end-to-end search pipeline using FAISS vector indexing and Redis-based semantic caching, reducing retrieval latency by 60%.",
+        "Implemented a spaCy-driven PII sanitization layer to filter sensitive data before processing.",
+        "Designed a multi-tenant architecture using Auth0 for RBAC and MongoDB Atlas for knowledge-base management.",
+        "Used Gemini and LangChain for customizable AI workflows and RAG on those tenant knowledge bases.",
+      ],
+    },
   },
   {
     kind: "project",
@@ -192,6 +246,16 @@ export const workItems: WorkItem[] = [
         body: "The public web portal for Smart Delhi Ideathon 2025 — registrations, submissions, and event info under load.",
       },
     ],
+    resume: {
+      dates: "Dec 2025 – Feb 2026",
+      start: "2025-12",
+      end: "2026-02",
+      freelance: true,
+      bullets: [
+        "Next.js event portal built for traffic spikes from 5,000+ participants.",
+        "15+ reusable components and a SQL-backed flow for registrations and project submissions, with validation and data-integrity checks.",
+      ],
+    },
   },
 ];
 

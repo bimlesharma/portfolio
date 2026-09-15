@@ -2,7 +2,7 @@
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { IoMdSearch, IoMdClose, IoMdTime } from 'react-icons/io';
+import { Search, X, Clock } from 'lucide-react';
 import type { SanityPost } from '@/lib/types/sanity';
 import { urlForImage } from '@/sanity/lib/image';
 import FallbackCover from '@/components/FallbackCover';
@@ -54,7 +54,7 @@ export default function ExploreClient({ posts, basePath }: ExploreClientProps) {
 
             <div className="mx-auto mb-8 max-w-2xl">
                 <div className="relative">
-                    <IoMdSearch className="absolute top-1/2 left-3 z-10 -translate-y-1/2 text-xl text-zinc-500" />
+                    <Search className="absolute top-1/2 left-3 z-10 size-5 -translate-y-1/2 text-zinc-500" />
                     <Input
                         type="text"
                         placeholder="Search articles, topics, or keywords..."
@@ -67,7 +67,7 @@ export default function ExploreClient({ posts, basePath }: ExploreClientProps) {
                             onClick={() => setSearchQuery('')}
                             className="absolute right-4 top-1/2 -translate-y-1/2 text-neutral-500 hover:text-white transition-colors"
                         >
-                            <IoMdClose className="text-2xl" />
+                            <X className="size-6" />
                         </button>
                     )}
                 </div>
@@ -146,7 +146,7 @@ export default function ExploreClient({ posts, basePath }: ExploreClientProps) {
                                 </p>
                                 <div className="flex items-center justify-between text-xs text-neutral-500 mb-4">
                                     <span className="flex items-center gap-1">
-                                        <IoMdTime />
+                                        <Clock className="size-4" />
                                         {post.readTimeInMinutes} min
                                     </span>
                                     <span>{new Date(post.publishedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>

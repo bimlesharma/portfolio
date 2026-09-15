@@ -18,12 +18,12 @@ const SkillTag = ({ icon, text, position }: SkillTagProps) => (
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.6, delay: 1 }}
     className={clsx(
-      'absolute flex items-center gap-1.5 rounded-none border border-zinc-200 bg-white/80 py-1.5 pr-3 pl-1.5 shadow-sm backdrop-blur-md dark:border-zinc-700 dark:bg-zinc-900/80',
+      'absolute flex items-center gap-1.5 rounded-none border border-zinc-700 bg-zinc-900/80 py-1.5 pr-3 pl-1.5 shadow-sm backdrop-blur-md',
       position
     )}
   >
-    <div className="bg-zinc-100 p-1.5 text-zinc-800 dark:bg-zinc-800 dark:text-zinc-100">{icon}</div>
-    <span className="text-xs font-medium text-zinc-800 md:text-sm dark:text-zinc-100">
+    <div className="bg-zinc-800 p-1.5 text-zinc-100">{icon}</div>
+    <span className="text-xs font-medium text-zinc-100 md:text-sm">
       {text}
     </span>
   </motion.div>
@@ -36,8 +36,7 @@ const HeroSection = () => {
     <div id="home" className="relative min-h-screen w-full overflow-hidden bg-transparent font-sans">
       <CursorEffect />
       <div className="relative z-10 mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
-        {/* Main Section */}
-        <main className="mt-20 lg:mt-32">
+        <section className="mt-20 lg:mt-32">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             {/* Left */}
             <motion.div
@@ -137,7 +136,7 @@ const HeroSection = () => {
               </div>
             </motion.div>
           </div>
-        </main>
+        </section>
       </div>
 
     </div>

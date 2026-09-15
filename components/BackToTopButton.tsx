@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaArrowUp } from 'react-icons/fa';
+import { ArrowUp } from 'lucide-react';
 
 export default function BackToTopButton() {
   const [isVisible, setIsVisible] = useState(false);
@@ -32,7 +32,7 @@ export default function BackToTopButton() {
           aria-label="Back to Top"
           className="fixed right-3 bottom-6 z-50 rounded-none border border-border bg-primary p-3 text-primary-foreground transition hover:bg-primary/90 md:right-6 md:bottom-8"
         >
-          <FaArrowUp />
+          <ArrowUp className="size-4" />
         </motion.button>
       )}
     </AnimatePresence>
